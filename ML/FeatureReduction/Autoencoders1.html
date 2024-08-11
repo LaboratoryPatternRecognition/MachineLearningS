@@ -1,0 +1,1214 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Autoencoders &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ML/FeatureReduction/Autoencoders1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Contact Me" href="../../Contact_Me.html" />
+    <link rel="prev" title="Principal Component Analysis" href="PCA.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../machine_learning.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../machine_learning.html">
+                    Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Regression/NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/GP_Regression.html">Gaussian Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FR_Intro.html">Introduction of Feature Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PCA.html">Principal Component Analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FML/FeatureReduction/Autoencoders1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/ML/FeatureReduction/Autoencoders1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Autoencoders</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoencoders-brief">Autoencoders Brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-autoencoders">Structure of Autoencoders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ae-formulation">AE formulation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-architecture">Define Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guide-for-showing-architecture">Guide for Showing Architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latent-features-in-handwritten-digits">Latent features in handwritten digits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-denoising-mnist-using-ae">Example : Denoising MNIST using AE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-only">Test Only</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#denoising-with-ae">Denoising with AE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-algorithm-for-denoising-images-using-an-autoencoder">General Algorithm for Denoising Images Using an Autoencoder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-autoencoders">Training Autoencoders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-autoencoders">Types of Autoencoders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-of-autoencoders">Applications of Autoencoders</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="autoencoders">
+<h1>Autoencoders<a class="headerlink" href="#autoencoders" title="Link to this heading">#</a></h1>
+<section id="autoencoders-brief">
+<h2>Autoencoders Brief<a class="headerlink" href="#autoencoders-brief" title="Link to this heading">#</a></h2>
+<p>Autoencoders are a type of neural network designed to learn efficient codings of input data. They work by compressing the input into a latent-space representation and then reconstructing the output from this representation. This process involves two main parts: the encoder <span class="math notranslate nohighlight">\( f \)</span> and the decoder <span class="math notranslate nohighlight">\( g \)</span>. The encoder maps the input <span class="math notranslate nohighlight">\( x \)</span> to an internal representation or code <span class="math notranslate nohighlight">\( h \)</span>, while the decoder maps this code <span class="math notranslate nohighlight">\( h \)</span> back to the output <span class="math notranslate nohighlight">\( r \)</span>, which is a reconstruction of the original input.</p>
+<p><img alt="AE_GraphNet1" src="../../_images/GraphicalOperationofAE.PNG" /></p>
+<p>To further clarify latent space <span class="math notranslate nohighlight">\( h \)</span>, we can use the concept of <strong>Efficient Data Representations</strong>. Consider two sequences: one random and one with a clear pattern (38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 18, 16). Despite the first sequence being shorter, the second sequence is easier to memorize because it follows a recognizable pattern of decreasing even numbers. This illustrates why autoencoders are designed to extract and encode such patterns from the input data into the latent space during training.</p>
+<p><em><strong>Performing PCA with an Undercomplete Linear Autoencoder</strong></em>
+If the autoencoder uses only linear activations and the cost function is the mean squared error (MSE), then it ends up performing Principal Component Analysis.</p>
+<section id="structure-of-autoencoders">
+<h3>Structure of Autoencoders<a class="headerlink" href="#structure-of-autoencoders" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Encoder</strong>: The encoder compresses the input data into a latent-space representation, reducing its dimensionality. It consists of one or more layers that progressively reduce the size of the input.</p></li>
+<li><p><strong>Latent Space</strong>: The compressed representation of the input data, also known as the bottleneck. This part of the network contains the most crucial information needed to reconstruct the original input.</p></li>
+<li><p><strong>Decoder</strong>: The decoder reconstructs the input data from the latent representation. It consists of one or more layers that progressively increase the size of the data back to the original input dimensions.</p></li>
+</ol>
+</section>
+<section id="ae-formulation">
+<h3>AE formulation<a class="headerlink" href="#ae-formulation" title="Link to this heading">#</a></h3>
+<p>The encoder can generally be described as a function <span class="math notranslate nohighlight">\( g \)</span> that depends on certain parameters, denoted as <span class="math notranslate nohighlight">\( h_i = g(x_i) \)</span>, where <span class="math notranslate nohighlight">\( h_i \in \mathbb{R}^q \)</span> represents the latent feature extracted by the encoder block when applied to the input <span class="math notranslate nohighlight">\( x_i \)</span>. Here, the function <span class="math notranslate nohighlight">\( g \)</span> maps from <span class="math notranslate nohighlight">\( \mathbb{R}^n \)</span> to <span class="math notranslate nohighlight">\( \mathbb{R}^q \)</span>.</p>
+<p>The decoder, which produces the network’s output denoted by <span class="math notranslate nohighlight">\( \tilde{x}_i \)</span>, is then a function <span class="math notranslate nohighlight">\( f \)</span> of the latent features: <span class="math notranslate nohighlight">\( \tilde{x}_i = f(h_i) = f(g(x_i)) \)</span>, where <span class="math notranslate nohighlight">\( \tilde{x}_i \in \mathbb{R}^n \)</span>.</p>
+<p>Training an autoencoder involves finding the functions <span class="math notranslate nohighlight">\( g(·) \)</span> and <span class="math notranslate nohighlight">\( f(·) \)</span> that minimize the difference between the input and output, which is captured by a loss function <span class="math notranslate nohighlight">\( \Delta(x_i, \tilde{x}_i) \)</span>. This loss function penalizes discrepancies between the input <span class="math notranslate nohighlight">\( x_i \)</span> and the reconstructed output <span class="math notranslate nohighlight">\( \tilde{x}_i \)</span>, and the goal is to minimize this loss across all observations.</p>
+<p>To avoid an autoencoder learning the identity function, strategies such as applying regularization are used to ensure more meaningful feature learning.</p>
+<p><strong>Regularization in Autoencoders</strong></p>
+<p>Regularization often involves enforcing sparsity in the latent features. A common approach is to include an <span class="math notranslate nohighlight">\(\ell_1\)</span> or <span class="math notranslate nohighlight">\(\ell_2\)</span> regularization term in the loss function. For <span class="math notranslate nohighlight">\(\ell_2\)</span> regularization, the objective is:</p>
+<div class="math notranslate nohighlight">
+\[
+\argmin_{f, g} \left( \Delta(x_i, \tilde{x}_i) + \lambda \|g(x_i)\|_2^2 \right)
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\Delta(x_i, \tilde{x}_i)\)</span> represents the loss function measuring the difference between the input <span class="math notranslate nohighlight">\(x_i\)</span> and the output <span class="math notranslate nohighlight">\(\tilde{x}_i\)</span>, and <span class="math notranslate nohighlight">\(\|g(x_i)\|_2^2\)</span> is the <span class="math notranslate nohighlight">\(\ell_2\)</span> norm of the latent features with <span class="math notranslate nohighlight">\(\lambda\)</span> as the regularization parameter. The parameters <span class="math notranslate nohighlight">\(\theta_i\)</span> in the functions <span class="math notranslate nohighlight">\(f(·)\)</span> and <span class="math notranslate nohighlight">\(g(·)\)</span> are typically the weights in neural networks.</p>
+</section>
+</section>
+<section id="define-architecture">
+<h2>Define Architecture<a class="headerlink" href="#define-architecture" title="Link to this heading">#</a></h2>
+<p>There are three key parts of a neural network’s architecture:</p>
+<ul class="simple">
+<li><p>input, body , output</p></li>
+</ul>
+<p><img alt="AE_Structure1" src="../../_images/AE_structure.PNG" /></p>
+<section id="guide-for-showing-architecture">
+<h3>Guide for Showing Architecture<a class="headerlink" href="#guide-for-showing-architecture" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Install Graphviz and pydot.</p></li>
+<li><p>If you encounter an error while plotting, download Graphviz from <a class="reference external" href="https://graphviz.gitlab.io/download/">https://graphviz.gitlab.io/download/</a>, then extract the files and add the directory to your system’s PATH. For example, if you extract the files to “Program Files,” add the following path:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">Program</span> <span class="n">Files</span>\<span class="n">Graphviz</span><span class="o">-</span><span class="mf">12.0.0</span><span class="o">-</span><span class="n">win64</span>\<span class="nb">bin</span>
+</pre></div>
+</div>
+</li>
+<li><p>After setting up the PATH, check the following code. The output should be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pydot</span> <span class="ow">and</span> <span class="n">Graphviz</span> <span class="n">are</span> <span class="n">properly</span> <span class="n">installed</span><span class="o">.</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pydot</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">plot_model</span>
+
+<span class="k">def</span> <span class="nf">check_graphviz</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">pydot</span><span class="o">.</span><span class="n">Dot</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">pydot</span><span class="o">.</span><span class="n">Dot</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pydot and Graphviz are properly installed.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">check_graphviz</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">pydot</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">plot_model</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="k">def</span> <span class="nf">check_graphviz</span><span class="p">():</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pydot&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Dense</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span><span class="p">,</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">plot_model</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># Define Encoder</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;encoder&#39;</span><span class="p">)</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">784</span><span class="p">,)))</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+
+<span class="c1"># Define Decoder</span>
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;decoder&#39;</span><span class="p">)</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,)))</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Dense</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
+
+<span class="c1"># Define Full Autoencoder Model</span>
+<span class="c1"># Note: Use Functional API to connect encoder and decoder</span>
+<span class="n">input_layer</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">784</span><span class="p">,))</span>
+<span class="n">encoded</span> <span class="o">=</span> <span class="n">encoder</span><span class="p">(</span><span class="n">input_layer</span><span class="p">)</span>
+<span class="n">decoded</span> <span class="o">=</span> <span class="n">decoder</span><span class="p">(</span><span class="n">encoded</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">input_layer</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">decoded</span><span class="p">)</span>
+<span class="n">plot_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">show_shapes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show_dtype</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/70d2c25a10d848f967b4f78fc80ec6cbae28df34e16294bb469cefa0b50bf45d.png" src="../../_images/70d2c25a10d848f967b4f78fc80ec6cbae28df34e16294bb469cefa0b50bf45d.png" />
+</div>
+</div>
+</section>
+<section id="latent-features-in-handwritten-digits">
+<h3>Latent features in handwritten digits<a class="headerlink" href="#latent-features-in-handwritten-digits" title="Link to this heading">#</a></h3>
+<p>Latent features in handwritten digits, such as the number and angle of lines needed to form each digit, encapsulate essential information that does not rely on the gray values of each pixel in an image. Humans learn to write by understanding these fundamental components rather than focusing on pixel-level details.</p>
+<p><img alt="Latent features in handwritten digits1" src="../../_images/LatentFeatureHandwrittenDigit.PNG" /></p>
+</section>
+</section>
+<section id="example-denoising-mnist-using-ae">
+<h2>Example : Denoising MNIST using AE<a class="headerlink" href="#example-denoising-mnist-using-ae" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">keras.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
+<span class="kn">import</span> <span class="nn">keras.layers</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+
+<span class="c1"># Load the MNIST dataset from a local .npz file</span>
+<span class="n">mnist_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;mnist.npz&#39;</span><span class="p">)</span>
+
+<span class="c1"># Extract the training and test sets</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">mnist_data</span><span class="p">[</span><span class="s1">&#39;x_train&#39;</span><span class="p">]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">mnist_data</span><span class="p">[</span><span class="s1">&#39;y_train&#39;</span><span class="p">]</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">mnist_data</span><span class="p">[</span><span class="s1">&#39;x_test&#39;</span><span class="p">]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">mnist_data</span><span class="p">[</span><span class="s1">&#39;y_test&#39;</span><span class="p">]</span>
+
+<span class="c1"># Preprocess the data</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">)</span>
+
+<span class="c1"># Filter the dataset to include only digits 0 and 1</span>
+<span class="n">train_filter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">test_filter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">y_test</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">y_test</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="n">train_filter</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">train_filter</span><span class="p">]</span>
+<span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="n">test_filter</span><span class="p">],</span> <span class="n">y_test</span><span class="p">[</span><span class="n">test_filter</span><span class="p">]</span>
+
+<span class="c1"># Generate noisy versions of the training data</span>
+<span class="n">noise_factor</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">x_train_noisy</span> <span class="o">=</span> <span class="n">x_train</span> <span class="o">+</span> <span class="n">noise_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">x_train_noisy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">x_train_noisy</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+
+<span class="c1"># Combine clean and noisy training data</span>
+<span class="n">x_train_combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x_train</span><span class="p">,</span> <span class="n">x_train_noisy</span><span class="p">])</span>
+
+<span class="c1"># Define the Autoencoder model</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;encoder&#39;</span><span class="p">)</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="mi">784</span><span class="p">,)))</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;decoder&#39;</span><span class="p">)</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="mi">32</span><span class="p">,)))</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">))</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>
+
+<span class="n">autoencoder</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span><span class="n">encoder</span><span class="p">,</span> <span class="n">decoder</span><span class="p">])</span>
+<span class="n">autoencoder</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">)</span>
+
+<span class="c1"># Train the Autoencoder on the combined data</span>
+<span class="n">autoencoder</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train_combined</span><span class="p">,</span> <span class="n">x_train_combined</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">x_test</span><span class="p">))</span>
+
+<span class="c1"># Add noise to the test data</span>
+<span class="n">x_test_noisy</span> <span class="o">=</span> <span class="n">x_test</span> <span class="o">+</span> <span class="n">noise_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">x_test_noisy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">x_test_noisy</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+
+<span class="c1"># Denoise the test data</span>
+<span class="n">x_test_denoised</span> <span class="o">=</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test_noisy</span><span class="p">)</span>
+
+<span class="c1"># Visualize the results</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="c1"># Original</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x_test</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Noisy</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x_test_noisy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Noisy&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Denoised</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x_test_denoised</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Denoised&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">5s</span> 14ms/step - loss: 0.4093 - val_loss: 0.1479
+Epoch 2/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.2046 - val_loss: 0.1131
+Epoch 3/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1804 - val_loss: 0.0997
+Epoch 4/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1689 - val_loss: 0.0912
+Epoch 5/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1629 - val_loss: 0.0862
+Epoch 6/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1586 - val_loss: 0.0821
+Epoch 7/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 12ms/step - loss: 0.1559 - val_loss: 0.0799
+Epoch 8/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1526 - val_loss: 0.0779
+Epoch 9/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1514 - val_loss: 0.0764
+Epoch 10/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1513 - val_loss: 0.0755
+Epoch 11/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1483 - val_loss: 0.0744
+Epoch 12/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1495 - val_loss: 0.0738
+Epoch 13/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1480 - val_loss: 0.0732
+Epoch 14/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1484 - val_loss: 0.0728
+Epoch 15/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1477 - val_loss: 0.0723
+Epoch 16/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1455 - val_loss: 0.0722
+Epoch 17/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1457 - val_loss: 0.0719
+Epoch 18/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1451 - val_loss: 0.0713
+Epoch 19/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1451 - val_loss: 0.0712
+Epoch 20/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1450 - val_loss: 0.0708
+Epoch 21/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1441 - val_loss: 0.0709
+Epoch 22/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 12ms/step - loss: 0.1448 - val_loss: 0.0702
+Epoch 23/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 12ms/step - loss: 0.1433 - val_loss: 0.0699
+Epoch 24/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1430 - val_loss: 0.0697
+Epoch 25/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1435 - val_loss: 0.0696
+Epoch 26/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1443 - val_loss: 0.0692
+Epoch 27/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 12ms/step - loss: 0.1436 - val_loss: 0.0690
+Epoch 28/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1431 - val_loss: 0.0690
+Epoch 29/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1428 - val_loss: 0.0687
+Epoch 30/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 12ms/step - loss: 0.1423 - val_loss: 0.0687
+Epoch 31/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1418 - val_loss: 0.0683
+Epoch 32/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1418 - val_loss: 0.0680
+Epoch 33/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 12ms/step - loss: 0.1410 - val_loss: 0.0681
+Epoch 34/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1412 - val_loss: 0.0678
+Epoch 35/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1414 - val_loss: 0.0676
+Epoch 36/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1414 - val_loss: 0.0675
+Epoch 37/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1404 - val_loss: 0.0673
+Epoch 38/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1403 - val_loss: 0.0672
+Epoch 39/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 12ms/step - loss: 0.1411 - val_loss: 0.0671
+Epoch 40/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1402 - val_loss: 0.0668
+Epoch 41/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1402 - val_loss: 0.0668
+Epoch 42/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 12ms/step - loss: 0.1406 - val_loss: 0.0669
+Epoch 43/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 14ms/step - loss: 0.1407 - val_loss: 0.0667
+Epoch 44/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 12ms/step - loss: 0.1405 - val_loss: 0.0665
+Epoch 45/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1397 - val_loss: 0.0665
+Epoch 46/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1392 - val_loss: 0.0664
+Epoch 47/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1402 - val_loss: 0.0663
+Epoch 48/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1396 - val_loss: 0.0662
+Epoch 49/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1399 - val_loss: 0.0661
+Epoch 50/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 13ms/step - loss: 0.1392 - val_loss: 0.0660
+<span class=" -Color -Color-Bold">67/67</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 6ms/step
+</pre></div>
+</div>
+<img alt="../../_images/ffaa46efa798231d7988751fa7d21041f9d748c0b89265b1632a8c6dd39a8254.png" src="../../_images/ffaa46efa798231d7988751fa7d21041f9d748c0b89265b1632a8c6dd39a8254.png" />
+</div>
+</div>
+<section id="test-only">
+<h3>Test Only<a class="headerlink" href="#test-only" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">noise_factor</span><span class="o">=</span><span class="mf">0.2</span>
+<span class="c1"># Add noise to the test data</span>
+<span class="n">x_test_noisy</span> <span class="o">=</span> <span class="n">x_test</span> <span class="o">+</span> <span class="n">noise_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">x_test_noisy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">x_test_noisy</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+
+<span class="c1"># Denoise the test data</span>
+<span class="n">x_test_denoised</span> <span class="o">=</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test_noisy</span><span class="p">)</span>
+
+<span class="c1"># Visualize the results</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="c1"># Original</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x_test</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Noisy</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x_test_noisy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Noisy&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Denoised</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x_test_denoised</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Denoised&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold">67/67</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 3ms/step
+</pre></div>
+</div>
+<img alt="../../_images/346e86dbbc53ab99644778bf07de6c93e7c2ab4fabeaacc2101cd16085393ff1.png" src="../../_images/346e86dbbc53ab99644778bf07de6c93e7c2ab4fabeaacc2101cd16085393ff1.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="denoising-with-ae">
+<h2>Denoising with AE<a class="headerlink" href="#denoising-with-ae" title="Link to this heading">#</a></h2>
+<section id="general-algorithm-for-denoising-images-using-an-autoencoder">
+<h3>General Algorithm for Denoising Images Using an Autoencoder<a class="headerlink" href="#general-algorithm-for-denoising-images-using-an-autoencoder" title="Link to this heading">#</a></h3>
+<p><strong>Load and Preprocess the Data</strong></p>
+<ul class="simple">
+<li><p>Load the dataset containing the images. This can be any image dataset, not limited to MNIST.</p></li>
+<li><p>Convert the images to grayscale (if necessary) and resize them to a consistent size.</p></li>
+<li><p>Normalize the pixel values to be between 0 and 1 by dividing by 255.</p></li>
+</ul>
+<p><strong>Prepare Noisy and Clean Data</strong></p>
+<ul class="simple">
+<li><p>Create noisy versions of the images by adding Gaussian noise with varying noise levels.</p></li>
+<li><p>Combine the noisy images with the original (clean) images to create training data pairs: <code class="docutils literal notranslate"><span class="pre">(noisy_image,</span> <span class="pre">clean_image)</span></code>.</p></li>
+</ul>
+<p><strong>Define the Autoencoder Architecture</strong></p>
+<ul class="simple">
+<li><p><strong>Encoder</strong>: The encoder should reduce the dimensionality of the input images by passing them through several Dense or Convolutional layers with ReLU activation. The output of the encoder is a latent representation of the input image.</p></li>
+<li><p><strong>Decoder</strong>: The decoder should reconstruct the clean images from the latent representation by passing the latent space through several Dense or Convolutional layers with ReLU or sigmoid activation.</p></li>
+</ul>
+<p><strong>Compile the Model</strong></p>
+<ul class="simple">
+<li><p>Compile the autoencoder model using an optimizer like Adam and a loss function such as binary crossentropy or mean squared error (MSE).</p></li>
+</ul>
+<p><strong>Train the Autoencoder</strong></p>
+<ul class="simple">
+<li><p>Train the autoencoder using the pairs of noisy and clean images. Use a validation set for monitoring the model’s performance during training.</p></li>
+</ul>
+<p><strong>Evaluate the Model</strong></p>
+<ul class="simple">
+<li><p>After training, test the autoencoder on a separate set of noisy images to evaluate its performance.</p></li>
+<li><p>Predict the denoised images using the autoencoder and compare them with the clean images.</p></li>
+</ul>
+<p><strong>Visualize the Results</strong></p>
+<ul class="simple">
+<li><p>Visualize a few examples of the original, noisy, and denoised images to qualitatively assess the model’s performance.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">keras.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
+<span class="kn">import</span> <span class="nn">keras.layers</span> <span class="k">as</span> <span class="nn">L</span>
+<span class="kn">from</span> <span class="nn">keras.models</span> <span class="kn">import</span> <span class="n">Sequential</span>
+
+
+
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="c1"># Custom activation function 1: Example using sine</span>
+<span class="k">def</span> <span class="nf">custom_activation1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Custom activation function 2: Example using softplus-like activation</span>
+<span class="k">def</span> <span class="nf">custom_activation2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">tf</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+
+<span class="c1"># Load the MNIST dataset from a local .npz file</span>
+<span class="n">mnist_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;mnist.npz&#39;</span><span class="p">)</span>
+
+<span class="c1"># Extract the training and test sets</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">mnist_data</span><span class="p">[</span><span class="s1">&#39;x_train&#39;</span><span class="p">]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">mnist_data</span><span class="p">[</span><span class="s1">&#39;y_train&#39;</span><span class="p">]</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">mnist_data</span><span class="p">[</span><span class="s1">&#39;x_test&#39;</span><span class="p">]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">mnist_data</span><span class="p">[</span><span class="s1">&#39;y_test&#39;</span><span class="p">]</span>
+
+<span class="c1"># Preprocess the data</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">)</span>
+
+<span class="c1"># Filter the dataset to include only digits 0 and 1</span>
+<span class="n">train_filter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">y_train</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">test_filter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">y_test</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">y_test</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="n">train_filter</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[</span><span class="n">train_filter</span><span class="p">]</span>
+<span class="n">x_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">x_test</span><span class="p">[</span><span class="n">test_filter</span><span class="p">],</span> <span class="n">y_test</span><span class="p">[</span><span class="n">test_filter</span><span class="p">]</span>
+
+<span class="c1"># Generate noisy versions of the training data</span>
+<span class="n">noise_factor</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">x_train_noisy</span> <span class="o">=</span> <span class="n">x_train</span> <span class="o">+</span> <span class="n">noise_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">x_train_noisy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">x_train_noisy</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+
+<span class="c1"># Combine clean and noisy training data</span>
+<span class="n">x_train_combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x_train</span><span class="p">,</span> <span class="n">x_train_noisy</span><span class="p">])</span>
+
+<span class="c1"># Define the Autoencoder model with custom activations</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;encoder&#39;</span><span class="p">)</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="mi">784</span><span class="p">,)))</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">))</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Lambda</span><span class="p">(</span><span class="n">custom_activation1</span><span class="p">))</span>  <span class="c1"># Use custom_activation1</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">))</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Lambda</span><span class="p">(</span><span class="n">custom_activation2</span><span class="p">))</span>  <span class="c1"># Use custom_activation2</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span>
+<span class="n">encoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Lambda</span><span class="p">(</span><span class="n">custom_activation1</span><span class="p">))</span>  <span class="c1"># Use custom_activation1 again</span>
+
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;decoder&#39;</span><span class="p">)</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Input</span><span class="p">((</span><span class="mi">32</span><span class="p">,)))</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">))</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Lambda</span><span class="p">(</span><span class="n">custom_activation2</span><span class="p">))</span>  <span class="c1"># Use custom_activation2</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">))</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Lambda</span><span class="p">(</span><span class="n">custom_activation1</span><span class="p">))</span>  <span class="c1"># Use custom_activation1</span>
+<span class="n">decoder</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">))</span>  <span class="c1"># Use sigmoid for the output layer</span>
+
+<span class="c1"># Compile the Autoencoder model</span>
+<span class="n">autoencoder</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">([</span><span class="n">encoder</span><span class="p">,</span> <span class="n">decoder</span><span class="p">])</span>
+<span class="n">autoencoder</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;adam&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;binary_crossentropy&#39;</span><span class="p">)</span>
+
+<span class="c1"># Train the Autoencoder on the combined data</span>
+<span class="n">autoencoder</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train_combined</span><span class="p">,</span> <span class="n">x_train_combined</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">x_test</span><span class="p">))</span>
+
+<span class="c1"># Add noise to the test data</span>
+<span class="n">x_test_noisy</span> <span class="o">=</span> <span class="n">x_test</span> <span class="o">+</span> <span class="n">noise_factor</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">x_test_noisy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">x_test_noisy</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+
+<span class="c1"># Denoise the test data</span>
+<span class="n">x_test_denoised</span> <span class="o">=</span> <span class="n">autoencoder</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test_noisy</span><span class="p">)</span>
+
+<span class="c1"># Visualize the results</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="c1"># Original</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x_test</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Noisy</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x_test_noisy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Noisy&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Denoised</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">x_test_denoised</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Denoised&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:tensorflow:From e:\HadiSadoghiYazdi\.M_HomePage\Lib\site-packages\keras\src\backend\tensorflow\core.py:192: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+Epoch 1/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">6s</span> 13ms/step - loss: 0.3746 - val_loss: 0.1681
+Epoch 2/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.2167 - val_loss: 0.1303
+Epoch 3/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1922 - val_loss: 0.1158
+Epoch 4/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1828 - val_loss: 0.1088
+Epoch 5/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1758 - val_loss: 0.1002
+Epoch 6/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1691 - val_loss: 0.0945
+Epoch 7/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1652 - val_loss: 0.0909
+Epoch 8/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1620 - val_loss: 0.0876
+Epoch 9/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1584 - val_loss: 0.0847
+Epoch 10/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1569 - val_loss: 0.0824
+Epoch 11/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1546 - val_loss: 0.0806
+Epoch 12/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1530 - val_loss: 0.0786
+Epoch 13/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1512 - val_loss: 0.0769
+Epoch 14/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1498 - val_loss: 0.0756
+Epoch 15/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1478 - val_loss: 0.0743
+Epoch 16/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1467 - val_loss: 0.0735
+Epoch 17/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1469 - val_loss: 0.0726
+Epoch 18/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1463 - val_loss: 0.0719
+Epoch 19/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1459 - val_loss: 0.0713
+Epoch 20/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1445 - val_loss: 0.0707
+Epoch 21/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1434 - val_loss: 0.0705
+Epoch 22/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1436 - val_loss: 0.0700
+Epoch 23/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1426 - val_loss: 0.0695
+Epoch 24/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1434 - val_loss: 0.0692
+Epoch 25/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1430 - val_loss: 0.0689
+Epoch 26/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1417 - val_loss: 0.0687
+Epoch 27/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1412 - val_loss: 0.0684
+Epoch 28/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1418 - val_loss: 0.0682
+Epoch 29/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1418 - val_loss: 0.0679
+Epoch 30/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1404 - val_loss: 0.0678
+Epoch 31/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1411 - val_loss: 0.0676
+Epoch 32/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1406 - val_loss: 0.0674
+Epoch 33/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1398 - val_loss: 0.0671
+Epoch 34/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1406 - val_loss: 0.0671
+Epoch 35/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1398 - val_loss: 0.0669
+Epoch 36/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1399 - val_loss: 0.0667
+Epoch 37/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1394 - val_loss: 0.0665
+Epoch 38/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1394 - val_loss: 0.0664
+Epoch 39/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1394 - val_loss: 0.0667
+Epoch 40/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1394 - val_loss: 0.0661
+Epoch 41/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1390 - val_loss: 0.0660
+Epoch 42/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1385 - val_loss: 0.0659
+Epoch 43/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1395 - val_loss: 0.0659
+Epoch 44/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 13ms/step - loss: 0.1394 - val_loss: 0.0658
+Epoch 45/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1394 - val_loss: 0.0656
+Epoch 46/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1390 - val_loss: 0.0655
+Epoch 47/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1384 - val_loss: 0.0655
+Epoch 48/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1380 - val_loss: 0.0654
+Epoch 49/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 11ms/step - loss: 0.1379 - val_loss: 0.0652
+Epoch 50/50
+<span class=" -Color -Color-Bold">99/99</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">1s</span> 10ms/step - loss: 0.1379 - val_loss: 0.0651
+<span class=" -Color -Color-Bold">67/67</span> <span class=" -Color -Color-Green">━━━━━━━━━━━━━━━━━━━━</span> <span class=" -Color -Color-Bold">0s</span> 3ms/step
+</pre></div>
+</div>
+<img alt="../../_images/56adf3112685047b44c33fba23ef14d7229a1852407d3c4fcf135b4fbed63f01.png" src="../../_images/56adf3112685047b44c33fba23ef14d7229a1852407d3c4fcf135b4fbed63f01.png" />
+</div>
+</div>
+</section>
+<section id="training-autoencoders">
+<h3>Training Autoencoders<a class="headerlink" href="#training-autoencoders" title="Link to this heading">#</a></h3>
+<p>Autoencoders are trained to minimize the reconstruction error, which is the difference between the input and the output. The goal is for the autoencoder to learn to capture the most important features of the data in the latent space.</p>
+<p>The loss function used for training is typically the Mean Squared Error (MSE) or Binary Cross-Entropy, depending on the nature of the input data.</p>
+</section>
+<section id="types-of-autoencoders">
+<h3>Types of Autoencoders<a class="headerlink" href="#types-of-autoencoders" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Vanilla Autoencoders</strong>: The basic form of autoencoders, consisting of a simple encoder-decoder architecture with fully connected layers.</p></li>
+<li><p><strong>Convolutional Autoencoders</strong>: Use convolutional layers instead of fully connected layers, making them well-suited for image data. They can capture spatial hierarchies and local patterns.</p></li>
+<li><p><strong>Denoising Autoencoders</strong>: Trained to reconstruct the input from a corrupted version of it. This helps the model to learn robust representations that are less sensitive to noise.</p></li>
+<li><p><strong>Sparse Autoencoders</strong>: Encourage sparsity in the latent representation by adding a regularization term to the loss function. This forces the model to learn more useful features.</p></li>
+<li><p><strong>Variational Autoencoders (VAEs)</strong>: Instead of learning a deterministic latent representation, VAEs learn a probabilistic representation. This makes them suitable for generating new data samples.</p></li>
+</ol>
+</section>
+<section id="applications-of-autoencoders">
+<h3>Applications of Autoencoders<a class="headerlink" href="#applications-of-autoencoders" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Dimensionality Reduction</strong>: Autoencoders can be used to reduce the dimensionality of data, similar to PCA but capable of capturing non-linear relationships.</p></li>
+<li><p><strong>Anomaly Detection</strong>: By training on normal data, autoencoders can identify anomalies when the reconstruction error is significantly high.</p></li>
+<li><p><strong>Denoising</strong>: Denoising autoencoders can be used to remove noise from data, improving the quality of signals or images.</p></li>
+<li><p><strong>Data Generation</strong>: Variational autoencoders can generate new data samples similar to the training data, useful in tasks like image synthesis and data augmentation.</p></li>
+<li><p><strong>Feature Learning</strong>: Autoencoders can learn useful features from the data that can be used in other machine learning tasks.</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ML\FeatureReduction"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="PCA.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Principal Component Analysis</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../Contact_Me.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Contact Me</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoencoders-brief">Autoencoders Brief</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-autoencoders">Structure of Autoencoders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ae-formulation">AE formulation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-architecture">Define Architecture</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#guide-for-showing-architecture">Guide for Showing Architecture</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latent-features-in-handwritten-digits">Latent features in handwritten digits</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-denoising-mnist-using-ae">Example : Denoising MNIST using AE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#test-only">Test Only</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#denoising-with-ae">Denoising with AE</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#general-algorithm-for-denoising-images-using-an-autoencoder">General Algorithm for Denoising Images Using an Autoencoder</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-autoencoders">Training Autoencoders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-autoencoders">Types of Autoencoders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-of-autoencoders">Applications of Autoencoders</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
