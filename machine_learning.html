@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -187,6 +187,10 @@
 <li class="toctree-l1"><a class="reference internal" href="ML/FeatureReduction/FR_Intro.html">Introduction of Feature Reduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ML/FeatureReduction/PCA.html">Principal Component Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ML/FeatureReduction/Autoencoders1.html">Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ML/FeatureReduction/LLE.html">Locally Linear Embedding (LLE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ML/EnsembleLearning/EnsembleStart_BaggingBoosting.html">Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ML/EnsembleLearning/Ensemble_Voting_Variant_Bayesian.html">Ensemble by Voting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ML/EnsembleLearning/TrainableCombiner.html">Trainable Combiners</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Contact_Me.html">Contact Me</a></li>
 <li class="toctree-l1"><a class="reference internal" href="About_Me.html">About Me</a></li>
 </ul>
@@ -393,8 +397,8 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-reduction">Feature Reduction</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis-pca"><strong>Principal Component Analysis (PCA)</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#locally-linear-embedding-lle"><strong>Locally Linear Embedding (LLE)</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autoencoders-ae"><strong>Autoencoders (AE)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#locally-linear-embedding-lle"><strong>Locally Linear Embedding (LLE)</strong></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-some-machine-learning-methods">Introducing Some Machine Learning Methods</a><ul class="nav section-nav flex-column">
@@ -422,6 +426,8 @@ document.write(`
 <h1>Machine Learning<a class="headerlink" href="#machine-learning" title="Link to this heading">#</a></h1>
 <p><img alt="ML" src="_images/machinelearning1.JPG" /></p>
 <p><strong>ML</strong> Machine learning is an artificial intelligence technique that enables systems to learn from data.</p>
+<p>Memorization and learning are two contrasting concepts. If you have a strong memory, you don’t need to find the rules or roots of the data; you can easily memorize the data. When a request is made, you can provide the closest concepts from what you’ve memorized. In machine learning, <em>lazy learning</em> refers to this approach. One of the principles of machine learning is generalization, which contrasts with memorization. Therefore, limited memory acts as a constraint on the system, making it necessary to apply mathematical methods, principles, or appropriate structures to achieve generalizable learning.
+The use of sparsification serves this purpose by reducing memory usage, and it is commonly employed as a regularization term to enhance generalization.</p>
 <p>Machine Learning (ML) including the specified subtopics:</p>
 <section id="introduction-to-machine-learning">
 <h2>Introduction to Machine Learning<a class="headerlink" href="#introduction-to-machine-learning" title="Link to this heading">#</a></h2>
@@ -473,16 +479,6 @@ document.write(`
 <li><p>Code Example</p></li>
 </ul>
 </section>
-<section id="locally-linear-embedding-lle">
-<h3><strong>Locally Linear Embedding (LLE)</strong><a class="headerlink" href="#locally-linear-embedding-lle" title="Link to this heading">#</a></h3>
-<ul class="simple">
-<li><p>Concept of LLE</p></li>
-<li><p>Steps and Algorithm</p></li>
-<li><p>Strengths and Limitations</p></li>
-<li><p>Use Cases</p></li>
-<li><p>Code Example</p></li>
-</ul>
-</section>
 <section id="autoencoders-ae">
 <h3><strong>Autoencoders (AE)</strong><a class="headerlink" href="#autoencoders-ae" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -490,6 +486,16 @@ document.write(`
 <li><p>Architecture and Functioning</p></li>
 <li><p>Types of Autoencoders</p></li>
 <li><p>Applications in Feature Reduction</p></li>
+<li><p>Code Example</p></li>
+</ul>
+</section>
+<section id="locally-linear-embedding-lle">
+<h3><strong>Locally Linear Embedding (LLE)</strong><a class="headerlink" href="#locally-linear-embedding-lle" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Concept of LLE</p></li>
+<li><p>Steps and Algorithm</p></li>
+<li><p>Strengths and Limitations</p></li>
+<li><p>Use Cases</p></li>
 <li><p>Code Example</p></li>
 </ul>
 </section>
@@ -633,8 +639,8 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-reduction">Feature Reduction</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis-pca"><strong>Principal Component Analysis (PCA)</strong></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#locally-linear-embedding-lle"><strong>Locally Linear Embedding (LLE)</strong></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#autoencoders-ae"><strong>Autoencoders (AE)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#locally-linear-embedding-lle"><strong>Locally Linear Embedding (LLE)</strong></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-some-machine-learning-methods">Introducing Some Machine Learning Methods</a><ul class="nav section-nav flex-column">

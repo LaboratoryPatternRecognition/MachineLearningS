@@ -1,0 +1,816 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Locally Linear Embedding (LLE) &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ML/FeatureReduction/LLE';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Ensemble Learning" href="../EnsembleLearning/EnsembleStart_BaggingBoosting.html" />
+    <link rel="prev" title="Autoencoders" href="Autoencoders1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../machine_learning.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../machine_learning.html">
+                    Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Regression/NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/GP_Regression.html">Gaussian Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FR_Intro.html">Introduction of Feature Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PCA.html">Principal Component Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Autoencoders1.html">Autoencoders</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Locally Linear Embedding (LLE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/EnsembleStart_BaggingBoosting.html">Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/Ensemble_Voting_Variant_Bayesian.html">Ensemble by Voting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/TrainableCombiner.html">Trainable Combiners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FML/FeatureReduction/LLE.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/ML/FeatureReduction/LLE.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Locally Linear Embedding (LLE)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preliminaries">Preliminaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neighborhoods">Neighborhoods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topological-space-from-the-perspective-of-neighborhoods">Topological Space from the Perspective of Neighborhoods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-neighborhood">What is a Neighborhood?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neighborhoods-instead-of-distance">Neighborhoods Instead of Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-neighborhoods-on-the-interval-number">Example: Neighborhoods on the interval number</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-neighborhoods">Why Use Neighborhoods?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-in-practice-sphere-surface">Example in Practice: Sphere Surface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manifold-from-the-perspective-of-neighborhoods">Manifold from the Perspective of Neighborhoods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-manifold">What is a Manifold?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extending-the-neighborhood-concept">Extending the Neighborhood Concept</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-manifolds-matter">Why Manifolds Matter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#result-a-manifold-is-a-topological-space-that-is-locally-euclidean">Result: A manifold is a topological space that is locally Euclidean</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-manifold-learning">What is Manifold Learning?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-of-types-of-manifold-learning-methods">Some of types of manifold learning methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#locally-linear-embedding-lle-algorithm">Locally Linear Embedding (LLE) Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-cost-function">Embedding Cost Function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-complete-the-details-on-the-mathematics-of-locally-linear-embedding-lle">Homework: Complete the details on the mathematics of Locally Linear Embedding (LLE).</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-select-and-complete">Miniproject: select and complete</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="locally-linear-embedding-lle">
+<h1>Locally Linear Embedding (LLE)<a class="headerlink" href="#locally-linear-embedding-lle" title="Link to this heading">#</a></h1>
+<p><strong>Manifold learning</strong></p>
+<p><img alt="S_Curve1" src="../../_images/S_Curve_Example.PNG" /></p>
+<section id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Link to this heading">#</a></h2>
+<section id="neighborhoods">
+<h3>Neighborhoods<a class="headerlink" href="#neighborhoods" title="Link to this heading">#</a></h3>
+<p>Small group of houses in the immediate vicinity of one’s house or to a larger area with similar housing types and market values</p>
+<p>For you in Iran, Mashhad</p>
+<p><img alt="Neighborhoods_Mashhad" src="../../_images/neighborhoods_Mashhad.PNG" /></p>
+<p>and you in London</p>
+<p><img alt="Neighborhoods_London" src="../../_images/neighborhoods_London.PNG" /></p>
+<p><em><strong>Open Sets:</strong></em> Think of open sets as neighborhoods.</p>
+</section>
+<section id="topological-space-from-the-perspective-of-neighborhoods">
+<h3>Topological Space from the Perspective of Neighborhoods<a class="headerlink" href="#topological-space-from-the-perspective-of-neighborhoods" title="Link to this heading">#</a></h3>
+<p>In topology, we want to describe how points in a space are related to each other in terms of “closeness” or “nearness” without using distance. One powerful way to do this is through the concept of <strong>neighborhoods</strong>.</p>
+</section>
+<section id="what-is-a-neighborhood">
+<h3>What is a Neighborhood?<a class="headerlink" href="#what-is-a-neighborhood" title="Link to this heading">#</a></h3>
+<p>A <strong>neighborhood</strong> of a point <span class="math notranslate nohighlight">\( p \)</span> (think your house) in a topological space is a set that includes <span class="math notranslate nohighlight">\( p \)</span> and contains points (father house) that we consider “close” to <span class="math notranslate nohighlight">\( p \)</span>. Importantly, a neighborhood isn’t defined by how far away these points are from <span class="math notranslate nohighlight">\( p \)</span> but rather by a more abstract sense of inclusion.</p>
+<ul class="simple">
+<li><p><strong>Open Neighborhood</strong>: An open neighborhood of a point <span class="math notranslate nohighlight">\( p \)</span> is simply a set that contains <span class="math notranslate nohighlight">\( p \)</span> and is part of the larger structure we call <strong>open sets</strong>. This open set is a way to group points that are near each other.</p></li>
+</ul>
+</section>
+<section id="neighborhoods-instead-of-distance">
+<h3>Neighborhoods Instead of Distance<a class="headerlink" href="#neighborhoods-instead-of-distance" title="Link to this heading">#</a></h3>
+<p>In standard geometry, we often say that two points are close because they have a small distance between them. In topology, instead of measuring distance, we say that two points are close if one point is within the neighborhood of the other.</p>
+<ul class="simple">
+<li><p><strong>No Distance, Just Inclusion</strong>: Rather than using a number to describe how close two points are, we use neighborhoods to capture the idea of closeness. If point <span class="math notranslate nohighlight">\( p \)</span> is in a neighborhood that includes point <span class="math notranslate nohighlight">\( q \)</span>, we can think of <span class="math notranslate nohighlight">\( p \)</span> (your house) and <span class="math notranslate nohighlight">\( q \)</span> (house of your brother) as being close.</p></li>
+</ul>
+<p><img alt="You_Brother_p_q" src="../../_images/You_Brother_House.PNG" /></p>
+</section>
+<section id="example-neighborhoods-on-the-interval-number">
+<h3>Example: Neighborhoods on the interval number<a class="headerlink" href="#example-neighborhoods-on-the-interval-number" title="Link to this heading">#</a></h3>
+<p>Imagine the interval number:</p>
+<ul class="simple">
+<li><p>In standard geometry, you could measure the distance between two points, like 2 and 3.</p></li>
+<li><p>In topology, you could define a neighborhood around the point 2, like the interval <span class="math notranslate nohighlight">\((1.5, 2.5)\)</span>. This interval is a neighborhood of 2 because it includes points that we consider near 2, but we never specify how near in terms of distance.</p>
+<ul>
+<li><p>The point 3 could be in the neighborhood of another point, like <span class="math notranslate nohighlight">\((2.5, 3.5)\)</span>, but 2 and 3 might not share the same neighborhood.</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="Interval_OpenSet" src="../../_images/Interval_Number.png" /></p>
+</section>
+<section id="why-use-neighborhoods">
+<h3>Why Use Neighborhoods?<a class="headerlink" href="#why-use-neighborhoods" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Flexibility</strong>: Neighborhoods allow us to describe how points are related without needing to define an exact distance. This is useful in spaces where distance doesn’t make sense or isn’t practical to use.</p></li>
+<li><p><strong>Generalization</strong>: Using neighborhoods, we can describe a wide range of spaces, including those that are more abstract or complex than our familiar Euclidean spaces.</p></li>
+</ul>
+</section>
+<section id="example-in-practice-sphere-surface">
+<h3>Example in Practice: Sphere Surface<a class="headerlink" href="#example-in-practice-sphere-surface" title="Link to this heading">#</a></h3>
+<p>Think about the surface of a sphere:</p>
+<ul class="simple">
+<li><p>In topology, we might not talk about the distance between two points on the sphere. Instead, we discuss neighborhoods around a point, like small patches on the surface.</p></li>
+<li><p>Two points are close if their neighborhoods overlap or are contained within a larger neighborhood.</p></li>
+</ul>
+</section>
+<section id="manifold-from-the-perspective-of-neighborhoods">
+<h3>Manifold from the Perspective of Neighborhoods<a class="headerlink" href="#manifold-from-the-perspective-of-neighborhoods" title="Link to this heading">#</a></h3>
+<p>A <strong>manifold</strong> is a special kind of topological space that, although it can have a complex, curved shape globally, looks like ordinary Euclidean space when you zoom in close enough. This means that for any point on a manifold, there exists a neighborhood around that point which resembles a familiar, flat Euclidean space.</p>
+</section>
+<section id="what-is-a-manifold">
+<h3>What is a Manifold?<a class="headerlink" href="#what-is-a-manifold" title="Link to this heading">#</a></h3>
+<p>A <strong>manifold</strong> is a topological space that satisfies the following properties:</p>
+<ol class="arabic simple">
+<li><p><strong>Locally Euclidean</strong>: Every point on a manifold has a neighborhood that looks like a piece of <span class="math notranslate nohighlight">\( \mathbb{R}^n \)</span> (Euclidean space of dimension <span class="math notranslate nohighlight">\( n \)</span>). This means that even though the manifold might be curved or have a complicated global structure, small enough neighborhoods around any point look flat and simple, just like a small patch of the Earth’s surface appears flat even though the Earth is round.</p></li>
+<li><p><strong>Coordinate Systems (Charts)</strong>: Each of these neighborhoods can be described using a local coordinate system, called a <strong>chart</strong>. These coordinates work just like the familiar <span class="math notranslate nohighlight">\( x, y, z \)</span> coordinates in Euclidean space, but only within the neighborhood.</p></li>
+<li><p><strong>Transition Maps</strong>: When you move from one neighborhood to another on the manifold, the coordinates might change. The rules for changing from one set of coordinates to another are called <strong>transition maps</strong>. These maps ensure that different coordinate systems fit together smoothly.</p></li>
+</ol>
+</section>
+<section id="extending-the-neighborhood-concept">
+<h3>Extending the Neighborhood Concept<a class="headerlink" href="#extending-the-neighborhood-concept" title="Link to this heading">#</a></h3>
+<p>In a topological space, neighborhoods help us understand how points relate to each other without using distance. In a manifold, neighborhoods do the same thing but with an extra twist: each neighborhood not only shows us “closeness” but also looks like part of a Euclidean space.</p>
+<ul class="simple">
+<li><p><strong>Local Flatness</strong>: Consider a point <span class="math notranslate nohighlight">\( p \)</span> on a manifold. The neighborhood around <span class="math notranslate nohighlight">\( p \)</span> is not just any abstract set; it looks and behaves like a small piece of flat Euclidean space. This means that, locally, the manifold “feels” flat, even if it might be curved when viewed as a whole.</p></li>
+<li><p><strong>Example: Sphere as a Manifold</strong>: Take the surface of a sphere. Globally, it’s curved, but if you zoom in on a small neighborhood around any point, that neighborhood looks flat, like a small piece of a plane. In this neighborhood, you can use coordinates like latitude and longitude to describe locations, similar to how you use <span class="math notranslate nohighlight">\( x, y \)</span> coordinates in a plane.</p></li>
+</ul>
+<p><img alt="Earth1_1" src="../../_images/Earth1.PNG" /></p>
+</section>
+<section id="why-manifolds-matter">
+<h3>Why Manifolds Matter<a class="headerlink" href="#why-manifolds-matter" title="Link to this heading">#</a></h3>
+<p><em>Some example:</em></p>
+<ul class="simple">
+<li><p><strong>Curved Surfaces</strong>: The surface of a sphere, the shape of a torus, or more complex surfaces can all be described as manifolds. Each of these surfaces, though curved globally, can be understood locally using flat, Euclidean neighborhoods.</p></li>
+</ul>
+<p><img alt="Torus1" src="../../_images/Torus.PNG" /></p>
+<p><em><strong>Think of the Earth as a manifold:</strong></em></p>
+<ul class="simple">
+<li><p><strong>Locally Flat</strong>: Any small neighborhood on the Earth’s surface, like a town or a city, looks flat. You can use a map with <span class="math notranslate nohighlight">\( x, y \)</span> coordinates to navigate, just as you would on a piece of paper. Each piece specified by latitude and longitude</p></li>
+</ul>
+</section>
+<section id="result-a-manifold-is-a-topological-space-that-is-locally-euclidean">
+<h3>Result: A manifold is a topological space that is locally Euclidean<a class="headerlink" href="#result-a-manifold-is-a-topological-space-that-is-locally-euclidean" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="what-is-manifold-learning">
+<h2>What is Manifold Learning?<a class="headerlink" href="#what-is-manifold-learning" title="Link to this heading">#</a></h2>
+<p>Manifold Hypothesis: This is the idea that real-world high-dimensional data often resides on a low-dimensional manifold. For example, images of <strong>faces</strong> might be described by hundreds of pixels (dimensions), but the variations in those images (like expressions or lighting) might only involve a few underlying factors, such as the position of the eyes, mouth, or the angle of the face. These underlying factors form a low-dimensional manifold within the high-dimensional pixel space.</p>
+<p><img alt="Face_Manifold1" src="../../_images/Face_Manifold.png" /></p>
+<p><strong>Interpretation of Points and Faces</strong></p>
+<p>Each Point Represents a Face: In this 2D visualization, each point corresponds to one face image from your dataset. The position of each point in the 2D space is determined by the similarities and differences in the facial features captured by the high-dimensional data. Faces that are similar in appearance (e.g., similar expressions, lighting conditions, or angles) tend to be mapped closer to each other in this 2D space.</p>
+<p><em><em>Manifold (Clusters of Points):</em></em> Points that are close together in this 2D space likely represent faces with similar characteristics. For example, a cluster of points might represent faces that all have a similar lighting condition or a similar expression like anger. This clustering happens because manifold learning preserves the local structure of the data, meaning that faces with similar high-dimensional features are kept close together in the lower-dimensional representation.</p>
+<p><strong>Manifolds of MNIST</strong></p>
+<p><img alt="Manifolds of MNIST1" src="../../_images/Manifold_of_Mnist.PNG" /></p>
+</section>
+<section id="some-of-types-of-manifold-learning-methods">
+<h2>Some of types of manifold learning methods<a class="headerlink" href="#some-of-types-of-manifold-learning-methods" title="Link to this heading">#</a></h2>
+<p><strong>Principal Component Analysis (PCA)</strong>: Linear method for reducing dimensions by maximizing variance.</p>
+<p><strong>Multidimensional Scaling (MDS)</strong>: Preserves pairwise distances when mapping to lower dimensions.</p>
+<p><strong>Isomap</strong>: Nonlinear method that preserves geodesic distances on the manifold.</p>
+<p><strong>Locally Linear Embedding (LLE)</strong>: Captures local linear relationships between data points.</p>
+<p><strong>Laplacian Eigenmaps</strong>: Uses graph-based approach to preserve local neighborhood similarities.</p>
+<p><strong>t-Distributed Stochastic Neighbor Embedding (t-SNE)</strong>: Visualizes data by preserving local similarities and revealing clusters.</p>
+<p><strong>Uniform Manifold Approximation and Projection (UMAP)</strong>: Fast method that preserves both local and global structures in data.</p>
+<p><strong>Autoencoders</strong>: Neural networks that learn a low-dimensional representation through encoding and decoding.</p>
+<p>We previously discussed PCA and autoencoders. Now, let’s introduce Locally Linear Embedding (LLE).</p>
+</section>
+<section id="locally-linear-embedding-lle-algorithm">
+<h2>Locally Linear Embedding (LLE) Algorithm<a class="headerlink" href="#locally-linear-embedding-lle-algorithm" title="Link to this heading">#</a></h2>
+<p>LLE is a nonlinear dimensionality reduction technique that aims to preserve local linear relationships within the data. It assumes that data points are samples from a smooth manifold, and the local patches around each point can be approximated linearly.</p>
+<p><strong>Nearest Neighbor Identification:</strong></p>
+<ul class="simple">
+<li><p><strong>Goal:</strong> For each data point <span class="math notranslate nohighlight">\( \mathbf{x}_i \)</span>, identify its <span class="math notranslate nohighlight">\( k \)</span> nearest neighbors using a distance metric (typically Euclidean).</p></li>
+<li><p><strong>Purpose:</strong> These neighbors define a local linear patch of the manifold around <span class="math notranslate nohighlight">\( \mathbf{x}_i \)</span>.</p></li>
+</ul>
+<p><img alt="Swiss_Roll" src="../../_images/0_PtwC2IuDCWTA2sDa.gif" /></p>
+<p><strong>Reconstruction Weights:</strong></p>
+<ul class="simple">
+<li><p><strong>Objective:</strong> Find weights <span class="math notranslate nohighlight">\( W_{ij} \)</span> that best reconstruct each data point <span class="math notranslate nohighlight">\( \mathbf{x}_i \)</span> from its <span class="math notranslate nohighlight">\( k \)</span> neighbors <span class="math notranslate nohighlight">\( \mathbf{x}_j \)</span>.</p></li>
+<li><p><strong>Cost Function:</strong> Minimize the reconstruction error:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+E = \sum_{i} \left\| \mathbf{x}_i - \sum_{j \in \mathcal{N}(i)} W_{ij} \mathbf{x}_j \right\|^2
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \mathcal{N}(i) \)</span> is the set of <span class="math notranslate nohighlight">\( k \)</span> nearest neighbors of <span class="math notranslate nohighlight">\( \mathbf{x}_i \)</span>, and <span class="math notranslate nohighlight">\( W_{ij} \)</span> are the reconstruction weights.</p>
+<ul class="simple">
+<li><p><strong>Constraints:</strong></p>
+<ul>
+<li><p><strong>Reconstruction Constraint:</strong> Each data point is reconstructed from its neighbors.</p></li>
+<li><p><strong>Sum-to-One Constraint:</strong> Weights must sum to one:</p></li>
+</ul>
+</li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\sum_{j \in \mathcal{N}(i)} W_{ij} = 1
+\]</div>
+<ul class="simple">
+<li><p><strong>Optimization:</strong> Solve the least-squares problem with these constraints to find the optimal weights <span class="math notranslate nohighlight">\( W_{ij} \)</span>.</p></li>
+</ul>
+<p><img alt="LLE1" src="../../_images/LLE1.PNG" /></p>
+<p><img alt="LLE_Derivation_Locally Weights" src="../../_images/LocallyLinearDerivation_1.png" /></p>
+<section id="embedding-cost-function">
+<h3>Embedding Cost Function<a class="headerlink" href="#embedding-cost-function" title="Link to this heading">#</a></h3>
+<p>After finding the optimal reconstruction weights <span class="math notranslate nohighlight">\( W_{ij} \)</span>, the LLE algorithm maps the high-dimensional data into a lower-dimensional space while preserving local linear relationships. This step involves minimizing a cost function related to the reconstruction weights.</p>
+<p><strong>Reconstruction Weight Matrix:</strong>
+Given the weights <span class="math notranslate nohighlight">\( W_{ij} \)</span> from the high-dimensional space, you want to find low-dimensional coordinates <span class="math notranslate nohighlight">\( \mathbf{y}_i \)</span> that best preserve the local structure defined by these weights.</p>
+<p><strong>Cost Function:</strong>
+The embedding cost function is:</p>
+<div class="math notranslate nohighlight">
+\[
+E_{\text{embedding}} = \sum_{i} \left\| \mathbf{y}_i - \sum_{j \in \mathcal{N}(i)} W_{ij} \mathbf{y}_j \right\|^2
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mathbf{y}_i \)</span> is the low-dimensional representation of <span class="math notranslate nohighlight">\( \mathbf{x}_i \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( W_{ij} \)</span> are the weights computed in the previous step.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \mathcal{N}(i) \)</span> is the set of <span class="math notranslate nohighlight">\( k \)</span> nearest neighbors of <span class="math notranslate nohighlight">\( \mathbf{x}_i \)</span> in the high-dimensional space.</p></li>
+</ul>
+<p><strong>Constraints:</strong>
+To ensure a meaningful embedding, the following constraints are applied:</p>
+<ul class="simple">
+<li><p><strong>Zero Mean Constraint:</strong> The coordinates <span class="math notranslate nohighlight">\( \mathbf{y}_i \)</span> should be centered:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{n} \sum_{i=1}^{n} \mathbf{y}_i = 0
+\]</div>
+<p>This ensures that the embedding is centered around the origin.</p>
+<ul class="simple">
+<li><p><strong>Orthogonality Constraint:</strong> The coordinates should be orthogonal:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{Y}^T \mathbf{Y} = I
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \mathbf{Y} \)</span> is the matrix of low-dimensional coordinates, and <span class="math notranslate nohighlight">\( I \)</span> is the identity matrix. This constraint ensures that the low-dimensional space is properly scaled and the dimensions are orthogonal.</p>
+<p><img alt="Embedding_Equ" src="../../_images/Embedding_LLE_Equation.png" /></p>
+</section>
+</section>
+<section id="homework-complete-the-details-on-the-mathematics-of-locally-linear-embedding-lle">
+<h2>Homework: Complete the details on the mathematics of Locally Linear Embedding (LLE).<a class="headerlink" href="#homework-complete-the-details-on-the-mathematics-of-locally-linear-embedding-lle" title="Link to this heading">#</a></h2>
+<p>See  <em><strong>Locally Linear Embedding and its Variants: Tutorial and Survey</strong></em></p>
+<p><a class="reference download internal" download="" href="../../_downloads/d0a2f9bc5d05fd6449c39608d157b130/LLE_1.pdf"><span class="xref download myst">Download the PDF</span></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_swiss_roll</span>
+<span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">LocallyLinearEmbedding</span>
+
+<span class="c1"># Generate synthetic Swiss Roll data</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">make_swiss_roll</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Apply LLE for dimensionality reduction</span>
+<span class="n">lle</span> <span class="o">=</span> <span class="n">LocallyLinearEmbedding</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_reduced</span> <span class="o">=</span> <span class="n">lle</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Plot the original Swiss Roll as a surface</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># 3D surface plot of the original Swiss Roll</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Original Swiss Roll&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">elev</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">240</span><span class="p">)</span>
+
+<span class="c1"># 2D plot of the reduced Swiss Roll</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_reduced</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_reduced</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;2D Representation after LLE&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Component 1&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Component 2&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Component Magnitude&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/0232444a2060ca62f049646f3c0b2c48565c4990434a1564a0daa58b3f62de63.png" src="../../_images/0232444a2060ca62f049646f3c0b2c48565c4990434a1564a0daa58b3f62de63.png" />
+</div>
+</div>
+</section>
+<section id="miniproject-select-and-complete">
+<h2>Miniproject: select and complete<a class="headerlink" href="#miniproject-select-and-complete" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://scikit-learn.org/stable/modules/manifold.html">Websit Manifold</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ML\FeatureReduction"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Autoencoders1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Autoencoders</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../EnsembleLearning/EnsembleStart_BaggingBoosting.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Ensemble Learning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preliminaries">Preliminaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neighborhoods">Neighborhoods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#topological-space-from-the-perspective-of-neighborhoods">Topological Space from the Perspective of Neighborhoods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-neighborhood">What is a Neighborhood?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neighborhoods-instead-of-distance">Neighborhoods Instead of Distance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-neighborhoods-on-the-interval-number">Example: Neighborhoods on the interval number</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-neighborhoods">Why Use Neighborhoods?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-in-practice-sphere-surface">Example in Practice: Sphere Surface</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#manifold-from-the-perspective-of-neighborhoods">Manifold from the Perspective of Neighborhoods</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-manifold">What is a Manifold?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extending-the-neighborhood-concept">Extending the Neighborhood Concept</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-manifolds-matter">Why Manifolds Matter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#result-a-manifold-is-a-topological-space-that-is-locally-euclidean">Result: A manifold is a topological space that is locally Euclidean</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-manifold-learning">What is Manifold Learning?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-of-types-of-manifold-learning-methods">Some of types of manifold learning methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#locally-linear-embedding-lle-algorithm">Locally Linear Embedding (LLE) Algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-cost-function">Embedding Cost Function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-complete-the-details-on-the-mathematics-of-locally-linear-embedding-lle">Homework: Complete the details on the mathematics of Locally Linear Embedding (LLE).</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-select-and-complete">Miniproject: select and complete</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

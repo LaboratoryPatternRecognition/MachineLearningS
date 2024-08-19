@@ -1,0 +1,1597 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Ensemble by Voting &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ML/EnsembleLearning/Ensemble_Voting_Variant_Bayesian';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Trainable Combiners" href="TrainableCombiner.html" />
+    <link rel="prev" title="Ensemble Learning" href="EnsembleStart_BaggingBoosting.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../machine_learning.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../machine_learning.html">
+                    Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Regression/NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/GP_Regression.html">Gaussian Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/FR_Intro.html">Introduction of Feature Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/PCA.html">Principal Component Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/Autoencoders1.html">Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/LLE.html">Locally Linear Embedding (LLE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="EnsembleStart_BaggingBoosting.html">Ensemble Learning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Ensemble by Voting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TrainableCombiner.html">Trainable Combiners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FML/EnsembleLearning/Ensemble_Voting_Variant_Bayesian.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/ML/EnsembleLearning/Ensemble_Voting_Variant_Bayesian.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Ensemble by Voting</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-of-nontrainable-voting">Type of nontrainable voting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-for-voting">Example for voting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-model-combination">Bayesian model combination</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-vriance-of-voting">Mean-Vriance of voting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-evaluate-voting-performance-with-various-classifiers">miniproject: Evaluate Voting Performance with Various Classifiers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-combination-works">Why combination works</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mitigate-the-risk-of-choosing-an-inadequate-model">mitigate the risk of choosing an inadequate model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#different-level-of-combination">Different level of combination</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-the-confusion-matrix">Structure of the Confusion Matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#definitions">Definitions:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#key-metrics-derived-from-the-confusion-matrix">Key Metrics Derived from the Confusion Matrix:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-confusion-matrix-to-combination-of-classifier">From Confusion Matrix to combination of classifier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes-combination">Naive Bayes Combination</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#assumptions">Assumptions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#formula-derivations">Formula Derivations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-for-cm-based-voting">Example for CM-Based Voting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrices-for-the-classifiers">Confusion Matrices for the Classifiers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-support-calculation">Step-by-Step Support Calculation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-determine-classifier-probabilities-p-s-i-mid-omega-k">Step 1: Determine Classifier Probabilities <span class="math notranslate nohighlight">\(P(s_i \mid \omega_k)\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-apply-the-naive-bayes-combination">Step 2: Apply the Naive Bayes Combination</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-compare-supports">Step 3: Compare Supports</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-calculation-of-support-for-each-class">Final Calculation of Support for Each Class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-details-for-step-1">More details for <strong>Step 1</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Step 1: Determine Classifier Probabilities <span class="math notranslate nohighlight">\(P(s_i \mid \omega_k)\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-d-1">Classifier <span class="math notranslate nohighlight">\(D_1\)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-d-2">Classifier <span class="math notranslate nohighlight">\(D_2\)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-d-3">Classifier <span class="math notranslate nohighlight">\(D_3\)</span>:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-code-for-cm-based-fusion">Example code for CM based fusion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fusion-of-continuous-valued-outputs">Fusion of Continuous Valued Outputs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combination-using-decision-profile">Combination using decision profile</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordered-weighted-averaging-combiners">Ordered Weighted Averaging Combiners</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-owa">Example of OWA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entropy">Entropy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gini-index-definition">Gini Index Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gini-index-for-binary-state">Gini Index for binary state</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-complete-dispersion-analysis-for-weight-control-in-owa">Homework: Complete dispersion analysis for weight control in OWA</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ensemble-by-voting">
+<h1>Ensemble by Voting<a class="headerlink" href="#ensemble-by-voting" title="Link to this heading">#</a></h1>
+<p><strong>Voting and Ensembles</strong></p>
+<p>Voting is a fundamental approach for combining multiple classifiers, where each learner contributes to the final decision. This method is known as an ensemble, and the combination process often involves averaging the outputs of individual classifiers. In its simplest form, voting gives equal weight to each classifier. However, other combination rules can be applied to achieve more sophisticated results. These rules are particularly important when the outputs are not posterior probabilities, as they require normalization to ensure consistent scaling across different classifiers.</p>
+<p>It seems like you’re asking for a corrected version of a formula or text related to ensemble voting methods. Here’s a revised version of the content:</p>
+<p><em>linear combination of the learners:</em></p>
+<div class="math notranslate nohighlight">
+\[
+y_i = \sum_{j} w_j d_{ji} \quad \text{where} \quad w_j \geq 0 \quad \text{and} \quad \sum_{j} w_j = 1
+\]</div>
+<p><img alt="VotingWeighted_1" src="../../_images/Voting_weighted.png" /></p>
+<section id="type-of-nontrainable-voting">
+<h2>Type of nontrainable voting<a class="headerlink" href="#type-of-nontrainable-voting" title="Link to this heading">#</a></h2>
+<p>Classifier combination rules (Voting):</p>
+<p><strong>Classifier Combination Rules</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Rule</strong></p></th>
+<th class="head"><p><strong>Fusion Function <span class="math notranslate nohighlight">\( f(\cdot) \)</span></strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Sum</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\( y_i = \frac{1}{L} \sum_{j=1}^{L} d_{ji} \)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Weighted Sum</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\( y_i = \sum_{j} w_j d_{ji}, \quad w_j \geq 0, \quad \sum_{j} w_j = 1 \)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Median</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\( y_i = \text{median}_j \{ d_{ji} \} \)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Minimum</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\( y_i = \min_j \{ d_{ji} \} \)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Maximum</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\( y_i = \max_j \{ d_{ji} \} \)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Product</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\( y_i = \prod_{j} d_{ji} \)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="example-for-voting">
+<h3>Example for voting<a class="headerlink" href="#example-for-voting" title="Link to this heading">#</a></h3>
+<p><strong>Example of Combination Rules on Three Learners and Three Classes</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p><strong>Class</strong></p></th>
+<th class="head text-center"><p><strong>Learner 1 (<span class="math notranslate nohighlight">\(d_1\)</span>)</strong></p></th>
+<th class="head text-center"><p><strong>Learner 2 (<span class="math notranslate nohighlight">\(d_2\)</span>)</strong></p></th>
+<th class="head text-center"><p><strong>Learner 3 (<span class="math notranslate nohighlight">\(d_3\)</span>)</strong></p></th>
+<th class="head text-center"><p><strong>Sum</strong></p></th>
+<th class="head text-center"><p><strong>Median</strong></p></th>
+<th class="head text-center"><p><strong>Minimum</strong></p></th>
+<th class="head text-center"><p><strong>Maximum</strong></p></th>
+<th class="head text-center"><p><strong>Product</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p><strong>C1</strong></p></td>
+<td class="text-center"><p>0.2</p></td>
+<td class="text-center"><p>0.0</p></td>
+<td class="text-center"><p>0.4</p></td>
+<td class="text-center"><p>0.2</p></td>
+<td class="text-center"><p>0.2</p></td>
+<td class="text-center"><p>0.0</p></td>
+<td class="text-center"><p>0.4</p></td>
+<td class="text-center"><p>0.0</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p><strong>C2</strong></p></td>
+<td class="text-center"><p>0.5</p></td>
+<td class="text-center"><p>0.6</p></td>
+<td class="text-center"><p>0.4</p></td>
+<td class="text-center"><p>0.5</p></td>
+<td class="text-center"><p>0.5</p></td>
+<td class="text-center"><p>0.4</p></td>
+<td class="text-center"><p>0.6</p></td>
+<td class="text-center"><p>0.12</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p><strong>C3</strong></p></td>
+<td class="text-center"><p>0.3</p></td>
+<td class="text-center"><p>0.4</p></td>
+<td class="text-center"><p>0.2</p></td>
+<td class="text-center"><p>0.3</p></td>
+<td class="text-center"><p>0.3</p></td>
+<td class="text-center"><p>0.2</p></td>
+<td class="text-center"><p>0.4</p></td>
+<td class="text-center"><p>0.032</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="bayesian-model-combination">
+<h2>Bayesian model combination<a class="headerlink" href="#bayesian-model-combination" title="Link to this heading">#</a></h2>
+<p>Bayesian model combination views voting schemes as approximations within a Bayesian framework, where weights represent prior model probabilities and decisions approximate model-conditional likelihoods. In classification, simple voting corresponds to a uniform prior. A prior distribution favoring simpler models gives them larger weights. Rather than integrating over all models, a subset of high-probability models is selected.</p>
+<p>In classification, we have:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( w_j \equiv P(M_j) \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( d_{ji} = P(C_i \mid x, M_j) \)</span></p></li>
+</ul>
+<p>Equation 17.2 corresponds to:</p>
+<div class="math notranslate nohighlight">
+\[
+P(C_i \mid x) = \sum_{\text{all models } M_j} P(C_i \mid x, M_j) P(M_j)
+\]</div>
+<p>This formula represents the probability of class <span class="math notranslate nohighlight">\( C_i \)</span> given the input <span class="math notranslate nohighlight">\( x \)</span> as a weighted sum of the probabilities of class <span class="math notranslate nohighlight">\( C_i \)</span> given the model <span class="math notranslate nohighlight">\( M_j \)</span> and the probability of each model <span class="math notranslate nohighlight">\( M_j \)</span>.</p>
+</section>
+<section id="mean-vriance-of-voting">
+<h2>Mean-Vriance of voting<a class="headerlink" href="#mean-vriance-of-voting" title="Link to this heading">#</a></h2>
+<p>Assume that the <span class="math notranslate nohighlight">\( d_j \)</span> are independent and identically distributed (iid) with expected value <span class="math notranslate nohighlight">\( E[d_j] \)</span> and variance <span class="math notranslate nohighlight">\( \text{Var}(d_j) \)</span>. When taking a simple average with <span class="math notranslate nohighlight">\( w_j = \frac{1}{L} \)</span>, the expected value and variance of the output <span class="math notranslate nohighlight">\( y \)</span> are:</p>
+<div class="math notranslate nohighlight">
+\[
+E[y] = E\left[\frac{1}{L} \sum_{j=1}^{L} d_j \right] = \frac{1}{L} \sum_{j=1}^{L} E[d_j] = E[d_j]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}(y) = \text{Var}\left(\frac{1}{L} \sum_{j=1}^{L} d_j \right) = \frac{1}{L^2} \sum_{j=1}^{L} \text{Var}(d_j) = \frac{1}{L} \text{Var}(d_j)
+\]</div>
+<p>Thus, the expected value remains unchanged, so the bias does not change. However, the variance, and therefore the mean square error, decreases as the number of independent voters <span class="math notranslate nohighlight">\( L \)</span> increases. In the general case:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Var}(y) = \frac{1}{L^2} \sum_{j=1}^{L} \text{Var}(d_j) + \frac{2}{L^2} \sum_{j &lt; i} \text{Cov}(d_j, d_i)
+\]</div>
+</section>
+<section id="miniproject-evaluate-voting-performance-with-various-classifiers">
+<h2>miniproject: Evaluate Voting Performance with Various Classifiers<a class="headerlink" href="#miniproject-evaluate-voting-performance-with-various-classifiers" title="Link to this heading">#</a></h2>
+<p>Test the voting method without training using different classifiers and combinations. Compare the results of each classifier in terms of mean and variance. Analyze and conclude based on these comparisons.</p>
+</section>
+<section id="why-combination-works">
+<h2>Why combination works<a class="headerlink" href="#why-combination-works" title="Link to this heading">#</a></h2>
+<p>Combining classifiers introduces an additional layer that enhances performance by aggregating multiple weak classifiers, offering simplicity and aggregation benefits, even as it adds complexity and potentially shifts focus from optimizing individual models.</p>
+<section id="mitigate-the-risk-of-choosing-an-inadequate-model">
+<h3>mitigate the risk of choosing an inadequate model<a class="headerlink" href="#mitigate-the-risk-of-choosing-an-inadequate-model" title="Link to this heading">#</a></h3>
+<p>Given a labeled dataset <span class="math notranslate nohighlight">\( Z \)</span> and several classifiers with strong performance on <span class="math notranslate nohighlight">\( Z \)</span>, selecting a single classifier may risk suboptimal performance due to variability in generalization.</p>
+<p>For instance, classifiers such as 1-NN or decision trees may show zero resubstitution error on different feature subsets but vary in their generalization ability. Instead of relying on a single classifier, combining their outputs through an averaging approach can <em>mitigate the risk of choosing an inadequate model</em>.</p>
+<p>Dietterich illustrates this approach with a diagram where the <em>outer circle represents all possible classifiers</em>, and the <strong>shaded inner region</strong> indicates those with <strong>good training performance.</strong> The <strong>ideal classifier <span class="math notranslate nohighlight">\( D \)</span></strong>, which also performs well on training data, is hoped to be approximated more closely by <em><strong>aggregating the <span class="math notranslate nohighlight">\( L \)</span> classifiers</strong></em> rather than selecting a single classifier at random.</p>
+<p><img alt="Dietterich_1" src="../../_images/Dietterich1.PNG" /></p>
+<p>Training algorithms such as hill-climbing or random search can lead to different local optima when training classifiers. This situation is illustrated in following Figure, where each individual classifier starts at various points in the classifier space and ends up closer to the optimal classifier <span class="math notranslate nohighlight">\( D \)</span>. By aggregating multiple classifiers, we can potentially create a new classifier that better approximates <span class="math notranslate nohighlight">\( D \)</span> than any individual classifier <span class="math notranslate nohighlight">\( D_i \)</span> could on its own.</p>
+<p><img alt="Dietterich_2" src="../../_images/Dietterich2.PNG" /></p>
+<p><strong>Classifier Space Limitation:</strong> The classifier space we select may not include the optimal classifier for a problem. For example, if the optimal model is nonlinear but we limit our classifiers to linear ones, we won’t find the best solution in this restricted space.</p>
+<p><strong>Ensemble Advantage:</strong> Despite this limitation, an ensemble of linear classifiers can approximate any decision boundary with high accuracy. If the optimal classifier
+𝐷 is outside the chosen classifier space, using an ensemble might be more practical than training a complex individual model.</p>
+<p><strong>Complex Models vs. Ensembles:</strong> Training a single neural network with numerous parameters can be difficult. An ensemble of simpler classifiers might be easier to train and can perform better in some cases.</p>
+<p><img alt="Dietterich_3" src="../../_images/Dietterich3.PNG" /></p>
+</section>
+<section id="different-level-of-combination">
+<h3>Different level of combination<a class="headerlink" href="#different-level-of-combination" title="Link to this heading">#</a></h3>
+<p><img alt="Different level of combination1" src="../../_images/DifferentLevelOfCombination1.PNG" /></p>
+</section>
+<section id="confusion-matrix">
+<h3>Confusion matrix<a class="headerlink" href="#confusion-matrix" title="Link to this heading">#</a></h3>
+<p>A <em>confusion matrix</em> is a table used to evaluate the performance of a classification model by comparing the predicted classifications to the actual ground truth. It helps to understand the types of errors the model is making and provides insights into its performance across different classes.</p>
+<section id="structure-of-the-confusion-matrix">
+<h4>Structure of the Confusion Matrix<a class="headerlink" href="#structure-of-the-confusion-matrix" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Actual Condition</strong></p></th>
+<th class="head"><p><strong>Predicted Positive (PP)</strong></p></th>
+<th class="head"><p><strong>Predicted Negative (PN)</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Positive (P)</strong></p></td>
+<td><p>True Positive (TP)</p></td>
+<td><p>False Negative (FN)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Negative (N)</strong></p></td>
+<td><p>False Positive (FP)</p></td>
+<td><p>True Negative (TN)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A confusion matrix is a useful tool for visualizing the performance of a classification algorithm. It provides a detailed breakdown of how many instances of each class were correctly or incorrectly classified. Here’s a more detailed description:</p>
+</section>
+<section id="definitions">
+<h4>Definitions:<a class="headerlink" href="#definitions" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>True Positive (TP):</strong> The number of instances correctly predicted as positive.</p></li>
+<li><p><strong>False Negative (FN):</strong> The number of actual positive instances that were incorrectly predicted as negative.</p></li>
+<li><p><strong>False Positive (FP):</strong> The number of actual negative instances that were incorrectly predicted as positive.</p></li>
+<li><p><strong>True Negative (TN):</strong> The number of instances correctly predicted as negative.</p></li>
+</ul>
+</section>
+<section id="key-metrics-derived-from-the-confusion-matrix">
+<h4>Key Metrics Derived from the Confusion Matrix:<a class="headerlink" href="#key-metrics-derived-from-the-confusion-matrix" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Accuracy:</strong> Measures the overall correctness of the model.
+$<span class="math notranslate nohighlight">\(
+\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+\)</span>$</p></li>
+<li><p><strong>Precision:</strong> Measures the accuracy of positive predictions.
+$<span class="math notranslate nohighlight">\(
+\text{Precision} = \frac{TP}{TP + FP}
+\)</span>$</p></li>
+<li><p><strong>Recall (Sensitivity):</strong> Measures the ability of the model to find all positive instances.
+$<span class="math notranslate nohighlight">\(
+\text{Recall} = \frac{TP}{TP + FN}
+\)</span>$</p></li>
+<li><p><strong>F1 Score:</strong> The harmonic mean of precision and recall, useful for imbalanced classes.
+$<span class="math notranslate nohighlight">\(
+\text{F1 Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+\)</span>$</p></li>
+</ul>
+<p>Simplify the formula for the F1 score:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{F1 Score} = \frac{2 \times TP}{2 \times TP + FN + FP}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\text{F1 Score} = \frac{TP}{TP + \frac{FN + FP}{2}}
+\]</div>
+<p><span class="math notranslate nohighlight">\(\frac{FN + FP}{2}\)</span> reflects the average errors of the classifier.</p>
+<p><img alt="F1_score_1" src="../../_images/F1score_1.PNG" /></p>
+</section>
+</section>
+<section id="from-confusion-matrix-to-combination-of-classifier">
+<h3>From Confusion Matrix to combination of classifier<a class="headerlink" href="#from-confusion-matrix-to-combination-of-classifier" title="Link to this heading">#</a></h3>
+<p>For each classifier <span class="math notranslate nohighlight">\( D_i \)</span>, a confusion matrix <span class="math notranslate nohighlight">\( \text{CM}_i \)</span> is calculated by applying <span class="math notranslate nohighlight">\( D_i \)</span> to the training dataset. The <span class="math notranslate nohighlight">\((k, s)\)</span> th entry of this matrix, <span class="math notranslate nohighlight">\( \text{cm}^{i}_{k,s} \)</span>, represents the number of instances in the dataset whose true class label was <span class="math notranslate nohighlight">\( \omega _k \)</span> and were assigned by <span class="math notranslate nohighlight">\( D_i \)</span> to class <span class="math notranslate nohighlight">\( \omega_s \)</span>. Let <span class="math notranslate nohighlight">\( N_{\omega_s} \)</span> denote the total number of instances from class <span class="math notranslate nohighlight">\( \omega_s \)</span> in the dataset. Using <span class="math notranslate nohighlight">\( \text{cm}^{i}_{k,s} \)</span> as an estimate of the probability <span class="math notranslate nohighlight">\( P(s_i \mid \omega_k) \)</span>, and <span class="math notranslate nohighlight">\( N_{\omega_k} \)</span> as an estimate of the prior probability for class <span class="math notranslate nohighlight">\( \omega_k \)</span>.</p>
+</section>
+<section id="naive-bayes-combination">
+<h3>Naive Bayes Combination<a class="headerlink" href="#naive-bayes-combination" title="Link to this heading">#</a></h3>
+<section id="overview">
+<h4>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h4>
+<p>The Naive Bayes combination method aggregates the outputs of multiple classifiers under the assumption that they are conditionally independent given the true class label. This method simplifies the integration of classifier outputs by treating each classifier’s contribution independently.</p>
+</section>
+<section id="assumptions">
+<h4>Assumptions<a class="headerlink" href="#assumptions" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Conditional Independence:</strong> Each classifier is assumed to be conditionally independent of the others given the true class label <span class="math notranslate nohighlight">\(\omega_k\)</span>. This means that once the true class label is known, the predictions made by different classifiers are independent of each other.</p></li>
+</ul>
+</section>
+<section id="notation">
+<h4>Notation<a class="headerlink" href="#notation" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(s = [s_1, s_2, \ldots, s_L]^T\)</span>: Vector of labels predicted by the ensemble of <span class="math notranslate nohighlight">\(L\)</span> classifiers.</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(s_i \in \mathcal{S}\)</span>: The label suggested for the sample by classifier <span class="math notranslate nohighlight">\(D_i\)</span>.</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(P(s_j \mid \omega_k)\)</span>: Probability that classifier <span class="math notranslate nohighlight">\(D_j\)</span> assigns the sample to class <span class="math notranslate nohighlight">\(s_j\)</span> given that the true class is <span class="math notranslate nohighlight">\(\omega_k\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(\omega_k)\)</span>: Prior probability of class <span class="math notranslate nohighlight">\(\omega_k\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(P(s)\)</span>: Total probability of the predictions across all classifiers.</p></li>
+</ul>
+</section>
+<section id="formula-derivations">
+<h4>Formula Derivations<a class="headerlink" href="#formula-derivations" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Joint Probability:</strong>
+Given the true class label <span class="math notranslate nohighlight">\(\omega_k\)</span>, the joint probability of all classifiers assigning the sample to classes <span class="math notranslate nohighlight">\(s_1, s_2, \ldots, s_L\)</span> is:
+$<span class="math notranslate nohighlight">\(
+P(s_1, s_2, \ldots, s_L \mid \omega_k) = \prod_{i=1}^{L} P(s_i \mid \omega_k)
+\)</span>$
+This formula utilizes the assumption of conditional independence among classifiers.</p></li>
+<li><p><strong>Posterior Probability:</strong>
+The posterior probability of class <span class="math notranslate nohighlight">\(\omega_k\)</span> given the observed predictions <span class="math notranslate nohighlight">\(s\)</span> is:
+$<span class="math notranslate nohighlight">\(
+P(\omega_k \mid s) = \frac{P(\omega_k) \cdot P(s \mid \omega_k)}{P(s)}
+\)</span><span class="math notranslate nohighlight">\(
+Since \)</span>P(s)<span class="math notranslate nohighlight">\( is constant for all classes, it does not affect the relative probabilities. Thus:
+\)</span><span class="math notranslate nohighlight">\(
+P(\omega_k \mid s) \propto P(\omega_k) \cdot \prod_{i=1}^{L} P(s_i \mid \omega_k)
+\)</span>$</p></li>
+<li><p><strong>Support for Class <span class="math notranslate nohighlight">\(\omega_k\)</span>:</strong>
+To calculate the support for class <span class="math notranslate nohighlight">\(\omega_k\)</span>, we use:
+$<span class="math notranslate nohighlight">\(
+\text{Support}_{\omega_k}(x) \propto P(\omega_k) \cdot \prod_{i=1}^{L} P(s_i \mid \omega_k)
+\)</span><span class="math notranslate nohighlight">\(
+This combines the prior probability of class \)</span>\omega_k$ with the product of the probabilities assigned by each classifier.</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\text{Support}_{\omega_k}(x) \propto \frac{1}{N_k^{L-1}}\prod_{i=1}^{L}(cm^{i}_{k,s_i})
+\]</div>
+</section>
+</section>
+</section>
+<section id="example-for-cm-based-voting">
+<h2>Example for CM-Based Voting<a class="headerlink" href="#example-for-cm-based-voting" title="Link to this heading">#</a></h2>
+<p>We present a simple example with three classes: <span class="math notranslate nohighlight">\(\omega_1\)</span>, <span class="math notranslate nohighlight">\(\omega_2\)</span>, and <span class="math notranslate nohighlight">\(\omega_3\)</span>. Assume we have three classifiers <span class="math notranslate nohighlight">\(D_1\)</span>, <span class="math notranslate nohighlight">\(D_2\)</span>, and <span class="math notranslate nohighlight">\(D_3\)</span>, and the following confusion matrix entries for each classifier:</p>
+<section id="confusion-matrices-for-the-classifiers">
+<h3>Confusion Matrices for the Classifiers<a class="headerlink" href="#confusion-matrices-for-the-classifiers" title="Link to this heading">#</a></h3>
+<ul>
+<li><p><strong>Classifier <span class="math notranslate nohighlight">\(D_1\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \begin{array}{c|ccc}
+  &amp; \omega_1 &amp; \omega_2 &amp; \omega_3 \\
+  \hline
+  \omega_1 &amp; 50 &amp; 10 &amp; 5 \\
+  \omega_2 &amp; 15 &amp; 45 &amp; 10 \\
+  \omega_3 &amp; 5 &amp; 10 &amp; 50 \\
+  \end{array}
+  \end{split}\]</div>
+</li>
+<li><p><strong>Classifier <span class="math notranslate nohighlight">\(D_2\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \begin{array}{c|ccc}
+  &amp; \omega_1 &amp; \omega_2 &amp; \omega_3 \\
+  \hline
+  \omega_1 &amp; 45 &amp; 15 &amp; 5 \\
+  \omega_2 &amp; 10 &amp; 50 &amp; 15 \\
+  \omega_3 &amp; 10 &amp; 5 &amp; 45 \\
+  \end{array}
+  \end{split}\]</div>
+</li>
+<li><p><strong>Classifier <span class="math notranslate nohighlight">\(D_3\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \begin{array}{c|ccc}
+  &amp; \omega_1 &amp; \omega_2 &amp; \omega_3 \\
+  \hline
+  \omega_1 &amp; 55 &amp; 5 &amp; 5 \\
+  \omega_2 &amp; 10 &amp; 50 &amp; 10 \\
+  \omega_3 &amp; 5 &amp; 15 &amp; 45 \\
+  \end{array}
+  \end{split}\]</div>
+</li>
+</ul>
+</section>
+<section id="step-by-step-support-calculation">
+<h3>Step-by-Step Support Calculation<a class="headerlink" href="#step-by-step-support-calculation" title="Link to this heading">#</a></h3>
+<section id="step-1-determine-classifier-probabilities-p-s-i-mid-omega-k">
+<h4>Step 1: Determine Classifier Probabilities <span class="math notranslate nohighlight">\(P(s_i \mid \omega_k)\)</span><a class="headerlink" href="#step-1-determine-classifier-probabilities-p-s-i-mid-omega-k" title="Link to this heading">#</a></h4>
+<p>Each confusion matrix entry <span class="math notranslate nohighlight">\(c_{k,s_i}^{(i)}\)</span> gives us the count of how many times the true class <span class="math notranslate nohighlight">\(\omega_k\)</span> was classified as <span class="math notranslate nohighlight">\(s_i\)</span> by classifier <span class="math notranslate nohighlight">\(D_i\)</span>. We convert these counts to probabilities by dividing each entry by the total number of samples in class <span class="math notranslate nohighlight">\(\omega_k\)</span>.</p>
+<p>For example, for classifier <span class="math notranslate nohighlight">\(D_1\)</span>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(P(s_1 = \omega_1 \mid \omega_1) = \frac{50}{50+10+5} = \frac{50}{65} \approx 0.769\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(P(s_2 = \omega_2 \mid \omega_2) = \frac{45}{15+45+10} = \frac{45}{70} \approx 0.643\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(P(s_3 = \omega_3 \mid \omega_3) = \frac{50}{5+10+50} = \frac{50}{65} \approx 0.769\)</span></p></li>
+</ul>
+<p>Perform this calculation for all entries across all classifiers.</p>
+</section>
+<section id="step-2-apply-the-naive-bayes-combination">
+<h4>Step 2: Apply the Naive Bayes Combination<a class="headerlink" href="#step-2-apply-the-naive-bayes-combination" title="Link to this heading">#</a></h4>
+<p>For a given observation <span class="math notranslate nohighlight">\(x\)</span>, suppose the classifiers <span class="math notranslate nohighlight">\(D_1\)</span>, <span class="math notranslate nohighlight">\(D_2\)</span>, and <span class="math notranslate nohighlight">\(D_3\)</span> respectively predict <span class="math notranslate nohighlight">\(s_1 = \omega_1\)</span>, <span class="math notranslate nohighlight">\(s_2 = \omega_2\)</span>, and <span class="math notranslate nohighlight">\(s_3 = \omega_3\)</span>.</p>
+<p>The support for class <span class="math notranslate nohighlight">\(\omega_k\)</span> is calculated as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Support}_{\omega_k}(x) \propto P(\omega_k) \prod_{i=1}^{3} P(s_i \mid \omega_k)
+\]</div>
+<p>Assume equal priors <span class="math notranslate nohighlight">\(P(\omega_1) = P(\omega_2) = P(\omega_3) = \frac{1}{3}\)</span>. Then:</p>
+<ol class="arabic simple">
+<li><p><strong>Support for <span class="math notranslate nohighlight">\(\omega_1\)</span>:</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\text{Support}_{\omega_1}(x) \propto \frac{1}{3} \cdot 0.769 \cdot P(s_2 = \omega_2 \mid \omega_1) \cdot P(s_3 = \omega_3 \mid \omega_1)
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Support for <span class="math notranslate nohighlight">\(\omega_2\)</span>:</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\text{Support}_{\omega_2}(x) \propto \frac{1}{3} \cdot P(s_1 = \omega_1 \mid \omega_2) \cdot 0.643 \cdot P(s_3 = \omega_3 \mid \omega_2)
+\]</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Support for <span class="math notranslate nohighlight">\(\omega_3\)</span>:</strong></p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\text{Support}_{\omega_3}(x) \propto \frac{1}{3} \cdot P(s_1 = \omega_1 \mid \omega_3) \cdot P(s_2 = \omega_2 \mid \omega_3) \cdot 0.769
+\]</div>
+</section>
+<section id="step-3-compare-supports">
+<h4>Step 3: Compare Supports<a class="headerlink" href="#step-3-compare-supports" title="Link to this heading">#</a></h4>
+<p>The final step is to compare the support values for <span class="math notranslate nohighlight">\(\omega_1\)</span>, <span class="math notranslate nohighlight">\(\omega_2\)</span>, and <span class="math notranslate nohighlight">\(\omega_3\)</span> and choose the class with the highest support as the predicted class.</p>
+<p>By performing these calculations, you can determine which class the Naive Bayes combination predicts for <span class="math notranslate nohighlight">\(x\)</span>. The class with the highest support value is the final decision of the ensemble.</p>
+</section>
+</section>
+<section id="final-calculation-of-support-for-each-class">
+<h3>Final Calculation of Support for Each Class<a class="headerlink" href="#final-calculation-of-support-for-each-class" title="Link to this heading">#</a></h3>
+<p>Using the probabilities calculated above:</p>
+<ul class="simple">
+<li><p><strong>Support for <span class="math notranslate nohighlight">\(\omega_1\)</span>:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{Support}_{\omega_1}(x) \propto P(\omega_1) \times 0.769 \times 0.231 \times 0.077 \approx \frac{1}{3} \times 0.769 \times 0.231 \times 0.077
+\]</div>
+<ul class="simple">
+<li><p><strong>Support for <span class="math notranslate nohighlight">\(\omega_2\)</span>:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{Support}_{\omega_2}(x) \propto P(\omega_2) \times 0.214 \times 0.643 \times 0.143 \approx \frac{1}{3} \times 0.214 \times 0.643 \times 0.143
+\]</div>
+<ul class="simple">
+<li><p><strong>Support for <span class="math notranslate nohighlight">\(\omega_3\)</span>:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{Support}_{\omega_3}(x) \propto P(\omega_3) \times 0.077 \times 0.083 \times 0.769 \approx \frac{1}{3} \times 0.077 \times 0.083...
+\]</div>
+</section>
+<section id="more-details-for-step-1">
+<h3>More details for <strong>Step 1</strong><a class="headerlink" href="#more-details-for-step-1" title="Link to this heading">#</a></h3>
+<p>It include the calculation of all relevant probabilities for each classifier’s confusion matrix.</p>
+</section>
+<section id="id1">
+<h3>Step 1: Determine Classifier Probabilities <span class="math notranslate nohighlight">\(P(s_i \mid \omega_k)\)</span><a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Calculation of:</p>
+<div class="math notranslate nohighlight">
+\[
+P(s_1 = \omega_1 \mid \omega_1),
+P(s_2 = \omega_2 \mid \omega_1),P(s_3 = \omega_3 \mid \omega_1)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P(s_1 = \omega_1 \mid \omega_2),
+P(s_2 = \omega_2 \mid \omega_2),P(s_3 = \omega_3 \mid \omega_2)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P(s_1 = \omega_1 \mid \omega_3),
+P(s_2 = \omega_2 \mid \omega_3),P(s_3 = \omega_3 \mid \omega_3)
+\]</div>
+<section id="classifier-d-1">
+<h4>Classifier <span class="math notranslate nohighlight">\(D_1\)</span>:<a class="headerlink" href="#classifier-d-1" title="Link to this heading">#</a></h4>
+<ul>
+<li><p>For class <span class="math notranslate nohighlight">\(\omega_1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  P(s_1 = \omega_1 \mid \omega_1) = \frac{50}{50+10+5} = \frac{50}{65} \approx 0.769
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_2 = \omega_2 \mid \omega_1) = \frac{10}{65} \approx 0.154
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_3 = \omega_3 \mid \omega_1) = \frac{5}{65} \approx 0.077
+  \]</div>
+</li>
+<li><p>For class <span class="math notranslate nohighlight">\(\omega_2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  P(s_1 = \omega_1 \mid \omega_2) = \frac{15}{15+45+10} = \frac{15}{70} \approx 0.214
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_2 = \omega_2 \mid \omega_2) = \frac{45}{70} \approx 0.643
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_3 = \omega_3 \mid \omega_2) = \frac{10}{70} \approx 0.143
+  \]</div>
+</li>
+<li><p>For class <span class="math notranslate nohighlight">\(\omega_3\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  P(s_1 = \omega_1 \mid \omega_3) = \frac{5}{5+10+50} = \frac{5}{65} \approx 0.077
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_2 = \omega_2 \mid \omega_3) = \frac{10}{65} \approx 0.154
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_3 = \omega_3 \mid \omega_3) = \frac{50}{65} \approx 0.769
+  \]</div>
+</li>
+</ul>
+</section>
+<section id="classifier-d-2">
+<h4>Classifier <span class="math notranslate nohighlight">\(D_2\)</span>:<a class="headerlink" href="#classifier-d-2" title="Link to this heading">#</a></h4>
+<ul>
+<li><p>For class <span class="math notranslate nohighlight">\(\omega_1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  P(s_1 = \omega_1 \mid \omega_1) = \frac{45}{45+15+5} = \frac{45}{65} \approx 0.692
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_2 = \omega_2 \mid \omega_1) = \frac{15}{65} \approx 0.231
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_3 = \omega_3 \mid \omega_1) = \frac{5}{65} \approx 0.077
+  \]</div>
+</li>
+<li><p>For class <span class="math notranslate nohighlight">\(\omega_2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  P(s_1 = \omega_1 \mid \omega_2) = \frac{10}{10+50+15} = \frac{10}{75} \approx 0.133
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_2 = \omega_2 \mid \omega_2) = \frac{50}{75} \approx 0.667
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_3 = \omega_3 \mid \omega_2) = \frac{15}{75} \approx 0.200
+  \]</div>
+</li>
+<li><p>For class <span class="math notranslate nohighlight">\(\omega_3\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  P(s_1 = \omega_1 \mid \omega_3) = \frac{10}{10+5+45} = \frac{10}{60} \approx 0.167
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_2 = \omega_2 \mid \omega_3) = \frac{5}{60} \approx 0.083
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_3 = \omega_3 \mid \omega_3) = \frac{45}{60} \approx 0.750
+  \]</div>
+</li>
+</ul>
+</section>
+<section id="classifier-d-3">
+<h4>Classifier <span class="math notranslate nohighlight">\(D_3\)</span>:<a class="headerlink" href="#classifier-d-3" title="Link to this heading">#</a></h4>
+<ul>
+<li><p>For class <span class="math notranslate nohighlight">\(\omega_1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  P(s_1 = \omega_1 \mid \omega_1) = \frac{55}{55+5+5} = \frac{55}{65} \approx 0.846
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_2 = \omega_2 \mid \omega_1) = \frac{5}{65} \approx 0.077
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_3 = \omega_3 \mid \omega_1) = \frac{5}{65} \approx 0.077
+  \]</div>
+</li>
+<li><p>For class <span class="math notranslate nohighlight">\(\omega_2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  P(s_1 = \omega_1 \mid \omega_2) = \frac{10}{10+50+10} = \frac{10}{70} \approx 0.143
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_2 = \omega_2 \mid \omega_2) = \frac{50}{70} \approx 0.714
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_3 = \omega_3 \mid \omega_2) = \frac{10}{70} \approx 0.143
+  \]</div>
+</li>
+<li><p>For class <span class="math notranslate nohighlight">\(\omega_3\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  P(s_1 = \omega_1 \mid \omega_3) = \frac{5}{5+15+45} = \frac{5}{65} \approx 0.077
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_2 = \omega_2 \mid \omega_3) = \frac{15}{65} \approx 0.231
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  P(s_3 = \omega_3 \mid \omega_3) = \frac{45}{65} \approx 0.692
+  \]</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="example-code-for-cm-based-fusion">
+<h3>Example code for CM based fusion<a class="headerlink" href="#example-code-for-cm-based-fusion" title="Link to this heading">#</a></h3>
+<p>When you run the code with <code class="docutils literal notranslate"><span class="pre">set_states(s1=2,</span> <span class="pre">s2=1,</span> <span class="pre">s3=1)</span></code>, the combined probabilities for the specified states will be calculated and displayed.</p>
+<p>This setup allows you to easily modify the state variables and observe how the probabilities change accordingly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Define confusion matrices for the classifiers</span>
+<span class="n">confusion_matrices</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;D1&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>  <span class="c1"># ω1</span>
+                    <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>  <span class="c1"># ω2</span>
+                    <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">]]),</span>  <span class="c1"># ω3</span>
+    
+    <span class="s2">&quot;D2&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">45</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>  <span class="c1"># ω1</span>
+                    <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">15</span><span class="p">],</span>  <span class="c1"># ω2</span>
+                    <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">45</span><span class="p">]]),</span>  <span class="c1"># ω3</span>
+    
+    <span class="s2">&quot;D3&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">55</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>   <span class="c1"># ω1</span>
+                    <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>  <span class="c1"># ω2</span>
+                    <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">45</span><span class="p">]])</span>  <span class="c1"># ω3</span>
+<span class="p">}</span>
+
+<span class="c1"># Function to calculate P(s_i | ω_k) from confusion matrix</span>
+<span class="k">def</span> <span class="nf">calculate_probabilities</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">confusion_matrix</span> <span class="o">/</span> <span class="n">confusion_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Calculate probabilities for each classifier</span>
+<span class="n">probabilities</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">calculate_probabilities</span><span class="p">(</span><span class="n">confusion_matrices</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">confusion_matrices</span><span class="p">}</span>
+
+<span class="c1"># Define the state variables (s1, s2, s3)</span>
+<span class="k">def</span> <span class="nf">set_states</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;D1&quot;</span><span class="p">:</span> <span class="n">s1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># convert to 0-indexed</span>
+        <span class="s2">&quot;D2&quot;</span><span class="p">:</span> <span class="n">s2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;D3&quot;</span><span class="p">:</span> <span class="n">s3</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="p">}</span>
+
+<span class="c1"># Input your desired states here (change as needed)</span>
+<span class="n">states</span> <span class="o">=</span> <span class="n">set_states</span><span class="p">(</span><span class="n">s1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">s2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">s3</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Calculate the probabilities for the given states</span>
+<span class="k">def</span> <span class="nf">calculate_combined_probability</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
+    <span class="n">combined_prob</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">probabilities</span><span class="p">:</span>
+        <span class="n">combined_prob</span> <span class="o">*=</span> <span class="n">probabilities</span><span class="p">[</span><span class="n">key</span><span class="p">][:,</span> <span class="n">states</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">combined_prob</span>
+
+<span class="c1"># Calculate combined probabilities</span>
+<span class="n">combined_probabilities</span> <span class="o">=</span> <span class="n">calculate_combined_probability</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">states</span><span class="p">)</span>
+
+<span class="c1"># Output the result</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Combined probabilities for the given states (s1, s2, s3):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">combined_probabilities</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Combined probabilities for the given states (s1, s2, s3):
+[0.00819299 0.06122449 0.00591716]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="fusion-of-continuous-valued-outputs">
+<h2>Fusion of Continuous Valued Outputs<a class="headerlink" href="#fusion-of-continuous-valued-outputs" title="Link to this heading">#</a></h2>
+<p>The support levels for a given input <span class="math notranslate nohighlight">\( x \)</span> can be interpreted in various ways, most commonly as confidence in the suggested labels or as estimates of the posterior probabilities for the classes. Let <span class="math notranslate nohighlight">\( x \in \mathbb{R}^n \)</span> be a feature vector, and <span class="math notranslate nohighlight">\( \Omega = \{\omega_1, \omega_2, \dots, \omega_c\} \)</span> represent the set of class labels. Each classifier <span class="math notranslate nohighlight">\( D_i \)</span> in the ensemble <span class="math notranslate nohighlight">\( D = \{D_1, \dots, D_L\} \)</span> produces <span class="math notranslate nohighlight">\( c \)</span> support levels. We assume these levels fall within the interval <span class="math notranslate nohighlight">\([0, 1]\)</span>, meaning <span class="math notranslate nohighlight">\( D_i: \mathbb{R}^n \rightarrow [0, 1]^c \)</span>. Let <span class="math notranslate nohighlight">\( d_{i,j}(x) \)</span> represent the support that classifier <span class="math notranslate nohighlight">\( D_i \)</span> gives to the hypothesis that <span class="math notranslate nohighlight">\( x \)</span> belongs to class <span class="math notranslate nohighlight">\( \omega_j \)</span>. The higher the support, the more likely the label <span class="math notranslate nohighlight">\( \omega_j \)</span>. The <span class="math notranslate nohighlight">\( L \)</span> classifier outputs for a particular input <span class="math notranslate nohighlight">\( x \)</span> can be organized into a decision profile <span class="math notranslate nohighlight">\( \text{DP}(x) \)</span> as a matrix.</p>
+<p><img alt="Dp_1_1" src="../../_images/DP_1.PNG" /></p>
+<section id="combination-using-decision-profile">
+<h3>Combination using decision profile<a class="headerlink" href="#combination-using-decision-profile" title="Link to this heading">#</a></h3>
+<p>Simple non-trainable combiners calculate the support for class <span class="math notranslate nohighlight">\(\omega_j\)</span> using only the <span class="math notranslate nohighlight">\(j\)</span>-th column of <span class="math notranslate nohighlight">\(DP(x)\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[
+m_j(x) = F[d_{1,j}(x), \ldots, d_{L,j}(x)]
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(F\)</span> is a <em><strong>combination function</strong></em>. The class label of <span class="math notranslate nohighlight">\(x\)</span> is found as the index of the maximum <span class="math notranslate nohighlight">\(m_j(x)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+\omega^{*}=\arg \max_j  m_j(x)
+\]</div>
+<p>The combination function <span class="math notranslate nohighlight">\(F\)</span> can be chosen in many different ways. The most popular choices are:</p>
+<ul>
+<li><p><strong>Simple mean (average) (F = average):</strong></p>
+<div class="math notranslate nohighlight">
+\[
+  m_j(x) = \frac{1}{L} \sum_{i=1}^{L} d_{i,j}(x)
+  \]</div>
+</li>
+<li><p><strong>Other operator</strong> For example,</p>
+<div class="math notranslate nohighlight">
+\[
+  m_j(x) = \max_i \{ d_{i,j}(x) \}
+  \]</div>
+</li>
+<li><p><strong>Trimmed mean (competition jury):</strong> For a <span class="math notranslate nohighlight">\(K\)</span> percent trimmed mean, the <span class="math notranslate nohighlight">\(L\)</span> degrees of support are sorted, and <span class="math notranslate nohighlight">\(K\)</span> percent of the values are dropped on each side. The overall support <span class="math notranslate nohighlight">\(m_j(x)\)</span> is found as the mean of the remaining degrees of support.</p></li>
+<li><p><strong>Product (F = product):</strong></p>
+<div class="math notranslate nohighlight">
+\[
+  m_j(x) = \prod_{i=1}^{L} d_{i,j}(x)
+  \]</div>
+</li>
+<li><p><strong>Generalized mean</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+  m_j(x, a) = \left( \frac{1}{L} \sum_{i=1}^{L} d_{i,j}(x)^a \right)^{\frac{1}{a}}
+  \]</div>
+<p>with the following special cases:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(a \to 1\)</span>: <span class="math notranslate nohighlight">\(m_j(x, a) = \min_i \{ d_{i,j}(x) \}\)</span> (minimum)</p></li>
+<li><p><span class="math notranslate nohighlight">\(a = 1\)</span>: <span class="math notranslate nohighlight">\(m_j(x, a) = \left( \frac{1}{L} \sum_{i=1}^{L} \frac{1}{d_{i,j}(x)} \right)^{-1}\)</span> (harmonic mean)</p></li>
+<li><p><span class="math notranslate nohighlight">\(a = 0\)</span>: <span class="math notranslate nohighlight">\(m_j(x, a) = \left( \prod_{i=1}^{L} d_{i,j}(x) \right)^{\frac{1}{L}}\)</span> (geometric mean)</p></li>
+<li><p><span class="math notranslate nohighlight">\(a = 1\)</span>: <span class="math notranslate nohighlight">\(m_j(x, a) = \frac{1}{L} \sum_{i=1}^{L} d_{i,j}(x)\)</span> (arithmetic mean)</p></li>
+<li><p><span class="math notranslate nohighlight">\(a \to \infty\)</span>: <span class="math notranslate nohighlight">\(m_j(x, a) = \max_i \{ d_{i,j}(x) \}\)</span> (maximum)</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Example DP(x) matrix with 7 classifiers and 3 classes</span>
+<span class="n">DP_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="c1"># Ensure each row sums to 1</span>
+<span class="n">DP_x</span> <span class="o">=</span> <span class="n">DP_x</span> <span class="o">/</span> <span class="n">DP_x</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">min_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">max_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">median_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">trimmed_mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">trim_percent</span><span class="p">):</span>
+    <span class="n">sorted_DP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">trim_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">trim_percent</span> <span class="o">*</span> <span class="n">DP_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">trimmed_DP</span> <span class="o">=</span> <span class="n">sorted_DP</span><span class="p">[</span><span class="n">trim_count</span><span class="p">:</span><span class="o">-</span><span class="n">trim_count</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">trimmed_DP</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">product_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">generalized_mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">DP_x</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">DP_x</span> <span class="o">**</span> <span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># Calculate supports using different functions</span>
+<span class="n">mean_supports</span> <span class="o">=</span> <span class="n">mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">)</span>
+<span class="n">min_supports</span> <span class="o">=</span> <span class="n">min_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">)</span>
+<span class="n">max_supports</span> <span class="o">=</span> <span class="n">max_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">)</span>
+<span class="n">median_supports</span> <span class="o">=</span> <span class="n">median_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">)</span>
+<span class="n">trimmed_mean_supports</span> <span class="o">=</span> <span class="n">trimmed_mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">trim_percent</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">product_supports</span> <span class="o">=</span> <span class="n">product_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">)</span>
+<span class="n">generalized_mean_supports_a_1</span> <span class="o">=</span> <span class="n">generalized_mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">generalized_mean_supports_a_0</span> <span class="o">=</span> <span class="n">generalized_mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">generalized_mean_supports_a_inf</span> <span class="o">=</span> <span class="n">generalized_mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+
+<span class="c1"># Print supports and class probabilities</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Class supports using different combination functions:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean Support: </span><span class="si">{</span><span class="n">mean_supports</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Min Support: </span><span class="si">{</span><span class="n">min_supports</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Max Support: </span><span class="si">{</span><span class="n">max_supports</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Median Support: </span><span class="si">{</span><span class="n">median_supports</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Trimmed Mean Support (20%): </span><span class="si">{</span><span class="n">trimmed_mean_supports</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Product Support: </span><span class="si">{</span><span class="n">product_supports</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generalized Mean Support (a=1): </span><span class="si">{</span><span class="n">generalized_mean_supports_a_1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generalized Mean Support (a=0): </span><span class="si">{</span><span class="n">generalized_mean_supports_a_0</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generalized Mean Support (a=inf): </span><span class="si">{</span><span class="n">generalized_mean_supports_a_inf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Find the class with the maximum support for each function</span>
+<span class="k">def</span> <span class="nf">print_class_with_max_support</span><span class="p">(</span><span class="n">supports</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    <span class="n">class_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">supports</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Class with maximum </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: Class </span><span class="si">{</span><span class="n">class_label</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> with probability </span><span class="si">{</span><span class="n">supports</span><span class="p">[</span><span class="n">class_label</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">print_class_with_max_support</span><span class="p">(</span><span class="n">mean_supports</span><span class="p">,</span> <span class="s2">&quot;Mean Support&quot;</span><span class="p">)</span>
+<span class="n">print_class_with_max_support</span><span class="p">(</span><span class="n">min_supports</span><span class="p">,</span> <span class="s2">&quot;Min Support&quot;</span><span class="p">)</span>
+<span class="n">print_class_with_max_support</span><span class="p">(</span><span class="n">max_supports</span><span class="p">,</span> <span class="s2">&quot;Max Support&quot;</span><span class="p">)</span>
+<span class="n">print_class_with_max_support</span><span class="p">(</span><span class="n">median_supports</span><span class="p">,</span> <span class="s2">&quot;Median Support&quot;</span><span class="p">)</span>
+<span class="n">print_class_with_max_support</span><span class="p">(</span><span class="n">trimmed_mean_supports</span><span class="p">,</span> <span class="s2">&quot;Trimmed Mean Support&quot;</span><span class="p">)</span>
+<span class="n">print_class_with_max_support</span><span class="p">(</span><span class="n">product_supports</span><span class="p">,</span> <span class="s2">&quot;Product Support&quot;</span><span class="p">)</span>
+<span class="n">print_class_with_max_support</span><span class="p">(</span><span class="n">generalized_mean_supports_a_1</span><span class="p">,</span> <span class="s2">&quot;Generalized Mean Support (a=1)&quot;</span><span class="p">)</span>
+<span class="n">print_class_with_max_support</span><span class="p">(</span><span class="n">generalized_mean_supports_a_0</span><span class="p">,</span> <span class="s2">&quot;Generalized Mean Support (a=0)&quot;</span><span class="p">)</span>
+<span class="n">print_class_with_max_support</span><span class="p">(</span><span class="n">generalized_mean_supports_a_inf</span><span class="p">,</span> <span class="s2">&quot;Generalized Mean Support (a=inf)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Class supports using different combination functions:
+Mean Support: [0.44285714 0.27142857 0.28571429]
+Min Support: [0.2 0.1 0. ]
+Max Support: [0.7 0.5 0.5]
+Median Support: [0.4 0.3 0.3]
+Trimmed Mean Support (20%): [0.44 0.26 0.3 ]
+Product Support: [2.016e-03 3.600e-05 0.000e+00]
+Generalized Mean Support (a=1): [0.44285714 0.27142857 0.28571429]
+Generalized Mean Support (a=0): [0.41202846 0.23183877 0.        ]
+Generalized Mean Support (a=inf): [1. 1. 1.]
+Class with maximum Mean Support: Class 1 with probability 0.4428571428571429
+Class with maximum Min Support: Class 1 with probability 0.2
+Class with maximum Max Support: Class 1 with probability 0.7
+Class with maximum Median Support: Class 1 with probability 0.4
+Class with maximum Trimmed Mean Support: Class 1 with probability 0.44000000000000006
+Class with maximum Product Support: Class 1 with probability 0.002016
+Class with maximum Generalized Mean Support (a=1): Class 1 with probability 0.4428571428571429
+Class with maximum Generalized Mean Support (a=0): Class 1 with probability 0.41202846304113533
+Class with maximum Generalized Mean Support (a=inf): Class 1 with probability 1.0
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Dr\AppData\Local\Temp\ipykernel_14160\1599825536.py:40: RuntimeWarning: divide by zero encountered in log
+  return np.exp(np.mean(np.log(DP_x), axis=0))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ordered-weighted-averaging-combiners">
+<h2>Ordered Weighted Averaging Combiners<a class="headerlink" href="#ordered-weighted-averaging-combiners" title="Link to this heading">#</a></h2>
+<p>Ordered Weighted Averaging (OWA) is a generalized model from the nontrainable group was introduced by Yager in 1988. It uses a set of <span class="math notranslate nohighlight">\( L \)</span> coefficients, one for each classifier in the ensemble. OWA does not assign a specific coefficient to a classifier directly. Instead, the classifier outputs for <span class="math notranslate nohighlight">\( \omega_j \)</span> (the <span class="math notranslate nohighlight">\( j \)</span>-th column of <span class="math notranslate nohighlight">\( \text{DP}(x) \)</span>) are first arranged in descending order. A weighted sum is then calculated using the coefficients associated with the positions in this ordering.</p>
+<p>Let <span class="math notranslate nohighlight">\( \mathbf{w} = [w_1, w_2, \dots, w_L]^T \)</span> be a vector of coefficients such that:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{k=1}^{L} w_k = 1
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+0 \leq w_k \leq 1 \quad \text{for } k = 1, \dots, L
+\]</div>
+<p>The support for <span class="math notranslate nohighlight">\( \omega_j \)</span> is calculated as the dot product of <span class="math notranslate nohighlight">\( \mathbf{w} \)</span> and the vector <span class="math notranslate nohighlight">\( [d_{i_1, j}(x), d_{i_2, j}(x), \dots, d_{i_L, j}(x)]^T \)</span>, where <span class="math notranslate nohighlight">\( i_1, \dots, i_L \)</span> is a permutation of the indices <span class="math notranslate nohighlight">\( 1, \dots, L \)</span> such that:</p>
+<div class="math notranslate nohighlight">
+\[
+d_{i_1, j}(x) \geq d_{i_2, j}(x) \geq \dots \geq d_{i_L, j}(x)
+\]</div>
+<p>Thus, the support for <span class="math notranslate nohighlight">\( \omega_j \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+m_j(x) = \sum_{k=1}^{L} w_k \cdot d_{i_k, j}(x)
+\]</div>
+<p>By selecting the coefficients <span class="math notranslate nohighlight">\( \mathbf{w} \)</span>, a variety of operations can be modeled. Specific operations include:</p>
+<ul class="simple">
+<li><p><strong>Minimum</strong>: <span class="math notranslate nohighlight">\( \mathbf{w} = [0, 0, \ldots, 0, 1]^T \)</span></p></li>
+<li><p><strong>Maximum</strong>: <span class="math notranslate nohighlight">\( \mathbf{w} = [1, 0, 0, \ldots, 0, 0]^T \)</span></p></li>
+<li><p><strong>Average</strong>: <span class="math notranslate nohighlight">\( \mathbf{w} = \left[\frac{1}{L}, \frac{1}{L}, \ldots, \frac{1}{L}\right]^T \)</span></p></li>
+<li><p><strong>Competition Jury (Trimmed Mean)</strong>: <span class="math notranslate nohighlight">\( \mathbf{b} = [0, \frac{1}{L-2}, \ldots, \frac{1}{L-2}, 0]^T \)</span></p></li>
+</ul>
+<p>Let <span class="math notranslate nohighlight">\( F \)</span> be an Ordered Weighted Averaging (OWA) operator with a weighting vector <span class="math notranslate nohighlight">\( \mathbf{w} \)</span>. The orness of <span class="math notranslate nohighlight">\( F \)</span>, denoted as <span class="math notranslate nohighlight">\( \text{orness}(\mathbf{w}) \)</span>, is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{orness}(\mathbf{w}) = \frac{1}{L} \sum_{i=1}^{n} (i - 1) \cdot w_i
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \mathbf{w} = [w_1, w_2, \ldots, w_L] \)</span> is the weighting vector, and <span class="math notranslate nohighlight">\( n \)</span> is the number of weights.</p>
+<p>We can observe the following:</p>
+<ul class="simple">
+<li><p>The orness of <span class="math notranslate nohighlight">\( \mathbf{w} \)</span> always lies within the unit interval <span class="math notranslate nohighlight">\([0, 1]\)</span>.</p></li>
+<li><p>The closer <span class="math notranslate nohighlight">\( \mathbf{w} \)</span> is to an “or” function, the closer the orness is to 1.</p></li>
+<li><p>The closer <span class="math notranslate nohighlight">\( \mathbf{w} \)</span> is to an “and” function, the closer the orness is to 0.</p></li>
+</ul>
+<p>Specifically:</p>
+<ul class="simple">
+<li><p>For <span class="math notranslate nohighlight">\( \mathbf{w} = [1, 0, \ldots, 0]^T \)</span> (representing “or”), we get <span class="math notranslate nohighlight">\( \text{orness}(\mathbf{w}) = 1 \)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\( \mathbf{w} = [0, \ldots, 0, 1]^T \)</span> (representing “and”), we get <span class="math notranslate nohighlight">\( \text{orness}(\mathbf{w}) = 0 \)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\( \mathbf{w} = \left[\frac{1}{L}, \frac{1}{L}, \ldots, \frac{1}{L}\right]^T \)</span> (representing the arithmetic mean), we get <span class="math notranslate nohighlight">\( \text{orness}(\mathbf{w}) = 0.5 \)</span>.</p></li>
+</ul>
+<p>The orness is 1 for only the max function (“or”) and 0 for only the min function (“and”). However, orness can also be 0.5 in cases other than the arithmetic mean.</p>
+<p>If the weighting vector <span class="math notranslate nohighlight">\( \mathbf{w} \)</span> is non-decreasing (i.e., <span class="math notranslate nohighlight">\( w_i \leq w_{i+1} \)</span> for <span class="math notranslate nohighlight">\( i = 1, \ldots, L-1 \)</span>), then <span class="math notranslate nohighlight">\( \text{orness}(\mathbf{w}) \geq 0.5 \)</span>. Conversely, if the weighting vector is non-increasing (i.e., <span class="math notranslate nohighlight">\( w_i \geq w_{i+1} \)</span> for <span class="math notranslate nohighlight">\( i = 1, \ldots, L-1 \)</span>), then <span class="math notranslate nohighlight">\( \text{orness}(\mathbf{w}) \leq 0.5 \)</span>.</p>
+<section id="example-of-owa">
+<h3>Example of OWA<a class="headerlink" href="#example-of-owa" title="Link to this heading">#</a></h3>
+<p>For two OWA functions with weighting vectors <span class="math notranslate nohighlight">\( \mathbf{w}_1 \)</span> and <span class="math notranslate nohighlight">\( \mathbf{w}_2 \)</span> and orness values <span class="math notranslate nohighlight">\( o_1 \)</span> and <span class="math notranslate nohighlight">\( o_2 \)</span>, if:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{w}_3 = \alpha \mathbf{w}_1 + (1 - \alpha) \mathbf{w}_2
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \alpha \)</span> is a scalar, then the orness <span class="math notranslate nohighlight">\( o_3 \)</span> of <span class="math notranslate nohighlight">\( \mathbf{w}_3 \)</span> is a weighted average of <span class="math notranslate nohighlight">\( o_1 \)</span> and <span class="math notranslate nohighlight">\( o_2 \)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\( \alpha \in [0, 1] \)</span>, then for an OWA function with weighting vector <span class="math notranslate nohighlight">\( \mathbf{w}_3 \)</span>, the orness value is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{orness}(\mathbf{w}_3) = \alpha \, o_1 + (1 - \alpha) \, o_2
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( o_1 \)</span> and <span class="math notranslate nohighlight">\( o_2 \)</span> are the orness values of the weighting vectors <span class="math notranslate nohighlight">\( \mathbf{w}_1 \)</span> and <span class="math notranslate nohighlight">\( \mathbf{w}_2 \)</span>, respectively.</p>
+<p>To determine a weighting vector with a desired orness value, different combinations of <span class="math notranslate nohighlight">\( \mathbf{w}_1 \)</span> and <span class="math notranslate nohighlight">\( \mathbf{w}_2 \)</span> can be used. These combinations will result in different <span class="math notranslate nohighlight">\( \mathbf{w}_3 \)</span> vectors, all having the same orness value.</p>
+<p>The andness can be defined as the complement of orness:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{andness}(\mathbf{w}) = 1 - \text{orness}(\mathbf{w})
+\]</div>
+<p>Generally, an OWA operator with most of its nonzero weights near the top of the vector will exhibit “or-like” behavior, with <span class="math notranslate nohighlight">\(\text{orness}(\mathbf{w}) \approx 1\)</span>. Conversely, an OWA operator with most of its nonzero weights near the bottom will exhibit “and-like” behavior, with <span class="math notranslate nohighlight">\(\text{andness}(\mathbf{w}) \approx 1\)</span>.</p>
+<p>Specifically, if we have two weighting vectors, <span class="math notranslate nohighlight">\(\mathbf{w}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{w}_2\)</span>, where:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{w}_1 = [a_1, a_2, \ldots, a_n]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{w}_2 = [a_1, \ldots, a_j, e, \ldots, e, a_{k+1}, \ldots, a_n]
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(e\)</span> being nonzero, then:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{orness}(\mathbf{w}_2) \geq \text{orness}(\mathbf{w}_1)
+\]</div>
+<p><strong>Note:</strong> An important class of weighting vectors that generate <span class="math notranslate nohighlight">\(\text{orness}(\mathbf{w}) = 0.5\)</span> are symmetric weighting vectors. This value of 0.5 does not necessarily mean that preference is given to central scores. For example, the vector <span class="math notranslate nohighlight">\(\mathbf{w} = [0.5, 0, 0, \ldots, 0, 0.5]\)</span> can be used to balance preferences between extremes.</p>
+</section>
+<section id="entropy">
+<h3><a class="reference external" href="https://en.wikipedia.org/wiki/Entropy_(information_theory)">Entropy</a><a class="headerlink" href="#entropy" title="Link to this heading">#</a></h3>
+<p>Another important measurement is dispersion, which reflects how uniformly the weights are distributed and can be seen as a measure of entropy. It is defined as follows:</p>
+<p><strong>Definition 3</strong><br />
+Let <span class="math notranslate nohighlight">\( \mathbf{w} = [w_1, w_2, \ldots, w_n] \)</span> be a weighting vector. The measurement of the dispersion of <span class="math notranslate nohighlight">\( \mathbf{w} \)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{disp}(\mathbf{w}) = -\sum_{i=1}^{n} w_i \ln(w_i)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( w_i \)</span> are the weights and <span class="math notranslate nohighlight">\( \ln \)</span> denotes the natural logarithm.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Dispersion function</span>
+<span class="k">def</span> <span class="nf">dispersion</span><span class="p">(</span><span class="n">w1</span><span class="p">):</span>
+    <span class="n">w2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">w1</span>
+    <span class="k">if</span> <span class="n">w1</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">w2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Handle cases where log(0) might occur</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">w1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">w1</span><span class="p">)</span> <span class="o">+</span> <span class="n">w2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">w2</span><span class="p">))</span>
+
+<span class="c1"># Entropy-like function</span>
+<span class="k">def</span> <span class="nf">entropy_like</span><span class="p">(</span><span class="n">w1</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">w1</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">w1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Generate values for w1 ranging from 0 to 1</span>
+<span class="n">w1_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">disp_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">dispersion</span><span class="p">(</span><span class="n">w1</span><span class="p">)</span> <span class="k">for</span> <span class="n">w1</span> <span class="ow">in</span> <span class="n">w1_values</span><span class="p">]</span>
+<span class="n">entropy_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">entropy_like</span><span class="p">(</span><span class="n">w1</span><span class="p">)</span> <span class="k">for</span> <span class="n">w1</span> <span class="ow">in</span> <span class="n">w1_values</span><span class="p">]</span>
+
+<span class="c1"># Plotting the functions</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w1_values</span><span class="p">,</span> <span class="n">disp_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\text</span><span class="si">{disp}</span><span class="s1">(\mathbf</span><span class="si">{w}</span><span class="s1">)$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w1_values</span><span class="p">,</span> <span class="n">entropy_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$f(x) = 1 - (x^2 + (1-x)^2)$&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot details</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$w_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Function Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Dispersion Function and Entropy-Like Function&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/251ac1a3ddda1ee36ef8d171de44ffbd18bce2903e539c74007b13cff2b35d24.png" src="../../_images/251ac1a3ddda1ee36ef8d171de44ffbd18bce2903e539c74007b13cff2b35d24.png" />
+</div>
+</div>
+</section>
+<section id="gini-index-definition">
+<h3>Gini Index Definition<a class="headerlink" href="#gini-index-definition" title="Link to this heading">#</a></h3>
+<p>The Gini Index is a measure of statistical dispersion used to evaluate the purity or impurity of a set. It’s calculated as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Gini Index} = 1 - \sum_{i=1}^{j} p_i^2
+\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( j \)</span> represents the number of classes in the target variable. For a binary classification problem, <span class="math notranslate nohighlight">\( j = 2 \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( p_i \)</span> represents the proportion of instances in class <span class="math notranslate nohighlight">\( i \)</span> at a given node.</p></li>
+</ul>
+</section>
+<section id="gini-index-for-binary-state">
+<h3>Gini Index for binary state<a class="headerlink" href="#gini-index-for-binary-state" title="Link to this heading">#</a></h3>
+<p>For a binary problem (e.g., Pass/Fail), the Gini Index simplifies to:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Gini Index} = 1 - (p_{\text{Pass}}^2 + p_{\text{Fail}}^2)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\text{Gini Index} =1-(x^2+(1-x)^2)
+\]</div>
+</section>
+</section>
+<section id="homework-complete-dispersion-analysis-for-weight-control-in-owa">
+<h2>Homework: Complete dispersion analysis for weight control in OWA<a class="headerlink" href="#homework-complete-dispersion-analysis-for-weight-control-in-owa" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ML\EnsembleLearning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="EnsembleStart_BaggingBoosting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Ensemble Learning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="TrainableCombiner.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Trainable Combiners</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#type-of-nontrainable-voting">Type of nontrainable voting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-for-voting">Example for voting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-model-combination">Bayesian model combination</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-vriance-of-voting">Mean-Vriance of voting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-evaluate-voting-performance-with-various-classifiers">miniproject: Evaluate Voting Performance with Various Classifiers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-combination-works">Why combination works</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mitigate-the-risk-of-choosing-an-inadequate-model">mitigate the risk of choosing an inadequate model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#different-level-of-combination">Different level of combination</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-the-confusion-matrix">Structure of the Confusion Matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#definitions">Definitions:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#key-metrics-derived-from-the-confusion-matrix">Key Metrics Derived from the Confusion Matrix:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-confusion-matrix-to-combination-of-classifier">From Confusion Matrix to combination of classifier</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naive-bayes-combination">Naive Bayes Combination</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#assumptions">Assumptions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#notation">Notation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#formula-derivations">Formula Derivations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-for-cm-based-voting">Example for CM-Based Voting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrices-for-the-classifiers">Confusion Matrices for the Classifiers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-support-calculation">Step-by-Step Support Calculation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-determine-classifier-probabilities-p-s-i-mid-omega-k">Step 1: Determine Classifier Probabilities <span class="math notranslate nohighlight">\(P(s_i \mid \omega_k)\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-apply-the-naive-bayes-combination">Step 2: Apply the Naive Bayes Combination</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-compare-supports">Step 3: Compare Supports</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-calculation-of-support-for-each-class">Final Calculation of Support for Each Class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-details-for-step-1">More details for <strong>Step 1</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Step 1: Determine Classifier Probabilities <span class="math notranslate nohighlight">\(P(s_i \mid \omega_k)\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-d-1">Classifier <span class="math notranslate nohighlight">\(D_1\)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-d-2">Classifier <span class="math notranslate nohighlight">\(D_2\)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-d-3">Classifier <span class="math notranslate nohighlight">\(D_3\)</span>:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-code-for-cm-based-fusion">Example code for CM based fusion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fusion-of-continuous-valued-outputs">Fusion of Continuous Valued Outputs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combination-using-decision-profile">Combination using decision profile</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordered-weighted-averaging-combiners">Ordered Weighted Averaging Combiners</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-owa">Example of OWA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entropy">Entropy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gini-index-definition">Gini Index Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gini-index-for-binary-state">Gini Index for binary state</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-complete-dispersion-analysis-for-weight-control-in-owa">Homework: Complete dispersion analysis for weight control in OWA</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

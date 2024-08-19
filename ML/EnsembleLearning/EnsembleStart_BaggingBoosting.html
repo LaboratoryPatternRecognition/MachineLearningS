@@ -1,0 +1,1166 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Ensemble Learning &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ML/EnsembleLearning/EnsembleStart_BaggingBoosting';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Ensemble by Voting" href="Ensemble_Voting_Variant_Bayesian.html" />
+    <link rel="prev" title="Locally Linear Embedding (LLE)" href="../FeatureReduction/LLE.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../machine_learning.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../machine_learning.html">
+                    Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Regression/NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/GP_Regression.html">Gaussian Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/FR_Intro.html">Introduction of Feature Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/PCA.html">Principal Component Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/Autoencoders1.html">Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/LLE.html">Locally Linear Embedding (LLE)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Ensemble_Voting_Variant_Bayesian.html">Ensemble by Voting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TrainableCombiner.html">Trainable Combiners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FML/EnsembleLearning/EnsembleStart_BaggingBoosting.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/ML/EnsembleLearning/EnsembleStart_BaggingBoosting.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Ensemble Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boosting">Boosting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-correct-following-code">Homework : Correct following code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-adaboost-method">The AdaBoost method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weights-of-combination">Weights of combination</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adaboost-algorithm">Adaboost Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-its-work-adaboost">How its work Adaboost</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-adaboost">Homework : Adaboost</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-do-with-adaboost">What we do with AdaBoost</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-the-logitboost-algorithm">Miniproject: The LogitBoost algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-the-lpboost-algorithm">Miniproject: The LPBoost algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagging">Bagging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bagging-algorithm">Bagging algorithm</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-random-forest">Homework: Random forest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-adaboost-for-regression">Homework: Adaboost for Regression</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="ensemble-learning">
+<h1>Ensemble Learning<a class="headerlink" href="#ensemble-learning" title="Link to this heading">#</a></h1>
+<p><strong>Introduction to Ensemble Learning:</strong></p>
+<p>Ensemble learning is a powerful technique in machine learning where multiple models, often called “weak learners,” are combined to create a stronger, more accurate model. The main idea is that by aggregating the predictions of several models, we can achieve better performance than any single model could on its own.</p>
+<p>Two popular and simple approaches to ensemble learning are <strong>Bagging</strong> and <strong>Boosting</strong>:</p>
+<p><strong>Bagging (Bootstrap Aggregating):</strong></p>
+<ul class="simple">
+<li><p>Bagging involves training multiple models independently on different random subsets of the training data. The final prediction is made by averaging the predictions of these models (for regression) or by voting (for classification). This method helps to reduce the variance of the model and prevent overfitting, particularly with high-variance models like decision trees.</p></li>
+</ul>
+<p><strong>Boosting:</strong></p>
+<ul class="simple">
+<li><p>Boosting, in contrast, trains models sequentially, with each new model focusing on correcting the errors made by the previous ones. The models are combined in such a way that the final ensemble model is a weighted sum of the individual models, where more weight is given to models that perform better. This process reduces both bias and variance, resulting in a strong overall model.</p></li>
+</ul>
+<section id="boosting">
+<h2>Boosting<a class="headerlink" href="#boosting" title="Link to this heading">#</a></h2>
+<p>Suppose we have a weak classifier denoted as <span class="math notranslate nohighlight">\( h_1 \)</span>, which is not performing well. The goal of boosting is to correct the mistakes made by <span class="math notranslate nohighlight">\( h_1 \)</span>. To do this, we derive a new distribution <span class="math notranslate nohighlight">\( D' \)</span> from <span class="math notranslate nohighlight">\( D \)</span> that emphasizes the instances where <span class="math notranslate nohighlight">\( h_1 \)</span> makes errors. Using this new distribution <span class="math notranslate nohighlight">\( D' \)</span>, we train a new classifier <span class="math notranslate nohighlight">\( h_2 \)</span>.</p>
+<p>By appropriately combining <span class="math notranslate nohighlight">\( h_1 \)</span> and <span class="math notranslate nohighlight">\( h_2 \)</span>, we aim to create a better classifier. If the results are still unsatisfactory, we update the distribution and train a third classifier <span class="math notranslate nohighlight">\( h_3 \)</span>. Combining <span class="math notranslate nohighlight">\( h_1 \)</span>, <span class="math notranslate nohighlight">\( h_2 \)</span>, and <span class="math notranslate nohighlight">\( h_3 \)</span> should result in a more accurate classifier, which is the final output of the algorithm.</p>
+<p>Follow the algorithm below:</p>
+<p><strong>Input:</strong> Sample distribution <span class="math notranslate nohighlight">\( D \)</span>;<br />
+Base learning algorithm <span class="math notranslate nohighlight">\( L \)</span>;<br />
+Number of learning rounds <span class="math notranslate nohighlight">\( T \)</span>.</p>
+<p><strong>Process:</strong></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\( D_1 = D \)</span> % Initialize the distribution.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\( t = 1, \ldots, T \)</span>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( h_t = L(D_t) \)</span> % Train a weak learner from distribution <span class="math notranslate nohighlight">\( D_t \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \epsilon_t = P_{x \sim D_t}(h_t(x) \neq y) \)</span> % Evaluate the error of <span class="math notranslate nohighlight">\( h_t \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( D_{t+1} = \text{Adjust Distribution}(D_t, t) \)</span></p></li>
+</ul>
+</li>
+<li><p>Output: <span class="math notranslate nohighlight">\( H(x) = \text{Combine\_Outputs}(\{h_1(x), \ldots, h_T(x)\}) \)</span></p></li>
+</ol>
+</section>
+<section id="homework-correct-following-code">
+<h2>Homework : Correct following code<a class="headerlink" href="#homework-correct-following-code" title="Link to this heading">#</a></h2>
+<p>The base learner must be selected such as Bayesian.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="c1"># Load the MNIST dataset from a local .npz file</span>
+<span class="n">mnist_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;..//mnist.npz&#39;</span><span class="p">)</span>
+
+<span class="c1"># Extract the training and test sets</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">mnist_data</span><span class="p">[</span><span class="s1">&#39;x_train&#39;</span><span class="p">]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">mnist_data</span><span class="p">[</span><span class="s1">&#39;y_train&#39;</span><span class="p">]</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">mnist_data</span><span class="p">[</span><span class="s1">&#39;x_test&#39;</span><span class="p">]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">mnist_data</span><span class="p">[</span><span class="s1">&#39;y_test&#39;</span><span class="p">]</span>
+
+<span class="c1"># Preprocess the data</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">x_train</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">x_test</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">784</span><span class="p">)</span>
+
+<span class="c1"># The dataset is already for digits 0 through 9, no need to filter</span>
+<span class="c1"># The following are placeholders to ensure the training and test sets include all digits.</span>
+
+<span class="k">def</span> <span class="nf">base_learner</span><span class="p">(</span><span class="n">D_t</span><span class="p">):</span>
+    <span class="c1"># Extract features and labels from the weighted distribution</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">D_t</span><span class="p">])</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">D_t</span><span class="p">])</span>
+    <span class="n">sample_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">w</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">D_t</span><span class="p">])</span>
+    
+    <span class="c1"># Train a Naive Bayes classifier</span>
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sample_weights</span><span class="p">)</span>
+    
+    <span class="c1"># Return a function that makes predictions using the trained model</span>
+    <span class="k">return</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">x</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span> <span class="n">clf</span>
+
+<span class="k">def</span> <span class="nf">adjust_distribution</span><span class="p">(</span><span class="n">D_t</span><span class="p">,</span> <span class="n">h_t</span><span class="p">,</span> <span class="n">epsilon_t</span><span class="p">):</span>
+    <span class="c1"># Adjust the distribution based on the error rate epsilon_t</span>
+    <span class="n">new_D</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">D_t</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">h_t</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="n">y</span><span class="p">:</span>
+            <span class="n">w</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">epsilon_t</span><span class="p">)</span>
+        <span class="n">new_D</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+    
+    <span class="c1"># Normalize weights</span>
+    <span class="n">total_weight</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">w</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">new_D</span><span class="p">)</span>
+    <span class="n">new_D</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="o">/</span><span class="n">total_weight</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">new_D</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">new_D</span>
+
+<span class="k">def</span> <span class="nf">combine_outputs</span><span class="p">(</span><span class="n">weak_learners</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="c1"># Majority voting for the final classifier</span>
+    <span class="n">votes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># For 10 classes</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">weak_learners</span><span class="p">:</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">votes</span><span class="p">[</span><span class="n">prediction</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">votes</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">boosting</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">T</span><span class="p">):</span>
+    <span class="c1"># Initialize distribution with equal weights</span>
+    <span class="n">D_t</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">D</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">D</span><span class="p">]</span>
+    <span class="n">weak_learners</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">base_learner_accuracies</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+        <span class="c1"># Train a weak learner on the current distribution</span>
+        <span class="n">h_t</span><span class="p">,</span> <span class="n">clf</span> <span class="o">=</span> <span class="n">L</span><span class="p">(</span><span class="n">D_t</span><span class="p">)</span>
+        <span class="n">weak_learners</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h_t</span><span class="p">)</span>
+        
+        <span class="c1"># Evaluate the error of the weak learner</span>
+        <span class="n">epsilon_t</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">w</span> <span class="k">for</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="ow">in</span> <span class="n">D_t</span> <span class="k">if</span> <span class="n">h_t</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="n">y</span><span class="p">)</span>
+        
+        <span class="c1"># Calculate accuracy of the current weak learner</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+        <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+        <span class="n">base_learner_accuracies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Weak Learner </span><span class="si">{</span><span class="n">t</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Adjust the distribution based on the error</span>
+        <span class="n">D_t</span> <span class="o">=</span> <span class="n">adjust_distribution</span><span class="p">(</span><span class="n">D_t</span><span class="p">,</span> <span class="n">h_t</span><span class="p">,</span> <span class="n">epsilon_t</span><span class="p">)</span>
+    
+    <span class="c1"># Combine outputs of all weak learners</span>
+    <span class="k">return</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">combine_outputs</span><span class="p">(</span><span class="n">weak_learners</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="n">base_learner_accuracies</span>
+
+<span class="c1"># Prepare the training data for boosting</span>
+<span class="n">D_train</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)]</span>
+
+<span class="c1"># Number of boosting rounds</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># Train the boosted classifier</span>
+<span class="n">H</span><span class="p">,</span> <span class="n">base_learner_accuracies</span> <span class="o">=</span> <span class="n">boosting</span><span class="p">(</span><span class="n">D_train</span><span class="p">,</span> <span class="n">base_learner</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+
+<span class="c1"># Evaluate the final model on the test set</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="n">H</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_test</span><span class="p">]</span>
+
+<span class="c1"># Calculate the accuracy of the final model</span>
+<span class="n">final_accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Final Model Accuracy on the test set:&quot;</span><span class="p">,</span> <span class="n">final_accuracy</span><span class="p">)</span>
+
+<span class="c1"># Compare accuracies</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Base Learner Accuracies:&quot;</span><span class="p">,</span> <span class="n">base_learner_accuracies</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">91</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="g g-Whitespace">     </span><span class="mi">90</span> <span class="c1"># Train the boosted classifier</span>
+<span class="ne">---&gt; </span><span class="mi">91</span> <span class="n">H</span><span class="p">,</span> <span class="n">base_learner_accuracies</span> <span class="o">=</span> <span class="n">boosting</span><span class="p">(</span><span class="n">D_train</span><span class="p">,</span> <span class="n">base_learner</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">93</span> <span class="c1"># Evaluate the final model on the test set</span>
+<span class="g g-Whitespace">     </span><span class="mi">94</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="n">H</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_test</span><span class="p">]</span>
+
+<span class="nn">Cell In[1], line 73,</span> in <span class="ni">boosting</span><span class="nt">(D, L, T)</span>
+<span class="nn">     70 epsilon_t = sum(w for (x, y, w)</span> in <span class="ni">D_t if h_t</span><span class="nt">(x) != y)</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span> <span class="c1"># Calculate accuracy of the current weak learner</span>
+<span class="ne">---&gt; </span><span class="mi">73</span> <span class="n">predictions</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span> <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span> <span class="n">base_learner_accuracies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span>
+
+<span class="nn">File E:\MainHomePage\.M_HomePage\Lib\site-packages\sklearn\naive_bayes.py:102,</span> in <span class="ni">_BaseNB.predict</span><span class="nt">(self, X)</span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span> <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span> <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_X</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">102</span> <span class="n">jll</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_joint_log_likelihood</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">103</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">jll</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+
+<span class="nn">File E:\MainHomePage\.M_HomePage\Lib\site-packages\sklearn\naive_bayes.py:511,</span> in <span class="ni">GaussianNB._joint_log_likelihood</span><span class="nt">(self, X)</span>
+<span class="g g-Whitespace">    </span><span class="mi">509</span>     <span class="n">jointi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">class_prior_</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="g g-Whitespace">    </span><span class="mi">510</span>     <span class="n">n_ij</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">var_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]))</span>
+<span class="ne">--&gt; </span><span class="mi">511</span>     <span class="n">n_ij</span> <span class="o">-=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(((</span><span class="n">X</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">512</span>     <span class="n">joint_log_likelihood</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">jointi</span> <span class="o">+</span> <span class="n">n_ij</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">514</span> <span class="n">joint_log_likelihood</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">joint_log_likelihood</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="nn">File E:\MainHomePage\.M_HomePage\Lib\site-packages\numpy\_core\fromnumeric.py:2250,</span> in <span class="ni">_sum_dispatcher</span><span class="nt">(a, axis, dtype, out, keepdims, initial, where)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2180</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">2181</span><span class="sd">     Clip (limit) the values in an array.</span>
+<span class="g g-Whitespace">   </span><span class="mi">2182</span><span class="sd"> </span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2245</span><span class="sd"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">2246</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">2247</span>     <span class="k">return</span> <span class="n">_wrapfunc</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s1">&#39;clip&#39;</span><span class="p">,</span> <span class="n">a_min</span><span class="p">,</span> <span class="n">a_max</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">2250</span> <span class="k">def</span> <span class="nf">_sum_dispatcher</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2251</span>                     <span class="n">initial</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">2252</span>     <span class="k">return</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2255</span> <span class="nd">@array_function_dispatch</span><span class="p">(</span><span class="n">_sum_dispatcher</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2256</span> <span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">_NoValue</span><span class="p">,</span>
+<span class="g g-Whitespace">   </span><span class="mi">2257</span>         <span class="n">initial</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">_NoValue</span><span class="p">,</span> <span class="n">where</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">_NoValue</span><span class="p">):</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<section id="the-adaboost-method">
+<h3>The AdaBoost method<a class="headerlink" href="#the-adaboost-method" title="Link to this heading">#</a></h3>
+<p>The general boosting procedure described above requires two key operations: <code class="docutils literal notranslate"><span class="pre">Adjust_Distribution</span></code> and <code class="docutils literal notranslate"><span class="pre">Combine_Outputs</span></code>.</p>
+<p>The cost function we aim to minimize for a classifier involves both the parameters of the classifier and the weights of each classifier used in the combination. The cost function is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\theta, \alpha) = E[l(e)] + \lambda G(\theta, \alpha)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( e \)</span> is the error, <span class="math notranslate nohighlight">\( l \)</span> is the loss function, <span class="math notranslate nohighlight">\( \theta \)</span> represents the parameters of the classifier, and <span class="math notranslate nohighlight">\( \alpha \)</span> denotes the weights for combining the classifiers. <span class="math notranslate nohighlight">\( G(\theta, \alpha) \)</span> is used for sparsification.</p>
+<p>For a two-class classifier, the error <span class="math notranslate nohighlight">\( e \)</span> can be represented as <span class="math notranslate nohighlight">\( e = y g(x) \)</span>, where <span class="math notranslate nohighlight">\( g(x) \)</span> is the decision function. The cost function <span class="math notranslate nohighlight">\( J(\theta, \alpha) \)</span> is expressed as:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\theta, \alpha) = \sum_{i=1}^{n} \exp(-y_i h_m(x_i))
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( h_m(x_i) \)</span> is the decision function at the <span class="math notranslate nohighlight">\( m \)</span>-th iteration. The decision function <span class="math notranslate nohighlight">\( H(x) \)</span> consists of kernel functions <span class="math notranslate nohighlight">\( h(x) \)</span> and weight combinations <span class="math notranslate nohighlight">\( \alpha \)</span>. The decision function for the <span class="math notranslate nohighlight">\( m \)</span>-th iteration is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+H_{(m)}(x) = \sum_{j=1}^{m} \alpha_j h_j(x)
+\]</div>
+<p>then,</p>
+<div class="math notranslate nohighlight">
+\[
+H_{(m)}(x) = H_{(m-1)}(x) + \alpha_m h_m(x)
+\]</div>
+<p>This expression shows that <span class="math notranslate nohighlight">\( H_{(m)}(x) \)</span> is incrementally updated in each boosting iteration.</p>
+<p>The cost function can be further expanded as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\theta, \alpha) = \sum_{i=1}^{n} \exp(-y_i H_{(m)}(x_i))
+\]</div>
+<p>Substituting <span class="math notranslate nohighlight">\( h_m(x_i) \)</span> into the expression:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\theta, \alpha) = \sum_{i=1}^{n} \exp(-y_i \cdot  (H_{(m-1)}(x_i) + \alpha_m h_m(x_i)))
+\]</div>
+<p>This can be rewritten as:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\theta, \alpha) = \sum_{i=1}^{n} \exp(-y_i H_{(m-1)}(x_i)) \cdot \exp(-y_i \alpha_m h_m(x_i))
+\]</div>
+<p>or:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\theta, \alpha) = \sum_{i=1}^{n} w_i^m \cdot \exp(-y_i \alpha_m h_m(x_i))
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( w_i^m = \exp(-y_i h_{(m-1)}(x_i))\)</span> represents the weight of the sample <span class="math notranslate nohighlight">\( x_i \)</span> at iteration <span class="math notranslate nohighlight">\( m \)</span>.</p>
+<p><strong>Given:</strong></p>
+<ul class="simple">
+<li><p>For correctly classified samples: <span class="math notranslate nohighlight">\( y_i h_m(x_i) = 1 \)</span></p></li>
+<li><p>For misclassified samples: <span class="math notranslate nohighlight">\( y_i h_m(x_i) = -1 \)</span></p></li>
+</ul>
+<p>The cost function <span class="math notranslate nohighlight">\( J(\theta, \alpha) \)</span> can be split into contributions from correctly classified samples <span class="math notranslate nohighlight">\(\Omega_1\)</span> and misclassified samples <span class="math notranslate nohighlight">\(\Omega_2\)</span>.</p>
+<p><strong>The general formula for <span class="math notranslate nohighlight">\( J(\theta, \alpha) \)</span> is:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+J(\theta, \alpha) = \sum_{i=1}^{n} w_i^m \cdot \exp(-y_i \alpha_m h_m(x_i))
+\]</div>
+<p><strong>For correctly classified samples <span class="math notranslate nohighlight">\(\Omega_1\)</span>:</strong></p>
+<p>In this case, <span class="math notranslate nohighlight">\( y_i h_m(x_i) = 1 \)</span>. Therefore:</p>
+<div class="math notranslate nohighlight">
+\[
+\exp(-y_i \alpha_m h_m(x_i)) = \exp(-\alpha_m)
+\]</div>
+<p>Thus, the contribution to <span class="math notranslate nohighlight">\( J(\theta, \alpha) \)</span> from correctly classified samples is:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i \in \Omega_1} w_i^m \cdot \exp(-\alpha_m)
+\]</div>
+<p><strong>For misclassified samples <span class="math notranslate nohighlight">\(\Omega_2\)</span>:</strong></p>
+<p>In this case, <span class="math notranslate nohighlight">\( y_i h_m(x_i) = -1 \)</span>. Therefore:</p>
+<div class="math notranslate nohighlight">
+\[
+\exp(-y_i \alpha_m h_m(x_i)) = \exp(\alpha_m)
+\]</div>
+<p>Thus, the contribution to <span class="math notranslate nohighlight">\( J(\theta, \alpha) \)</span> from misclassified samples is:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i \in \Omega_2} w_i^m \cdot \exp(\alpha_m)
+\]</div>
+<p><strong>Combining both contributions:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+J(\theta, \alpha) = \sum_{i \in \Omega_1} w_i^m \cdot \exp(-\alpha_m) + \sum_{i \in \Omega_2} w_i^m \cdot \exp(\alpha_m)
+\]</div>
+</section>
+<section id="weights-of-combination">
+<h3>Weights of combination<a class="headerlink" href="#weights-of-combination" title="Link to this heading">#</a></h3>
+<p>Given the definitions:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( B = F_C(m) \)</span> (true classifications)</p></li>
+<li><p><span class="math notranslate nohighlight">\( A = T_C(m) \)</span> (false classifications)</p></li>
+</ul>
+<p>and using the error rate definition:</p>
+<div class="math notranslate nohighlight">
+\[
+\epsilon_m = \frac{F_C(m)}{F_C(m) + T_C(m)}
+\]</div>
+<p>we can substitute these into the derivative calculation.</p>
+<p><strong>Rewrite <span class="math notranslate nohighlight">\( A \)</span> and <span class="math notranslate nohighlight">\( B \)</span></strong></p>
+<p>Substitute <span class="math notranslate nohighlight">\( A \)</span> and <span class="math notranslate nohighlight">\( B \)</span> into the equation:</p>
+<div class="math notranslate nohighlight">
+\[
+\exp(-2\alpha_m) = \frac{B}{A}
+\]</div>
+<p>which becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+\exp(-2\alpha_m) = \frac{F_C(m)}{T_C(m)}
+\]</div>
+<p><strong>Express <span class="math notranslate nohighlight">\( \epsilon_m \)</span> in Terms of <span class="math notranslate nohighlight">\( F_C(m) \)</span> and <span class="math notranslate nohighlight">\( T_C(m) \)</span></strong></p>
+<p>From the definition of <span class="math notranslate nohighlight">\( \epsilon_m \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\epsilon_m = \frac{F_C(m)}{F_C(m) + T_C(m)}
+\]</div>
+<p>Rearrange to express <span class="math notranslate nohighlight">\( F_C(m) \)</span> in terms of <span class="math notranslate nohighlight">\( \epsilon_m \)</span> and <span class="math notranslate nohighlight">\( T_C(m) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+F_C(m) = \epsilon_m \cdot (F_C(m) + T_C(m))
+\]</div>
+<p>Solve for <span class="math notranslate nohighlight">\( F_C(m) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+F_C(m) = \epsilon_m \cdot (F_C(m) + T_C(m))
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F_C(m) = \epsilon_m \cdot \frac{1}{1 - \epsilon_m} \cdot T_C(m)
+\]</div>
+<p>So:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{F_C(m)}{T_C(m)} = \frac{\epsilon_m}{1 - \epsilon_m}
+\]</div>
+<p><strong>Substitute into the Exponential Term</strong></p>
+<p>Now substitute this into the exponential term:</p>
+<div class="math notranslate nohighlight">
+\[
+\exp(-2\alpha_m) = \frac{F_C(m)}{T_C(m)}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\exp(-2\alpha_m) = \frac{\epsilon_m}{1 - \epsilon_m}
+\]</div>
+<p><strong>Solve for <span class="math notranslate nohighlight">\( \alpha_m \)</span></strong></p>
+<p>Taking the natural logarithm of both sides:</p>
+<div class="math notranslate nohighlight">
+\[
+-2\alpha_m = \ln\left(\frac{\epsilon_m}{1 - \epsilon_m}\right)
+\]</div>
+<p>So:</p>
+<div class="math notranslate nohighlight">
+\[
+\alpha_m = -\frac{1}{2} \ln\left(\frac{\epsilon_m}{1 - \epsilon_m}\right)
+\]</div>
+<p><img alt="Alpha Adaboost Curve" src="../../_images/AlphaAdaboost.PNG" /></p>
+<div class="math notranslate nohighlight">
+\[
+l_{\exp}(H_{m-1}(x) + h_m(x) \mid D) = \mathbb{E}_{x \sim D}\left[\exp\left(-y \cdot (H_{m-1}(x) + h_m(x))\right)\right] 
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+=\mathbb{E}_{x \sim D}\left[e^{-y H_{m-1}(x)} e^{-y h_m(x)}\right]
+\]</div>
+<p>Using Taylor expansion of <span class="math notranslate nohighlight">\( e^{-yh_{m}(x)} \)</span>
+the exponential loss is approximated by:</p>
+<div class="math notranslate nohighlight">
+\[
+\exp(H_{m-1} + h_m \mid \mathcal{D}) \approx \mathbb{E}_{x \sim \mathcal{D}} \left[ e^{-yH_{m-1}(x)}  \left( 1 - y h_m(x) + \frac{y^2}{2} h_m(x)^2 \right) \right]
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\text{By noticing that } y^2 = 1 \text{ and } h_m(x)^2 = 1, \text{ the ideal classifier } h_m \text{ is}
+\]</div>
+<p>desired classifier <span class="math notranslate nohighlight">\( h_m(x) \)</span></p>
+<div class="math notranslate nohighlight">
+\[
+h_m(x) = \arg\min_{h} \left\{\ell _{\exp}(H_{m-1} + h \mid D) \right\}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+&amp; =\arg\min_h \  \mathbb{E}_{x \sim D} \left[ e^{-y H_{m-1}(x)} \left(1 - y h(x)\right) + \frac{1}{2} \right] \\
+&amp; = \arg\max_h \ \mathbb{E}_{x \sim D} \left[ e^{-y H_{m-1}(x)} y h(x) \right] \\
+&amp; = \arg\max_h \ \mathbb{E}_{x \sim D} \left[ e^{-y H_{m-1}(x)}  y h(x)\right]
+\end{align*}
+\end{split}\]</div>
+<p>by noticing that
+$<span class="math notranslate nohighlight">\(
+\ \mathbb{E}_{x \sim D} \left[ e^{-y H_{m-1}(x)}\right]
+\)</span>$
+is a constant.</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align*}
+&amp; = \arg\max_h \ \mathbb{E}_{x \sim D} \left[ \frac{e^{-y H_{m-1}(x)}}{\ \mathbb{E}_{x \sim D} \left[ e^{-y H_{m-1}(x)}\right]} y h(x) \right]
+\end{align*}
+\]</div>
+<p>Denote a distribution
+$<span class="math notranslate nohighlight">\(
+\mathcal{D}_m(x)=\ \frac{\mathcal{D}(x)e^{-y H_{m-1}(x)}}{\ \mathbb{E}_{x \sim D} \left[ e^{-y H_{m-1}(x)}\right]}
+\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[
+h_m(x) = \arg\max_h \ \mathbb{E}_{x \sim D_m} \left[ y h(x)  \right]
+\]</div>
+<p>In the expression <span class="math notranslate nohighlight">\( y h_m(x) = 1 - 2 \mathbb{I} (y \neq h_m(x)) \)</span>, where <span class="math notranslate nohighlight">\( y \)</span> is the true label and <span class="math notranslate nohighlight">\( h_m(x) \)</span> is the predicted label, the term <span class="math notranslate nohighlight">\( \mathbb{I}(y \neq h_m(x)) \)</span> is an indicator function that equals 1 if the true label <span class="math notranslate nohighlight">\( y \)</span> does not match the predicted label <span class="math notranslate nohighlight">\( h_m(x) \)</span>, and 0 if they are the same.</p>
+<p><span class="math notranslate nohighlight">\( 1 - 2 \mathbb{I}(y \neq h_m(x)) \)</span>:</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\( y = h_m(x) \)</span>: <span class="math notranslate nohighlight">\( \mathbb{I}(y \neq h_m(x)) = 0 \)</span>, so the expression becomes <span class="math notranslate nohighlight">\( 1 - 2 \times 0 = 1 \)</span>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\( y \neq h_m(x) \)</span>: <span class="math notranslate nohighlight">\( \mathbb{I}(y \neq h_m(x)) = 1 \)</span>, so the expression becomes <span class="math notranslate nohighlight">\( 1 - 2 \times 1 = -1 \)</span>.</p></li>
+</ul>
+<p>Therefore:</p>
+<ul class="simple">
+<li><p>When the prediction <span class="math notranslate nohighlight">\( h_m(x) \)</span> is correct, the expression <span class="math notranslate nohighlight">\( y h_m(x) \)</span> equals 1.</p></li>
+<li><p>When the prediction <span class="math notranslate nohighlight">\( h_m(x) \)</span> is incorrect, the expression <span class="math notranslate nohighlight">\( y h_m(x) \)</span> equals -1.</p></li>
+</ul>
+<p>The ideal classifier is:</p>
+<div class="math notranslate nohighlight">
+\[
+h_m(x)=\arg\min_h \ \mathbb{E}_{x \sim D_m} \left[ \mathbb{I}(y \neq h(x)) \right]
+\]</div>
+<p>As can be seen, the ideal <span class="math notranslate nohighlight">\( h_m \)</span> minimizes the classification error under the distribution <span class="math notranslate nohighlight">\( D_m \)</span>. Therefore, the weak learner is to be trained under <span class="math notranslate nohighlight">\( D_m \)</span>, and has less than 0.5 classification error according to <span class="math notranslate nohighlight">\( D_m \)</span> (For <span class="math notranslate nohighlight">\( y h_m(x) &gt;0 \)</span> that <span class="math notranslate nohighlight">\( y h_m(x) = 1 - 2 \mathbb{I} (y \neq h_m(x)) \)</span>). Considering the relationship between <span class="math notranslate nohighlight">\( D_m \)</span> and <span class="math notranslate nohighlight">\( D_{m+1} \)</span> we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{D}_{m+1}(x) = \frac{D(x) e^{-y H_m(x)}}{\mathbb{E}_{x \sim D_m} \left[ e^{-y H_m(x)} \right]}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \frac{D(x) e^{-y H_{m-1}(x)} e^{-y \alpha_m h_m(x)}}{\mathbb{E}_{x \sim D_t} \left[ e^{-y H_m(x)} \right]} 
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= D_m(x) \cdot e^{-y \alpha_t h_m(x)} \frac{\mathbb{E}_{x \sim D_m} \left[ e^{-y H_{m-1}(x)} \right]}{\mathbb{E}_{x \sim D_m} \left[ e^{-y H_m(x)} \right]}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{Z_m}=\frac{\mathbb{E}_{x \sim D_m} \left[ e^{-y H_{m-1}(x)} \right]}{\mathbb{E}_{x \sim D_m} \left[ e^{-y H_m(x)} \right]}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{D}_{m+1}(x) =\frac{D_m(x) \cdot e^{-y \alpha_t h_m(x)}}{Z_m}
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\frac{1}{Z_m} \)</span> is a normalization factor. Therefore <span class="math notranslate nohighlight">\(D_m(x) \cdot e^{-y \alpha_t h_m(x)}\)</span> is then calculated with,</p>
+<div class="math notranslate nohighlight">
+\[
+Z_m=\sum_{m}(D_m(x) \cdot e^{-y \alpha_t h_m(x)})
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\textbf{Note:} 
+\]</div>
+<p>If <span class="math notranslate nohighlight">\(\epsilon_m &gt; 0.5\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[
+\alpha_m = -\frac{1}{2} \ln\left(\frac{\epsilon_m}{1 - \epsilon_m}\right)
+\]</div>
+<p>Thus, <span class="math notranslate nohighlight">\(\alpha_m &lt; 0\)</span>. Consequently, there are a few possible scenarios:</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\alpha_m = 0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon_m = 1 - \epsilon_m\)</span>, which <span class="math notranslate nohighlight">\(\alpha \)</span> is calculated as follow,</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\alpha_m = \frac{1}{2} \ln\left(\frac{\epsilon_m}{1 - \epsilon_m}\right)
+\]</div>
+</section>
+<section id="adaboost-algorithm">
+<h3>Adaboost Algorithm<a class="headerlink" href="#adaboost-algorithm" title="Link to this heading">#</a></h3>
+<p><strong>Input:</strong></p>
+<ul class="simple">
+<li><p>Dataset <span class="math notranslate nohighlight">\( D = \{(x_1, y_1), (x_2, y_2), \dots, (x_m, y_m)\} \)</span></p></li>
+<li><p>Base learning algorithm <span class="math notranslate nohighlight">\( L \)</span></p></li>
+<li><p>Number of learning rounds <span class="math notranslate nohighlight">\( T \)</span></p></li>
+</ul>
+<p><strong>Process:</strong></p>
+<ol class="arabic simple">
+<li><p>Initialize the weight distribution <span class="math notranslate nohighlight">\( D_1(x) = \frac{1}{m} \)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\( t = 1, \dots, T \)</span>:</p>
+<ul class="simple">
+<li><p>Train a classifier <span class="math notranslate nohighlight">\( h_t \)</span> using the base algorithm <span class="math notranslate nohighlight">\( L \)</span> on dataset <span class="math notranslate nohighlight">\( D \)</span> under the distribution <span class="math notranslate nohighlight">\( D_t \)</span>.</p></li>
+<li><p>Calculate the error <span class="math notranslate nohighlight">\( \epsilon_t \)</span> of <span class="math notranslate nohighlight">\( h_t \)</span>, where <span class="math notranslate nohighlight">\( \epsilon_t = P_{x \sim D_t}(h_t(x) \neq f(x)) \)</span>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\( \epsilon_t &gt; 0.5 \)</span>, then <span class="math notranslate nohighlight">\(\alpha_t=0\)</span> and continue,</p></li>
+<li><p>Determine the weight <span class="math notranslate nohighlight">\( \alpha_t = \frac{1}{2} \ln \left(\frac{1 - \epsilon_t}{\epsilon_t}\right) \)</span> of the classifier <span class="math notranslate nohighlight">\( h_t \)</span>.</p></li>
+<li><p>Update the distribution for the next round:
+$<span class="math notranslate nohighlight">\(
+D_{t+1}(x) = \frac{D_t(x) \exp(-\alpha_t f(x) h_t(x))}{Z_t}
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span> Z_t <span class="math notranslate nohighlight">\( is a normalization factor that ensures \)</span> D_{t+1} $ is a valid distribution.</p></li>
+</ul>
+</li>
+<li><p>End the loop.</p></li>
+</ol>
+<p><strong>Output:</strong><br />
+The final hypothesis is given by <span class="math notranslate nohighlight">\( H(x) = \text{sign} \left( \sum_{t=1}^{T} \alpha_t h_t(x) \right) \)</span>.</p>
+</section>
+<section id="how-its-work-adaboost">
+<h3>How its work Adaboost<a class="headerlink" href="#how-its-work-adaboost" title="Link to this heading">#</a></h3>
+<p><img alt="How its work Adaboost1" src="../../_images/HowItsWorkAdaboost.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">AdaBoostClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate synthetic 2D dataset</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">flip_y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Initialize base classifier</span>
+<span class="n">base_classifier</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Initialize AdaBoost classifier</span>
+<span class="n">adaboost</span> <span class="o">=</span> <span class="n">AdaBoostClassifier</span><span class="p">(</span><span class="n">base_classifier</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;SAMME.R&#39;</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Fit AdaBoost classifier to the data</span>
+<span class="n">adaboost</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Predict using the fitted model</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">adaboost</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Plot the decision boundary</span>
+<span class="k">def</span> <span class="nf">plot_decision_boundary</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="mf">.02</span>  <span class="c1"># Step size in the mesh</span>
+    <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span>
+                         <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">,</span> <span class="n">h</span><span class="p">))</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;AdaBoost Decision Boundary&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Feature 1&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Feature 2&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Plot the decision boundary</span>
+<span class="n">plot_decision_boundary</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">adaboost</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>e:\HadiSadoghiYazdi\.M_HomePage\Lib\site-packages\sklearn\ensemble\_weight_boosting.py:527: FutureWarning: The SAMME.R algorithm (the default) is deprecated and will be removed in 1.6. Use the SAMME algorithm to circumvent this warning.
+  warnings.warn(
+</pre></div>
+</div>
+<img alt="../../_images/be59755be05a2ad77d511936aea989df7295cb9d0fd43a679571b62b85ea5117.png" src="../../_images/be59755be05a2ad77d511936aea989df7295cb9d0fd43a679571b62b85ea5117.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="homework-adaboost">
+<h2>Homework : Adaboost<a class="headerlink" href="#homework-adaboost" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Play with diferent n_estimators</p></li>
+<li><p>write adaboost without sklearn.ensemble</p></li>
+</ul>
+<section id="what-we-do-with-adaboost">
+<h3>What we do with AdaBoost<a class="headerlink" href="#what-we-do-with-adaboost" title="Link to this heading">#</a></h3>
+<p>What we do with AdaBoost can be explained by first reviewing the following works we have mentioned:</p>
+<ol class="arabic simple">
+<li><p><strong>Bahraini, T., Hosseini, S. M., Ghasempour, M., &amp; Sadoghi Yazdi, H.</strong> (2022). Density-oriented linear discriminant analysis. <em>Expert Systems with Applications, 187</em>, 115946.</p></li>
+</ol>
+<p>In the study “Density-oriented linear discriminant analysis,” the authors tackle big data challenges by integrating AdaBoost with a novel base learner, DLDA (Density-Oriented Linear Discriminant Analysis). This combination enhances classification accuracy and efficiency, especially in high-dimensional and imbalanced datasets. The approach is scalable and suitable for various big data applications, offering an innovative solution to improve machine learning performance in complex environments. Future work includes optimizing DLDA and exploring integrations with other advanced techniques.</p>
+</section>
+</section>
+<section id="miniproject-the-logitboost-algorithm">
+<h2>Miniproject: The LogitBoost algorithm<a class="headerlink" href="#miniproject-the-logitboost-algorithm" title="Link to this heading">#</a></h2>
+</section>
+<section id="miniproject-the-lpboost-algorithm">
+<h2>Miniproject: The LPBoost algorithm<a class="headerlink" href="#miniproject-the-lpboost-algorithm" title="Link to this heading">#</a></h2>
+</section>
+<section id="bagging">
+<h2>Bagging<a class="headerlink" href="#bagging" title="Link to this heading">#</a></h2>
+<p>Bagging, short for Bootstrap Aggregating, reduces errors by combining multiple independent base learners. It achieves this by generating different training subsets using bootstrap sampling, where each subset is created by sampling with replacement from the original dataset. Multiple base learners are trained on these subsets, and their outputs are aggregated via voting for classification or averaging for regression. Bagging is effective for both binary and multi-class classification problems.</p>
+<p>In the context of bagging, after combining <span class="math notranslate nohighlight">\( T \)</span> base classifiers, the final ensemble classifier <span class="math notranslate nohighlight">\( H(x) \)</span> is given by the following equation:</p>
+<div class="math notranslate nohighlight">
+\[
+H(x) = \text{sign} \left( \sum_{i=1}^{T} h_i(x) \right)
+\]</div>
+<section id="bagging-algorithm">
+<h3>Bagging algorithm<a class="headerlink" href="#bagging-algorithm" title="Link to this heading">#</a></h3>
+<p><strong>Input:</strong></p>
+<ul class="simple">
+<li><p>Dataset <span class="math notranslate nohighlight">\( D = \{(x_1, y_1), (x_2, y_2), \dots, (x_m, y_m)\} \)</span></p></li>
+<li><p>Base learning algorithm <span class="math notranslate nohighlight">\( L \)</span></p></li>
+<li><p>Number of base learners <span class="math notranslate nohighlight">\( T \)</span></p></li>
+</ul>
+<p><strong>Process:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>For</strong> <span class="math notranslate nohighlight">\( t = 1, \dots, T \)</span>:</p>
+<ul class="simple">
+<li><p>Train the base learner: <span class="math notranslate nohighlight">\( h_t = L(D, D_{\text{bs}}) \)</span></p></li>
+<li><p>where <span class="math notranslate nohighlight">\( D_{\text{bs}} \)</span> is the bootstrap distribution (sampling with replacement)</p></li>
+</ul>
+</li>
+<li><p><strong>End for</strong></p></li>
+</ol>
+<p><strong>Output:</strong>
+$<span class="math notranslate nohighlight">\( 
+H(x) = \arg\max_{y \in Y} \sum_{t=1}^{T} \mathbb{I}(h_t(x) = y) 
+\)</span>$</p>
+</section>
+</section>
+<section id="homework-random-forest">
+<h2>Homework: Random forest<a class="headerlink" href="#homework-random-forest" title="Link to this heading">#</a></h2>
+</section>
+<section id="homework-adaboost-for-regression">
+<h2>Homework: Adaboost for Regression<a class="headerlink" href="#homework-adaboost-for-regression" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ML\EnsembleLearning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../FeatureReduction/LLE.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Locally Linear Embedding (LLE)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Ensemble_Voting_Variant_Bayesian.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Ensemble by Voting</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boosting">Boosting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-correct-following-code">Homework : Correct following code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-adaboost-method">The AdaBoost method</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weights-of-combination">Weights of combination</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adaboost-algorithm">Adaboost Algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-its-work-adaboost">How its work Adaboost</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-adaboost">Homework : Adaboost</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-we-do-with-adaboost">What we do with AdaBoost</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-the-logitboost-algorithm">Miniproject: The LogitBoost algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-the-lpboost-algorithm">Miniproject: The LPBoost algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bagging">Bagging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bagging-algorithm">Bagging algorithm</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-random-forest">Homework: Random forest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-adaboost-for-regression">Homework: Adaboost for Regression</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
