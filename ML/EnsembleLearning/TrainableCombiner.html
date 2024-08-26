@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'ML/EnsembleLearning/TrainableCombiner';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Contact Me" href="../../Contact_Me.html" />
+    <link rel="next" title="Federated Learning" href="FederatedLearning.html" />
     <link rel="prev" title="Ensemble by Voting" href="Ensemble_Voting_Variant_Bayesian.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -190,6 +190,15 @@
 <li class="toctree-l1"><a class="reference internal" href="EnsembleStart_BaggingBoosting.html">Ensemble Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Ensemble_Voting_Variant_Bayesian.html">Ensemble by Voting</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Trainable Combiners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FederatedLearning.html">Federated Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DiffusionNetwork.html">Diffusion Network of Learner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ContrastiveLearning/ContrastiveLearning_Introduction.html">Contrastive learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MetricLearning/MetricLearning_1.html">Metric Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RepresentationLearning/RepresentationLearning1.html">Representation Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ActiveLearning/ActiveLearning_1.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TransferLearning/TransferLearning_1.html">Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TransferLearning/InstanceBasedTransferLearning1.html">Instance-Based Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MetaLearning/MetaLearning_1.html">MetaLearning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
 </ul>
@@ -364,7 +373,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -380,6 +391,61 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-means-the-sigma-norm">What means the <span class="math notranslate nohighlight">\( \Sigma \)</span>-Norm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-problem">Understanding the Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-role-of-the-sigma-norm">The Role of the <span class="math notranslate nohighlight">\( \Sigma \)</span>-Norm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-problem">Solving the Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-problem">Optimization Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lagrangian-formulation">Lagrangian Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solve-for-w-and-lambda">Solve for <span class="math notranslate nohighlight">\( w \)</span> and <span class="math notranslate nohighlight">\( \lambda \)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#simplify-the-objective-function">Simplify the Objective Function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-lagrangian">Set Up the Lagrangian</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#take-derivatives">Take Derivatives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solve-for-w">Solve for <span class="math notranslate nohighlight">\( w \)</span></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sopecial-case-if-the-covariance-matrix-sigma-is-diagonal">Sopecial case: If the covariance matrix <span class="math notranslate nohighlight">\( \Sigma \)</span> is diagonal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-sigma-1">Compute <span class="math notranslate nohighlight">\( \Sigma^{-1} \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-mathbf-1-t-sigma-1-mathbf-1">Compute <span class="math notranslate nohighlight">\( \mathbf{1}^T \Sigma^{-1} \mathbf{1} \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-w">Compute <span class="math notranslate nohighlight">\( w^* \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#result">Result</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combined-entropy-orness-and-sigma-norm">Combined Entropy orness and <span class="math notranslate nohighlight">\( \Sigma \)</span>-norm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-restatement">Problem Restatement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-solution">Gradient Descent Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combined-gini-index-orness-and-diagonal-sigma-norm">Combined Gini-index orness and Diagonal <span class="math notranslate nohighlight">\( \Sigma \)</span>-norm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Problem Restatement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lagrangian-function">Lagrangian Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-calculation">Gradient Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#substitute-lambda-back">Substitute <span class="math notranslate nohighlight">\( \lambda \)</span> Back</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-solution">Final Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-templates">Decision Templates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-template-dt-j">Decision Template <span class="math notranslate nohighlight">\( DT_j \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-calculation">Example Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-template-as-a-normal-distribution">Decision Template as a Normal Distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-distribution-representation">Normal Distribution Representation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trainin-and-operation-using-decision-templates">Trainin and operation using Decision Templates</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#training">Training</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#operation">Operation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-ensemble-diversity">Miniproject: Ensemble Diversity</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -391,7 +457,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="trainable-combiners">
 <h1>Trainable Combiners<a class="headerlink" href="#trainable-combiners" title="Link to this heading">#</a></h1>
-<p>we start with two class for understanding of error mean and covariance for them. we see all as two feature that genearte for each sample error so we have n samples of two dimensional errors</p>
+<p>To begin, we start with two classes to understand the mean and covariance of their errors. We treat each as a two-dimensional feature generated for each sample error, so we have <em>n</em> samples of two-dimensional errors.</p>
 <p><strong>TABLE 5.1 Hypothetical Output for <span class="math notranslate nohighlight">\( \omega_1 \)</span> from Two Classifiers for a Data Set <span class="math notranslate nohighlight">\( Z = \{z_1, \dots, z_{10}\} \)</span>.</strong></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -466,6 +532,553 @@ s_1^2 = \frac{1}{10 - 1} \left( \left(1 - 0.71 + 0.225\right)^2 + \left(1 - 0.76
 0.22 &amp; 0.30 
 \end{pmatrix}
 \end{split}\]</div>
+<section id="what-means-the-sigma-norm">
+<h2>What means the <span class="math notranslate nohighlight">\( \Sigma \)</span>-Norm<a class="headerlink" href="#what-means-the-sigma-norm" title="Link to this heading">#</a></h2>
+<p>Minimizing the <span class="math notranslate nohighlight">\( \Sigma \)</span>-norm of the weights in a classifier ensemble is a strategic approach to achieve an optimal combination of classifiers that takes into account the dependencies between their errors with more emphasis over robust clasifier.</p>
+<section id="understanding-the-problem">
+<h3>Understanding the Problem<a class="headerlink" href="#understanding-the-problem" title="Link to this heading">#</a></h3>
+<p>In an ensemble of classifiers, the final decision is typically made by a weighted combination of the outputs of individual classifiers. Let:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( w = [w_1, w_2, \dots, w_L]^T \)</span> represent the weights assigned to each of L-classifier.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \Sigma \)</span> be the covariance matrix of the errors made by the individual classifiers.</p></li>
+</ul>
+<p>The goal is to find the optimal set of weights <span class="math notranslate nohighlight">\( w \)</span> that combine the classifiers for finding support for each column of <span class="math notranslate nohighlight">\( DP(x) \)</span>.</p>
+</section>
+<section id="the-role-of-the-sigma-norm">
+<h3>The Role of the <span class="math notranslate nohighlight">\( \Sigma \)</span>-Norm<a class="headerlink" href="#the-role-of-the-sigma-norm" title="Link to this heading">#</a></h3>
+<p>The <span class="math notranslate nohighlight">\( \Sigma \)</span>-norm <span class="math notranslate nohighlight">\( \|w\|_\Sigma \)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\|w\|_\Sigma = \sqrt{w^T \Sigma w}
+\]</div>
+<p>This expression represents a weighted combination of the variances and covariances of the classifier errors, which can be interpreted as a measure of the overall <strong>uncertainty</strong> or risk associated with the combined classifier decision.</p>
+</section>
+<section id="solving-the-problem">
+<h3>Solving the Problem<a class="headerlink" href="#solving-the-problem" title="Link to this heading">#</a></h3>
+<p>After obtaining <span class="math notranslate nohighlight">\(\Sigma\)</span> of error, for applying to each column of DP, we want to minimize the <span class="math notranslate nohighlight">\( \Sigma \)</span>-norm <span class="math notranslate nohighlight">\( \|w\|_\Sigma \)</span>, defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\|w\|_\Sigma = \sqrt{w^T \Sigma w}
+\]</div>
+<p>subject to the constraint:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{M} w_i = 1
+\]</div>
+</section>
+<section id="optimization-problem">
+<h3>Optimization Problem<a class="headerlink" href="#optimization-problem" title="Link to this heading">#</a></h3>
+<p>The problem can be formulated as the following constrained optimization:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_w \quad \sqrt{w^T \Sigma w}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\text{subject to} \quad \sum_{i=1}^{M} w_i = 1
+\]</div>
+</section>
+<section id="lagrangian-formulation">
+<h3>Lagrangian Formulation<a class="headerlink" href="#lagrangian-formulation" title="Link to this heading">#</a></h3>
+<p>Introduce a Lagrange multiplier <span class="math notranslate nohighlight">\( \lambda \)</span> for the equality constraint:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(w, \lambda) = \sqrt{w^T \Sigma w} + \lambda \left(\sum_{i=1}^{M} w_i - 1\right)
+\]</div>
+</section>
+<section id="solve-for-w-and-lambda">
+<h3>Solve for <span class="math notranslate nohighlight">\( w \)</span> and <span class="math notranslate nohighlight">\( \lambda \)</span><a class="headerlink" href="#solve-for-w-and-lambda" title="Link to this heading">#</a></h3>
+<section id="simplify-the-objective-function">
+<h4>Simplify the Objective Function<a class="headerlink" href="#simplify-the-objective-function" title="Link to this heading">#</a></h4>
+<p>Since <span class="math notranslate nohighlight">\( \|w\|_\Sigma = \sqrt{w^T \Sigma w} \)</span>, minimize <span class="math notranslate nohighlight">\( w^T \Sigma w \)</span> instead to simplify the calculations.</p>
+<p>The problem becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_w \quad w^T \Sigma w
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\text{subject to} \quad \sum_{i=1}^{M} w_i = 1
+\]</div>
+</section>
+<section id="set-up-the-lagrangian">
+<h4>Set Up the Lagrangian<a class="headerlink" href="#set-up-the-lagrangian" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(w, \lambda) = w^T \Sigma w + \lambda \left(\sum_{i=1}^{M} w_i - 1\right)
+\]</div>
+</section>
+<section id="take-derivatives">
+<h4>Take Derivatives<a class="headerlink" href="#take-derivatives" title="Link to this heading">#</a></h4>
+<p>To find the minimum, take the derivative of the Lagrangian with respect to <span class="math notranslate nohighlight">\( w \)</span> and <span class="math notranslate nohighlight">\( \lambda \)</span> and set them to zero:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \mathcal{L}}{\partial w} = 2\Sigma w + \lambda \mathbf{1} = 0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \mathcal{L}}{\partial \lambda} = \sum_{i=1}^{M} w_i - 1 = 0
+\]</div>
+</section>
+<section id="solve-for-w">
+<h4>Solve for <span class="math notranslate nohighlight">\( w \)</span><a class="headerlink" href="#solve-for-w" title="Link to this heading">#</a></h4>
+<p>From the first derivative equation:</p>
+<div class="math notranslate nohighlight">
+\[
+2\Sigma w = -\lambda \mathbf{1}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+w = -\frac{\lambda}{2} \Sigma^{-1} \mathbf{1}
+\]</div>
+<p>Using the constraint <span class="math notranslate nohighlight">\( \sum_{i=1}^{M} w_i = 1 \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+-\frac{\lambda}{2} \mathbf{1}^T \Sigma^{-1} \mathbf{1} = 1
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\lambda = -\frac{2}{\mathbf{1}^T \Sigma^{-1} \mathbf{1}}
+\]</div>
+<p>Substitute <span class="math notranslate nohighlight">\( \lambda \)</span> back into the expression for <span class="math notranslate nohighlight">\( w \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+w = \frac{\Sigma^{-1} \mathbf{1}}{\mathbf{1}^T \Sigma^{-1} \mathbf{1}}
+\]</div>
+</section>
+</section>
+<section id="solution">
+<h3>Solution<a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<p>The optimal weights <span class="math notranslate nohighlight">\( w \)</span> that minimize the <span class="math notranslate nohighlight">\( \Sigma \)</span>-norm under the constraint that their sum equals one are given by:</p>
+<div class="math notranslate nohighlight">
+\[
+w^* = \frac{\Sigma^{-1} \mathbf{1}}{\mathbf{1}^T \Sigma^{-1} \mathbf{1}}
+\]</div>
+</section>
+<section id="interpretation">
+<h3>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \Sigma^{-1} \)</span> is the inverse of the covariance matrix of errors.</p></li>
+<li><p>The resulting weights <span class="math notranslate nohighlight">\( w^* \)</span> adjust according to the error covariance structure, minimizing the <span class="math notranslate nohighlight">\( \Sigma \)</span>-norm and effectively combining the classifiers while considering their error dependencies.</p></li>
+</ul>
+</section>
+<section id="sopecial-case-if-the-covariance-matrix-sigma-is-diagonal">
+<h3>Sopecial case: If the covariance matrix <span class="math notranslate nohighlight">\( \Sigma \)</span> is diagonal<a class="headerlink" href="#sopecial-case-if-the-covariance-matrix-sigma-is-diagonal" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\Sigma = \text{diag}(\sigma_1^2, \sigma_2^2, \dots, \sigma_M^2)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \sigma_i^2 \)</span> is the variance associated with the <span class="math notranslate nohighlight">\(i\)</span>-th classifier.</p>
+</section>
+<section id="compute-sigma-1">
+<h3>Compute <span class="math notranslate nohighlight">\( \Sigma^{-1} \)</span><a class="headerlink" href="#compute-sigma-1" title="Link to this heading">#</a></h3>
+<p>For a diagonal matrix <span class="math notranslate nohighlight">\( \Sigma \)</span>, the inverse <span class="math notranslate nohighlight">\( \Sigma^{-1} \)</span> is also a diagonal matrix with entries being the reciprocals of the diagonal entries of <span class="math notranslate nohighlight">\( \Sigma \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\Sigma^{-1} = \text{diag}\left(\frac{1}{\sigma_1^2}, \frac{1}{\sigma_2^2}, \dots, \frac{1}{\sigma_M^2}\right)
+\]</div>
+</section>
+<section id="compute-mathbf-1-t-sigma-1-mathbf-1">
+<h3>Compute <span class="math notranslate nohighlight">\( \mathbf{1}^T \Sigma^{-1} \mathbf{1} \)</span><a class="headerlink" href="#compute-mathbf-1-t-sigma-1-mathbf-1" title="Link to this heading">#</a></h3>
+<p>Here, <span class="math notranslate nohighlight">\( \mathbf{1} \)</span> is a vector of ones:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{1} = [1, 1, \dots, 1]^T
+\]</div>
+<p>To compute <span class="math notranslate nohighlight">\( \mathbf{1}^T \Sigma^{-1} \mathbf{1} \)</span>, you first calculate <span class="math notranslate nohighlight">\( \Sigma^{-1} \mathbf{1} \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\Sigma^{-1} \mathbf{1} = \left[\frac{1}{\sigma_1^2}, \frac{1}{\sigma_2^2}, \dots, \frac{1}{\sigma_M^2}\right]^T
+\]</div>
+<p>Thus:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{1}^T \Sigma^{-1} \mathbf{1} = \sum_{i=1}^{M} \frac{1}{\sigma_i^2}
+\]</div>
+</section>
+<section id="compute-w">
+<h3>Compute <span class="math notranslate nohighlight">\( w^* \)</span><a class="headerlink" href="#compute-w" title="Link to this heading">#</a></h3>
+<p>Given:</p>
+<div class="math notranslate nohighlight">
+\[
+w^* = \frac{\Sigma^{-1} \mathbf{1}}{\mathbf{1}^T \Sigma^{-1} \mathbf{1}}
+\]</div>
+<p>Substitute <span class="math notranslate nohighlight">\( \Sigma^{-1} \mathbf{1} \)</span> and <span class="math notranslate nohighlight">\( \mathbf{1}^T \Sigma^{-1} \mathbf{1} \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\Sigma^{-1} \mathbf{1} = \left[\frac{1}{\sigma_1^2}, \frac{1}{\sigma_2^2}, \dots, \frac{1}{\sigma_M^2}\right]^T
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{1}^T \Sigma^{-1} \mathbf{1} = \sum_{i=1}^{M} \frac{1}{\sigma_i^2}
+\]</div>
+<p>So:</p>
+<div class="math notranslate nohighlight">
+\[
+w^* = \frac{\left[\frac{1}{\sigma_1^2}, \frac{1}{\sigma_2^2}, \dots, \frac{1}{\sigma_M^2}\right]^T}{\sum_{i=1}^{M} \frac{1}{\sigma_i^2}}
+\]</div>
+</section>
+<section id="result">
+<h3>Result<a class="headerlink" href="#result" title="Link to this heading">#</a></h3>
+<p>The optimal weights <span class="math notranslate nohighlight">\( w^* \)</span> are given by:</p>
+<div class="math notranslate nohighlight">
+\[
+w_i^* = \frac{\frac{1}{\sigma_i^2}}{\sum_{j=1}^{M} \frac{1}{\sigma_j^2}}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( w_i^* \)</span> is the weight assigned to the <span class="math notranslate nohighlight">\( i \)</span>-th classifier. This result reflects that classifiers with smaller variances (i.e., more reliable classifiers) are assigned higher weights in the ensemble.</p>
+</section>
+</section>
+<section id="combined-entropy-orness-and-sigma-norm">
+<h2>Combined Entropy orness and <span class="math notranslate nohighlight">\( \Sigma \)</span>-norm<a class="headerlink" href="#combined-entropy-orness-and-sigma-norm" title="Link to this heading">#</a></h2>
+<p>To solve the optimization problem using gradient descent, follow these steps:</p>
+<section id="problem-restatement">
+<h3>Problem Restatement<a class="headerlink" href="#problem-restatement" title="Link to this heading">#</a></h3>
+<p>You need to minimize the function:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(w) = w^T \Sigma w - \nu \sum_{i=1}^{L} w_i \ln(w_i)
+\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{L} w_i = 1
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( w \)</span> is the vector of weights, <span class="math notranslate nohighlight">\( \Sigma \)</span> is a diagonal covariance matrix, and <span class="math notranslate nohighlight">\( \nu \)</span> is a Lagrange multiplier associated with the entropy term.</p>
+</section>
+<section id="gradient-descent-solution">
+<h3>Gradient Descent Solution<a class="headerlink" href="#gradient-descent-solution" title="Link to this heading">#</a></h3>
+<p><strong>Define the Objective Function</strong></p>
+<p>The objective function to minimize is:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(w) = w^T \Sigma w - \nu \sum_{i=1}^{L} w_i \ln(w_i)
+\]</div>
+<p><strong>Compute the Gradient</strong></p>
+<p>Calculate the gradient of <span class="math notranslate nohighlight">\( \mathcal{L} \)</span> with respect to <span class="math notranslate nohighlight">\( w_i \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \mathcal{L}}{\partial w_i} = 2 (\Sigma w)_i - \nu (\ln w_i + 1)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( (\Sigma w)_i \)</span> is the <span class="math notranslate nohighlight">\(i\)</span>-th component of the vector <span class="math notranslate nohighlight">\( \Sigma w \)</span>.</p>
+<p><strong>Gradient Descent Update Rule</strong></p>
+<p>The gradient descent update rule for <span class="math notranslate nohighlight">\( w_i \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+w_i^{\text{new}} = w_i^{\text{old}} - \alpha \frac{\partial \mathcal{L}}{\partial w_i}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \alpha \)</span> is the learning rate.</p>
+<p>Substitute the gradient:</p>
+<div class="math notranslate nohighlight">
+\[
+w_i^{\text{new}} = w_i^{\text{old}} - \alpha \left( 2 (\Sigma w)_i - \nu (\ln w_i + 1) \right)
+\]</div>
+<p><strong>Apply the Constraint</strong></p>
+<p>To enforce the constraint <span class="math notranslate nohighlight">\( \sum_{i=1}^{L} w_i = 1 \)</span>, use a projection step:</p>
+<p>After each update, normalize the weights to ensure they sum to 1:</p>
+<div class="math notranslate nohighlight">
+\[
+w_i^{\text{new}} = \frac{w_i^{\text{new}}}{\sum_{j=1}^{L} w_j^{\text{new}}}
+\]</div>
+<p><strong>Iterate</strong></p>
+<p>Repeat the update and normalization steps until convergence:</p>
+<ul class="simple">
+<li><p><strong>Compute the Gradient</strong>: Calculate the gradient for each weight.</p></li>
+<li><p><strong>Update Weights</strong>: Apply the gradient descent update rule.</p></li>
+<li><p><strong>Normalize Weights</strong>: Ensure weights sum to 1.</p></li>
+</ul>
+</section>
+</section>
+<section id="combined-gini-index-orness-and-diagonal-sigma-norm">
+<h2>Combined Gini-index orness and Diagonal <span class="math notranslate nohighlight">\( \Sigma \)</span>-norm<a class="headerlink" href="#combined-gini-index-orness-and-diagonal-sigma-norm" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>Problem Restatement<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>You want to minimize:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(w) = w^T \Sigma w - \nu \left(\sum_{i=1}^{L} w_i - \sum_{i=1}^{L} w_i^2\right)
+\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{L} w_i = 1
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \Sigma \)</span> is a diagonal matrix with diagonal elements <span class="math notranslate nohighlight">\( \sigma_{ii}^2 \)</span>.</p>
+</section>
+<section id="lagrangian-function">
+<h3>Lagrangian Function<a class="headerlink" href="#lagrangian-function" title="Link to this heading">#</a></h3>
+<p>Define the Lagrangian function including the constraint:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(w, \lambda) = w^T \Sigma w - \nu \left(\sum_{i=1}^{L} w_i - \sum_{i=1}^{L} w_i^2\right) + \lambda \left(\sum_{i=1}^{L} w_i - 1\right)
+\]</div>
+</section>
+<section id="gradient-calculation">
+<h3>Gradient Calculation<a class="headerlink" href="#gradient-calculation" title="Link to this heading">#</a></h3>
+<p><strong>Compute the Gradient</strong></p>
+<p>The diagonal covariance matrix <span class="math notranslate nohighlight">\( \Sigma \)</span> means that <span class="math notranslate nohighlight">\( \Sigma \)</span> is a diagonal matrix with elements <span class="math notranslate nohighlight">\( \sigma_{ii}^2 \)</span>. The matrix-vector multiplication <span class="math notranslate nohighlight">\( w^T \Sigma w \)</span> simplifies to:</p>
+<div class="math notranslate nohighlight">
+\[
+w^T \Sigma w = \sum_{i=1}^{L} \sigma_{ii}^2 w_i^2
+\]</div>
+<p>The Lagrangian function simplifies to:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L}(w, \lambda) = \sum_{i=1}^{L} \sigma_{ii}^2 w_i^2 - \nu \left(\sum_{i=1}^{L} w_i - \sum_{i=1}^{L} w_i^2\right) + \lambda \left(\sum_{i=1}^{L} w_i - 1\right)
+\]</div>
+<p>Take the partial derivative of <span class="math notranslate nohighlight">\( \mathcal{L} \)</span> with respect to <span class="math notranslate nohighlight">\( w_i \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \mathcal{L}}{\partial w_i} = 2 \sigma_{ii}^2 w_i - \nu (1 - 2 w_i) + \lambda
+\]</div>
+<p>Set the gradient to zero:</p>
+<div class="math notranslate nohighlight">
+\[
+2 \sigma_{ii}^2 w_i - \nu + 2 \nu w_i + \lambda = 0
+\]</div>
+<p>Rearrange to solve for <span class="math notranslate nohighlight">\( w_i \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+2 \sigma_{ii}^2 w_i + 2 \nu w_i = \nu - \lambda
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+w_i = \frac{\nu - \lambda}{2 (\sigma_{ii}^2 + \nu)}
+\]</div>
+<p><strong>Apply the Constraint</strong></p>
+<p>To ensure the constraint <span class="math notranslate nohighlight">\( \sum_{i=1}^{L} w_i = 1 \)</span> is satisfied:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{L} w_i = \sum_{i=1}^{L} \frac{\nu - \lambda}{2 (\sigma_{ii}^2 + \nu)} = 1
+\]</div>
+<p>Simplify:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{L (\nu - \lambda)}{2 \sum_{i=1}^{L} (\sigma_{ii}^2 + \nu)} = 1
+\]</div>
+<p>Solve for <span class="math notranslate nohighlight">\( \lambda \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+L (\nu - \lambda) = 2 \sum_{i=1}^{L} (\sigma_{ii}^2 + \nu)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\nu - \lambda = \frac{2 \sum_{i=1}^{L} (\sigma_{ii}^2 + \nu)}{L}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\lambda = \nu - \frac{2 \sum_{i=1}^{L} (\sigma_{ii}^2 + \nu)}{L}
+\]</div>
+</section>
+<section id="substitute-lambda-back">
+<h3>Substitute <span class="math notranslate nohighlight">\( \lambda \)</span> Back<a class="headerlink" href="#substitute-lambda-back" title="Link to this heading">#</a></h3>
+<p>Substitute <span class="math notranslate nohighlight">\( \lambda \)</span> back into the expression for <span class="math notranslate nohighlight">\( w_i \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+w_i = \frac{\nu - \left[\nu - \frac{2 \sum_{i=1}^{L} (\sigma_{ii}^2 + \nu)}{L}\right]}{2 (\sigma_{ii}^2 + \nu)}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+w_i = \frac{\frac{2 \sum_{i=1}^{L} (\sigma_{ii}^2 + \nu)}{L}}{2 (\sigma_{ii}^2 + \nu)}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+w_i = \frac{\sum_{i=1}^{L} (\sigma_{ii}^2 + \nu)}{L (\sigma_{ii}^2 + \nu)}
+\]</div>
+</section>
+<section id="final-solution">
+<h3>Final Solution<a class="headerlink" href="#final-solution" title="Link to this heading">#</a></h3>
+<p>Thus, the optimal weight for each <span class="math notranslate nohighlight">\( w_i \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+w_i = \frac{\sum_{i=1}^{L} (\sigma_{ii}^2 + \nu)}{L (\sigma_{ii}^2 + \nu)}
+\]</div>
+<p>Again weight of <span class="math notranslate nohighlight">\(i^\text{th}\)</span>-classifier proportional of normalized inverse of variance.</p>
+</section>
+</section>
+<section id="decision-templates">
+<h2>Decision Templates<a class="headerlink" href="#decision-templates" title="Link to this heading">#</a></h2>
+<section id="decision-template-dt-j">
+<h3>Decision Template <span class="math notranslate nohighlight">\( DT_j \)</span><a class="headerlink" href="#decision-template-dt-j" title="Link to this heading">#</a></h3>
+<p><img alt="DT_j" src="../../_images/DT_Set_J.png" /></p>
+<ol class="arabic simple">
+<li><p><strong>Definition</strong>:</p>
+<ul class="simple">
+<li><p><strong>Decision Profile <span class="math notranslate nohighlight">\( DP(x_i) \)</span></strong>: For each sample <span class="math notranslate nohighlight">\( x_i \)</span> belonging to class <span class="math notranslate nohighlight">\( \omega_j \)</span>, <span class="math notranslate nohighlight">\( DP(x_i) \)</span> is an <span class="math notranslate nohighlight">\( L \times C \)</span> matrix where <span class="math notranslate nohighlight">\( L \)</span> is the number of classifiers, and <span class="math notranslate nohighlight">\( C \)</span> is the number of classes. Each entry <span class="math notranslate nohighlight">\( DP_{i,c}(x_i) \)</span> in this matrix represents the decision score or probability assigned by the <span class="math notranslate nohighlight">\( i \)</span>-th classifier to the <span class="math notranslate nohighlight">\( c \)</span>-th class for the sample <span class="math notranslate nohighlight">\( x_i \)</span>.</p></li>
+<li><p><strong>Decision Template <span class="math notranslate nohighlight">\( DT_j \)</span></strong>: The decision template <span class="math notranslate nohighlight">\( DT_j \)</span> is a consolidated <span class="math notranslate nohighlight">\( L \times C \)</span> matrix that summarizes the decision profiles of all samples in class <span class="math notranslate nohighlight">\( \omega_j \)</span>.</p></li>
+</ul>
+</li>
+<li><p><strong>Aggregation</strong>:</p>
+<ul class="simple">
+<li><p><strong>Set of Decision Profiles</strong>: For class <span class="math notranslate nohighlight">\( \omega_j \)</span>, you have <span class="math notranslate nohighlight">\( k_j \)</span> samples. Each sample <span class="math notranslate nohighlight">\( x_i \)</span> in <span class="math notranslate nohighlight">\( \omega_j \)</span> provides a decision profile <span class="math notranslate nohighlight">\( DP(x_i) \)</span>, which is an <span class="math notranslate nohighlight">\( L \times C \)</span> matrix. Therefore, <span class="math notranslate nohighlight">\( DT_j \)</span> involves aggregating these <span class="math notranslate nohighlight">\( k_j \)</span> matrices.</p></li>
+<li><p><strong>Mean Operator</strong>: To compute <span class="math notranslate nohighlight">\( DT_j \)</span>, apply the mean operator to aggregate the decision profiles across all samples in class <span class="math notranslate nohighlight">\( \omega_j \)</span>. Specifically, if <span class="math notranslate nohighlight">\( DP(x_i) \)</span> is the decision profile matrix for sample <span class="math notranslate nohighlight">\( x_i \)</span>, the decision template <span class="math notranslate nohighlight">\( DT_j \)</span> is computed as:</p></li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+  DT_j = \frac{1}{k_j} \sum_{i=1}^{k_j} DP(x_i)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( k_j \)</span> is the number of samples in class <span class="math notranslate nohighlight">\( \omega_j \)</span>.</p>
+</section>
+<section id="example-calculation">
+<h3>Example Calculation<a class="headerlink" href="#example-calculation" title="Link to this heading">#</a></h3>
+<p>Assume you have 3 classifiers and 4 classes. For class <span class="math notranslate nohighlight">\( \omega_j \)</span>, consider the following decision profiles for 3 samples:</p>
+<ul class="simple">
+<li><p><strong>Decision Profile for Sample 1</strong>:
+$<span class="math notranslate nohighlight">\(
+DP(x_1) =
+\begin{bmatrix}
+0.2 &amp; 0.5 &amp; 0.2 &amp; 0.1 \\
+0.3 &amp; 0.4 &amp; 0.1 &amp; 0.2 \\
+0.1 &amp; 0.3 &amp; 0.4 &amp; 0.2
+\end{bmatrix}
+\)</span>$</p></li>
+<li><p><strong>Decision Profile for Sample 2</strong>:
+$<span class="math notranslate nohighlight">\(
+DP(x_2) =
+\begin{bmatrix}
+0.3 &amp; 0.4 &amp; 0.1 &amp; 0.2 \\
+0.2 &amp; 0.5 &amp; 0.2 &amp; 0.1 \\
+0.2 &amp; 0.3 &amp; 0.4 &amp; 0.1
+\end{bmatrix}
+\)</span>$</p></li>
+<li><p><strong>Decision Profile for Sample 3</strong>:
+$<span class="math notranslate nohighlight">\(
+DP(x_3) =
+\begin{bmatrix}
+0.1 &amp; 0.3 &amp; 0.4 &amp; 0.2 \\
+0.4 &amp; 0.3 &amp; 0.2 &amp; 0.1 \\
+0.3 &amp; 0.2 &amp; 0.4 &amp; 0.1
+\end{bmatrix}
+\)</span>$</p></li>
+</ul>
+<p><strong>Compute Decision Template <span class="math notranslate nohighlight">\( DT_j \)</span></strong>:
+$<span class="math notranslate nohighlight">\(
+DT_j = \frac{1}{3} \left( DP(x_1) + DP(x_2) + DP(x_3) \right)
+\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(
+DT_j = \frac{1}{3}
+\begin{bmatrix}
+0.2+0.3+0.1 &amp; 0.5+0.4+0.3 &amp; 0.2+0.1+0.4 &amp; 0.1+0.2+0.2 \\
+0.3+0.2+0.4 &amp; 0.4+0.5+0.3 &amp; 0.1+0.2+0.4 &amp; 0.2+0.1+0.1 \\
+0.1+0.2+0.3 &amp; 0.3+0.3+0.2 &amp; 0.4+0.4+0.4 &amp; 0.2+0.1+0.1
+\end{bmatrix}
+\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(
+DT_j = \frac{1}{3}
+\begin{bmatrix}
+0.6 &amp; 1.2 &amp; 0.7 &amp; 0.5 \\
+0.9 &amp; 1.2 &amp; 0.7 &amp; 0.4 \\
+0.6 &amp; 0.8 &amp; 1.2 &amp; 0.4
+\end{bmatrix}
+\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(
+DT_j =
+\begin{bmatrix}
+0.2 &amp; 0.4 &amp; 0.233 &amp; 0.167 \\
+0.3 &amp; 0.4 &amp; 0.233 &amp; 0.133 \\
+0.2 &amp; 0.267 &amp; 0.4 &amp; 0.133
+\end{bmatrix}
+\)</span>$</p>
+</section>
+<section id="decision-template-as-a-normal-distribution">
+<h3>Decision Template as a Normal Distribution<a class="headerlink" href="#decision-template-as-a-normal-distribution" title="Link to this heading">#</a></h3>
+<p><strong>Decision Profiles Set</strong>:
+Let <span class="math notranslate nohighlight">\( S_{DP_j} \)</span> be the set of decision profiles for all samples in class <span class="math notranslate nohighlight">\( \omega_j \)</span>:
+$<span class="math notranslate nohighlight">\(
+   S_{DP_j} = \{ DP(x_k) \mid x_k \in \omega_j \}
+   \)</span><span class="math notranslate nohighlight">\(
+   where each \)</span> DP(x_k) <span class="math notranslate nohighlight">\( is an \)</span> L \times C $ matrix.</p>
+<p><strong>Mean Decision Profile</strong>:
+Compute the mean decision profile matrix <span class="math notranslate nohighlight">\( \mu_j \)</span>, which is the average of all decision profiles in <span class="math notranslate nohighlight">\( S_{DP_j} \)</span>:
+$<span class="math notranslate nohighlight">\(
+   \mu_j = \frac{1}{k_j} \sum_{k=1}^{k_j} DP(x_k)
+   \)</span><span class="math notranslate nohighlight">\(
+   Here, \)</span> \mu_j <span class="math notranslate nohighlight">\( is an \)</span> L \times C <span class="math notranslate nohighlight">\( matrix representing the mean decision profile for class \)</span> \omega_j $.</p>
+<p><strong>Covariance Matrix</strong>:
+Compute the covariance matrix <span class="math notranslate nohighlight">\( \Sigma_j \)</span> for the decision profiles in <span class="math notranslate nohighlight">\( S_{DP_j} \)</span>.</p>
+<ul class="simple">
+<li><p><strong>Mean matrix</strong>:
+$<span class="math notranslate nohighlight">\(
+\bar{\textbf{DP}}_j = \frac{1}{k_j} \sum_{k=1}^{k_j} \textbf{DP}_k
+\)</span>$</p></li>
+<li><p><strong>Covariance Matrix</strong>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\Sigma_j = \frac{1}{k_j - 1} \sum_{k=1}^{k_j} (\textbf{DP}_k - \bar{\textbf{DP}}_j) (\textbf{DP}_k - \bar{\textbf{DP}}_j)^T
+\]</div>
+</section>
+<section id="normal-distribution-representation">
+<h3>Normal Distribution Representation<a class="headerlink" href="#normal-distribution-representation" title="Link to this heading">#</a></h3>
+<p>Given the mean matrix <span class="math notranslate nohighlight">\( \mu_j \)</span> and covariance matrix <span class="math notranslate nohighlight">\( \Sigma_j \)</span>, we can represent the decision template <span class="math notranslate nohighlight">\( DT_j \)</span> as a multivariate normal distribution:
+$<span class="math notranslate nohighlight">\(
+DT_j \sim \mathcal{N}(\mu_j, \Sigma_j)
+\)</span>$</p>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mu_j \)</span> is the <span class="math notranslate nohighlight">\( L \times C \)</span> mean decision profile matrix.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \Sigma_j \)</span> is the <span class="math notranslate nohighlight">\( L \times L \)</span> covariance matrix.</p></li>
+</ul>
+</section>
+<section id="trainin-and-operation-using-decision-templates">
+<h3>Trainin and operation using Decision Templates<a class="headerlink" href="#trainin-and-operation-using-decision-templates" title="Link to this heading">#</a></h3>
+<section id="training">
+<h4>Training<a class="headerlink" href="#training" title="Link to this heading">#</a></h4>
+<p><strong>Constructing Decision Templates</strong>:</p>
+<p>For each class <span class="math notranslate nohighlight">\( \omega_j \)</span> (where <span class="math notranslate nohighlight">\( j = 1, \ldots, C \)</span>), we need to compute the decision template <span class="math notranslate nohighlight">\( DT_j \)</span>. This involves the following steps:</p>
+<ul class="simple">
+<li><p><strong>Collect Decision Profiles</strong>:
+For each sample <span class="math notranslate nohighlight">\( z_k \)</span> in class <span class="math notranslate nohighlight">\( \omega_j \)</span>, obtain its decision profile matrix <span class="math notranslate nohighlight">\( DP(z_k) \)</span>. The decision profile <span class="math notranslate nohighlight">\( DP(z_k) \)</span> is an <span class="math notranslate nohighlight">\( L \times C \)</span> matrix, where <span class="math notranslate nohighlight">\( L \)</span> is the number of classifiers and <span class="math notranslate nohighlight">\( C \)</span> is the number of classes.</p></li>
+<li><p><strong>Calculate the Mean Decision Profile</strong>:
+Compute the mean decision profile <span class="math notranslate nohighlight">\( DT_j \)</span> for class <span class="math notranslate nohighlight">\( \omega_j \)</span> as follows:
+$<span class="math notranslate nohighlight">\(
+DT_j = \frac{1}{N_j} \sum_{z_k \in \omega_j} DP(z_k)
+\)</span>$
+Here:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\( N_j \)</span> is the number of samples in class <span class="math notranslate nohighlight">\( \omega_j \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( DP(z_k) \)</span> is the decision profile matrix of sample <span class="math notranslate nohighlight">\( z_k \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( DT_j \)</span> is the <span class="math notranslate nohighlight">\( L \times C \)</span> mean matrix representing the average decision profile for class <span class="math notranslate nohighlight">\( \omega_j \)</span>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="operation">
+<h4>Operation<a class="headerlink" href="#operation" title="Link to this heading">#</a></h4>
+<p><strong>Classifying New Samples</strong>:</p>
+<p>Given a new input sample <span class="math notranslate nohighlight">\( x \in \mathbb{R}^n \)</span>, we want to classify it using the decision templates.</p>
+<ul class="simple">
+<li><p><strong>Construct Decision Profile</strong>:
+Compute the decision profile <span class="math notranslate nohighlight">\( DP(x) \)</span> for the input sample <span class="math notranslate nohighlight">\( x \)</span>. This is an <span class="math notranslate nohighlight">\( L \times C \)</span> matrix where each entry represents the classifier’s decision for each class.</p></li>
+<li><p><strong>Calculate Similarity</strong>:
+Measure the similarity between the decision profile <span class="math notranslate nohighlight">\( DP(x) \)</span> and each decision template <span class="math notranslate nohighlight">\( DT_j \)</span>. Various similarity measures can be used, such as Euclidean distance, cosine similarity, etc. Let <span class="math notranslate nohighlight">\( S(DP(x), DT_j) \)</span> denote the similarity between <span class="math notranslate nohighlight">\( DP(x) \)</span> and <span class="math notranslate nohighlight">\( DT_j \)</span>.</p></li>
+<li><p><strong>Compute Membership Scores</strong>:
+For each class <span class="math notranslate nohighlight">\( j \)</span>, compute the membership score <span class="math notranslate nohighlight">\( m_j(x) \)</span> as:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+m_j(x) = S(DP(x), DT_j) \quad \text{for } j = 1, \ldots, C
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( m_j(x) \)</span> (support of class <span class="math notranslate nohighlight">\(\omega_j\)</span> ) represents how similar the decision profile of <span class="math notranslate nohighlight">\( x \)</span> is to the decision template of class <span class="math notranslate nohighlight">\( \omega_j \)</span>.</p>
+<ul class="simple">
+<li><p><strong>Class Decision</strong>:
+Assign the class label <span class="math notranslate nohighlight">\( \omega_j \)</span> to the input sample <span class="math notranslate nohighlight">\( x \)</span> based on the highest membership score:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = \arg \max_{j} m_j(x)
+\]</div>
+</section>
+</section>
+</section>
+<section id="miniproject-ensemble-diversity">
+<h2>Miniproject: Ensemble Diversity<a class="headerlink" href="#miniproject-ensemble-diversity" title="Link to this heading">#</a></h2>
+<p>Ensemble Diversity refers to the differences among the individual models or learners in an ensemble. The idea is that for an ensemble method to improve performance over any single learner, the individual models in the ensemble must exhibit diversity. If all the models in the ensemble make the same predictions, combining them will not yield any performance improvement over using a single model.</p>
+<ul class="simple">
+<li><p>Complete this chapter with code and analytical notes</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -508,11 +1121,11 @@ s_1^2 = \frac{1}{10 - 1} \left( \left(1 - 0.71 + 0.225\right)^2 + \left(1 - 0.76
       </div>
     </a>
     <a class="right-next"
-       href="../../Contact_Me.html"
+       href="FederatedLearning.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Contact Me</p>
+        <p class="prev-next-title">Federated Learning</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -522,6 +1135,68 @@ s_1^2 = \frac{1}{10 - 1} \left( \left(1 - 0.71 + 0.225\right)^2 + \left(1 - 0.76
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-means-the-sigma-norm">What means the <span class="math notranslate nohighlight">\( \Sigma \)</span>-Norm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-problem">Understanding the Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-role-of-the-sigma-norm">The Role of the <span class="math notranslate nohighlight">\( \Sigma \)</span>-Norm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-problem">Solving the Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-problem">Optimization Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lagrangian-formulation">Lagrangian Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solve-for-w-and-lambda">Solve for <span class="math notranslate nohighlight">\( w \)</span> and <span class="math notranslate nohighlight">\( \lambda \)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#simplify-the-objective-function">Simplify the Objective Function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-lagrangian">Set Up the Lagrangian</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#take-derivatives">Take Derivatives</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#solve-for-w">Solve for <span class="math notranslate nohighlight">\( w \)</span></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sopecial-case-if-the-covariance-matrix-sigma-is-diagonal">Sopecial case: If the covariance matrix <span class="math notranslate nohighlight">\( \Sigma \)</span> is diagonal</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-sigma-1">Compute <span class="math notranslate nohighlight">\( \Sigma^{-1} \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-mathbf-1-t-sigma-1-mathbf-1">Compute <span class="math notranslate nohighlight">\( \mathbf{1}^T \Sigma^{-1} \mathbf{1} \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-w">Compute <span class="math notranslate nohighlight">\( w^* \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#result">Result</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combined-entropy-orness-and-sigma-norm">Combined Entropy orness and <span class="math notranslate nohighlight">\( \Sigma \)</span>-norm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-restatement">Problem Restatement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-solution">Gradient Descent Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combined-gini-index-orness-and-diagonal-sigma-norm">Combined Gini-index orness and Diagonal <span class="math notranslate nohighlight">\( \Sigma \)</span>-norm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Problem Restatement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lagrangian-function">Lagrangian Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-calculation">Gradient Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#substitute-lambda-back">Substitute <span class="math notranslate nohighlight">\( \lambda \)</span> Back</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-solution">Final Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-templates">Decision Templates</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-template-dt-j">Decision Template <span class="math notranslate nohighlight">\( DT_j \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-calculation">Example Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-template-as-a-normal-distribution">Decision Template as a Normal Distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-distribution-representation">Normal Distribution Representation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trainin-and-operation-using-decision-templates">Trainin and operation using Decision Templates</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#training">Training</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#operation">Operation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-ensemble-diversity">Miniproject: Ensemble Diversity</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

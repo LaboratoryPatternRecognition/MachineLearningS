@@ -190,6 +190,15 @@
 <li class="toctree-l1"><a class="reference internal" href="EnsembleStart_BaggingBoosting.html">Ensemble Learning</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Ensemble by Voting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="TrainableCombiner.html">Trainable Combiners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="FederatedLearning.html">Federated Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DiffusionNetwork.html">Diffusion Network of Learner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ContrastiveLearning/ContrastiveLearning_Introduction.html">Contrastive learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MetricLearning/MetricLearning_1.html">Metric Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RepresentationLearning/RepresentationLearning1.html">Representation Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ActiveLearning/ActiveLearning_1.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TransferLearning/TransferLearning_1.html">Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TransferLearning/InstanceBasedTransferLearning1.html">Instance-Based Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MetaLearning/MetaLearning_1.html">MetaLearning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
 </ul>
@@ -433,6 +442,12 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fusion-of-continuous-valued-outputs">Fusion of Continuous Valued Outputs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-decision-profile-dp">Whats Decision Profile (DP)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-profile-table">Decision Profile Table</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-table">Example Table</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combination-using-decision-profile">Combination using decision profile</a></li>
 </ul>
 </li>
@@ -1089,6 +1104,99 @@ P(s_2 = \omega_2 \mid \omega_3),P(s_3 = \omega_3 \mid \omega_3)
 <h2>Fusion of Continuous Valued Outputs<a class="headerlink" href="#fusion-of-continuous-valued-outputs" title="Link to this heading">#</a></h2>
 <p>The support levels for a given input <span class="math notranslate nohighlight">\( x \)</span> can be interpreted in various ways, most commonly as confidence in the suggested labels or as estimates of the posterior probabilities for the classes. Let <span class="math notranslate nohighlight">\( x \in \mathbb{R}^n \)</span> be a feature vector, and <span class="math notranslate nohighlight">\( \Omega = \{\omega_1, \omega_2, \dots, \omega_c\} \)</span> represent the set of class labels. Each classifier <span class="math notranslate nohighlight">\( D_i \)</span> in the ensemble <span class="math notranslate nohighlight">\( D = \{D_1, \dots, D_L\} \)</span> produces <span class="math notranslate nohighlight">\( c \)</span> support levels. We assume these levels fall within the interval <span class="math notranslate nohighlight">\([0, 1]\)</span>, meaning <span class="math notranslate nohighlight">\( D_i: \mathbb{R}^n \rightarrow [0, 1]^c \)</span>. Let <span class="math notranslate nohighlight">\( d_{i,j}(x) \)</span> represent the support that classifier <span class="math notranslate nohighlight">\( D_i \)</span> gives to the hypothesis that <span class="math notranslate nohighlight">\( x \)</span> belongs to class <span class="math notranslate nohighlight">\( \omega_j \)</span>. The higher the support, the more likely the label <span class="math notranslate nohighlight">\( \omega_j \)</span>. The <span class="math notranslate nohighlight">\( L \)</span> classifier outputs for a particular input <span class="math notranslate nohighlight">\( x \)</span> can be organized into a decision profile <span class="math notranslate nohighlight">\( \text{DP}(x) \)</span> as a matrix.</p>
 <p><img alt="Dp_1_1" src="../../_images/DP_1.PNG" /></p>
+<section id="whats-decision-profile-dp">
+<h3>Whats Decision Profile (DP)<a class="headerlink" href="#whats-decision-profile-dp" title="Link to this heading">#</a></h3>
+<p>The Decision Profile (DP) for a sample <span class="math notranslate nohighlight">\( x \)</span>, represents the decision scores or probabilities provided by <span class="math notranslate nohighlight">\( L \)</span> classifiers for <span class="math notranslate nohighlight">\( C \)</span> classes.</p>
+</section>
+<section id="decision-profile-table">
+<h3>Decision Profile Table<a class="headerlink" href="#decision-profile-table" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Classifier / Class</p></th>
+<th class="head"><p>Class 1</p></th>
+<th class="head"><p>Class 2</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>Class <span class="math notranslate nohighlight">\( C \)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Classifier 1</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\( DP_{1,1} \)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\( DP_{1,2} \)</span></p></td>
+<td><p>…</p></td>
+<td><p><span class="math notranslate nohighlight">\( DP_{1,C} \)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Classifier 2</strong></p></td>
+<td><p><span class="math notranslate nohighlight">\( DP_{2,1} \)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\( DP_{2,2} \)</span></p></td>
+<td><p>…</p></td>
+<td><p><span class="math notranslate nohighlight">\( DP_{2,C} \)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>…</strong></p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Classifier <span class="math notranslate nohighlight">\( L \)</span></strong></p></td>
+<td><p><span class="math notranslate nohighlight">\( DP_{L,1} \)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\( DP_{L,2} \)</span></p></td>
+<td><p>…</p></td>
+<td><p><span class="math notranslate nohighlight">\( DP_{L,C} \)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="explanation">
+<h3>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Rows</strong>: Each row corresponds to a classifier. There are <span class="math notranslate nohighlight">\( L \)</span> rows in total.</p></li>
+<li><p><strong>Columns</strong>: Each column (except the first column which is for classifiers) represents a class. There are <span class="math notranslate nohighlight">\( C \)</span> columns in total.</p></li>
+<li><p><strong>Cells</strong>: The cell at row <span class="math notranslate nohighlight">\( i \)</span> and column <span class="math notranslate nohighlight">\( j \)</span> represents the decision score or probability assigned by classifier <span class="math notranslate nohighlight">\( i \)</span> to class <span class="math notranslate nohighlight">\( j \)</span> for the sample <span class="math notranslate nohighlight">\( x \)</span>.</p></li>
+</ul>
+<section id="example-table">
+<h4>Example Table<a class="headerlink" href="#example-table" title="Link to this heading">#</a></h4>
+<p>Suppose you have 3 classifiers and 4 classes. The table would look like this:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Classifier / Class</p></th>
+<th class="head"><p>Class 1</p></th>
+<th class="head"><p>Class 2</p></th>
+<th class="head"><p>Class 3</p></th>
+<th class="head"><p>Class 4</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Classifier 1</strong></p></td>
+<td><p>0.2</p></td>
+<td><p>0.5</p></td>
+<td><p>0.2</p></td>
+<td><p>0.1</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Classifier 2</strong></p></td>
+<td><p>0.3</p></td>
+<td><p>0.4</p></td>
+<td><p>0.1</p></td>
+<td><p>0.2</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Classifier 3</strong></p></td>
+<td><p>0.1</p></td>
+<td><p>0.3</p></td>
+<td><p>0.4</p></td>
+<td><p>0.2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Here:</p>
+<ul class="simple">
+<li><p>For <strong>Classifier 1</strong>, the probabilities or scores for the sample <span class="math notranslate nohighlight">\( x \)</span> are <span class="math notranslate nohighlight">\( [0.2, 0.5, 0.2, 0.1] \)</span>.</p></li>
+<li><p>For <strong>Classifier 2</strong>, the probabilities or scores are <span class="math notranslate nohighlight">\( [0.3, 0.4, 0.1, 0.2] \)</span>.</p></li>
+<li><p>For <strong>Classifier 3</strong>, the probabilities or scores are <span class="math notranslate nohighlight">\( [0.1, 0.3, 0.4, 0.2] \)</span>.</p></li>
+</ul>
+</section>
+</section>
 <section id="combination-using-decision-profile">
 <h3>Combination using decision profile<a class="headerlink" href="#combination-using-decision-profile" title="Link to this heading">#</a></h3>
 <p>Simple non-trainable combiners calculate the support for class <span class="math notranslate nohighlight">\(\omega_j\)</span> using only the <span class="math notranslate nohighlight">\(j\)</span>-th column of <span class="math notranslate nohighlight">\(DP(x)\)</span> by</p>
@@ -1244,7 +1352,7 @@ Class with maximum Generalized Mean Support (a=0): Class 1 with probability 0.41
 Class with maximum Generalized Mean Support (a=inf): Class 1 with probability 1.0
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Dr\AppData\Local\Temp\ipykernel_14160\1599825536.py:40: RuntimeWarning: divide by zero encountered in log
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Dr\AppData\Local\Temp\ipykernel_5296\1599825536.py:40: RuntimeWarning: divide by zero encountered in log
   return np.exp(np.mean(np.log(DP_x), axis=0))
 </pre></div>
 </div>
@@ -1529,6 +1637,12 @@ Let <span class="math notranslate nohighlight">\( \mathbf{w} = [w_1, w_2, \ldots
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fusion-of-continuous-valued-outputs">Fusion of Continuous Valued Outputs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#whats-decision-profile-dp">Whats Decision Profile (DP)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decision-profile-table">Decision Profile Table</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-table">Example Table</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#combination-using-decision-profile">Combination using decision profile</a></li>
 </ul>
 </li>

@@ -1,0 +1,1615 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Active Learning &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ML/ActiveLearning/ActiveLearning_1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Transfer Learning" href="../TransferLearning/TransferLearning_1.html" />
+    <link rel="prev" title="Representation Learning" href="../RepresentationLearning/RepresentationLearning1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../machine_learning.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../machine_learning.html">
+                    Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Regression/NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/GP_Regression.html">Gaussian Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/FR_Intro.html">Introduction of Feature Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/PCA.html">Principal Component Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/Autoencoders1.html">Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/LLE.html">Locally Linear Embedding (LLE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/EnsembleStart_BaggingBoosting.html">Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/Ensemble_Voting_Variant_Bayesian.html">Ensemble by Voting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/TrainableCombiner.html">Trainable Combiners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/FederatedLearning.html">Federated Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/DiffusionNetwork.html">Diffusion Network of Learner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ContrastiveLearning/ContrastiveLearning_Introduction.html">Contrastive learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MetricLearning/MetricLearning_1.html">Metric Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RepresentationLearning/RepresentationLearning1.html">Representation Learning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TransferLearning/TransferLearning_1.html">Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TransferLearning/InstanceBasedTransferLearning1.html">Instance-Based Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MetaLearning/MetaLearning_1.html">MetaLearning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FML/ActiveLearning/ActiveLearning_1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/ML/ActiveLearning/ActiveLearning_1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Active Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-active-learning">Why Active Learning?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-at-active-learning">Hypothesis at Active Learning:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-of-active-learning">objective of Active Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#active-learning-addressing-labeling-bottlenecks">Active Learning: Addressing Labeling Bottlenecks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-active-learning-vs-random-sampling">Example: Active Learning vs. Random Sampling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-scenarios-for-active-learning">main scenarios for active learning:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membership-query-synthesis">1. <strong>Membership Query Synthesis</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-based-sequential-active-learning">2. <strong>Stream-Based (Sequential) Active Learning</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pool-based-active-learning">3. <strong>Pool-Based Active Learning</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#query-by-committee-qbc">4. <strong>Query-by-Committee (QBC)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-model-change">5. <strong>Expected Model Change</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membership-query-synthesis-explanation-mathematics-and-analytical-perspective">Membership Query Synthesis: Explanation, Mathematics, and Analytical Perspective</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematics-and-analytical-perspective"><strong>Mathematics and Analytical Perspective</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-for-mqs">Example for MQS</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mqs-in-real-world-problems">MQS in real world problems</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-perspective-of-mqs">Mathematical Perspective of MQS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Stream-Based (Sequential) Active Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-perspective-of-sbal">Mathematical Perspective of SBAL</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-suitable-real-time-application-with-sbal">Homework: Suitable Real-Time Application with SBAL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Pool-Based Active Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-framework-of-pbal">Mathematical Framework of PBAL</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Query-by-Committee (QBC)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-perspective-of-qbc">Mathematical Perspective OF QBC</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Expected Model Change</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-framework-of-expected-model-change-maximization">THE FRAMEWORK OF EXPECTED MODEL CHANGE MAXIMIZATION</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-the-emcm-framework">A. The EMCM Framework</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#emcm-for-active-learning-in-regression">EMCM FOR ACTIVE LEARNING IN REGRESSION</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-models">Linear Regression Models</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-emcm-for-active-learning-in-linear-regression">Algorithm : EMCM for Active Learning in Linear Regression</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-write-code-for-emcm-in-linear-non-linear-regression">Homework: write code for EMCM in Linear/non-linear Regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniprojects-complete-another-scenarios-such-as">Miniprojects: complete another scenarios such as :</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-strategy-in-al">Sampling Strategy in AL</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-sampling">Uncertainty Sampling</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-confidence-sampling">Least Confidence Sampling</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematics-of-least-confidence-sampling">Mathematics of Least Confidence Sampling</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#margin-sampling">Margin Sampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entropy-sampling">Entropy Sampling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniprojects-another-sampling-methods-such-as-diversity-sampling-and-so-on">Miniprojects: Another sampling methods such as Diversity Sampling, and so on.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniprojects-working-with-modal">Miniprojects : Working with modAL</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="active-learning">
+<h1>Active Learning<a class="headerlink" href="#active-learning" title="Link to this heading">#</a></h1>
+<p>In healthcare applications like breast cancer metastasis detection in whole-slide images, where there is a significant domain shift, traditional pre-trained models may not be sufficient. Active learning becomes crucial in such scenarios, as it helps efficiently address the challenge of limited annotated samples. Annotating large datasets is both expensive and time-consuming, often requiring hours of work from specialized expert pathologists with extensive training. Active learning strategies can minimize the amount of labeled data needed, making the process more feasible and cost-effective.</p>
+<p><img alt="CancerMetastas" src="../../_images/CancerMetastasPathologist.PNG" /></p>
+<section id="why-active-learning">
+<h2>Why Active Learning?<a class="headerlink" href="#why-active-learning" title="Link to this heading">#</a></h2>
+<p><strong>Unlabeled Data:</strong></p>
+<ul class="simple">
+<li><p><strong>Cost-Efficiency:</strong> Unlabeled data is generally cheaper to obtain compared to labeled data. This is because labeling data often requires human effort and expertise, which adds significant costs.</p></li>
+<li><p><strong>Availability:</strong> Unlabeled data is often available in large quantities. For instance, web data, sensor data, and other types of raw data can be collected in vast amounts without the need for manual annotation.</p></li>
+</ul>
+<p><strong>Labeled Data:</strong></p>
+<ul class="simple">
+<li><p><strong>High Costs:</strong> Labeling data involves assigning categories or values to data points, which typically requires skilled personnel and can be very expensive. For instance, annotating images or text with specific tags or classifications often requires expert knowledge.</p></li>
+<li><p><strong>Quality vs. Cost:</strong> Achieving high-quality labeling (ensuring accuracy and minimizing errors) often increases the cost. Higher accuracy in labeling requires more rigorous review and verification processes, which can be costly.</p></li>
+<li><p><strong>Value of Samples:</strong> Not all data points are equally valuable for training a machine learning model. Some samples are more critical than others for the model’s performance.</p>
+<ul>
+<li><p><strong>Important Samples:</strong> For example, in Support Vector Machines (SVM), data points near the decision boundary (the margin) are crucial. These points provide more information about the classifier’s performance and help define the boundary between classes. In contrast, data points that are far from the boundary (in the interior of the classes) provide less information and are less useful for improving the model.</p></li>
+</ul>
+</li>
+</ul>
+<p>Active learning addresses these issues by selectively querying the most informative and valuable samples for labeling, thereby optimizing the use of labeled data and reducing overall costs while improving model performance.</p>
+</section>
+<section id="hypothesis-at-active-learning">
+<h2>Hypothesis at Active Learning:<a class="headerlink" href="#hypothesis-at-active-learning" title="Link to this heading">#</a></h2>
+<p>If a learning algorithm can select its own data, it will be able to achieve better results with less training data.**</p>
+<p>For surface scanning, it is better for the aircraft to scan some areas less thoroughly and faster, while scanning other areas with greater precision. This is similar to coding smooth signals, which require fewer bits but more bits are needed for changes.</p>
+<p><img alt="ChangeDetection1" src="../../_images/ChangDetection.png" /></p>
+<p>To learn a function, if good points (on the left) are chosen, the regression accuracy will be better. The goal is to find the best points for sampling.</p>
+<p><img alt="FunctionSampling1" src="../../_images/FunctionSampling.png" /></p>
+</section>
+<section id="objective-of-active-learning">
+<h2>objective of Active Learning<a class="headerlink" href="#objective-of-active-learning" title="Link to this heading">#</a></h2>
+<p>In the context of active learning, the objective is to enhance the efficiency and effectiveness of the learning process. Active learning prioritizes the selection of the most informative examples or data points that will provide the most significant improvement in the model’s performance.</p>
+<p><strong>Sampling:</strong></p>
+<p>Instead of randomly sampling or using a broad approach, active learning targets areas where the model is uncertain or where errors are most likely. This helps in refining the model more efficiently.</p>
+<p><strong>Considerations for Speed and Cost:</strong>
+Active learning aims to reduce the amount of data required to achieve a high level of performance. This means focusing on acquiring only the most relevant data points or labels to minimize time and financial costs.</p>
+</section>
+<section id="active-learning-addressing-labeling-bottlenecks">
+<h2>Active Learning: Addressing Labeling Bottlenecks<a class="headerlink" href="#active-learning-addressing-labeling-bottlenecks" title="Link to this heading">#</a></h2>
+<p><strong>Labeling is a bottleneck</strong> for the learning system.</p>
+<p>The <strong>Active Learning system</strong> aims to address this bottleneck through <strong>queries</strong>.</p>
+<p>In each query, the <strong>Oracle</strong> is asked to <strong>label the specified samples</strong>.</p>
+<p>The <strong>Active Learner</strong> tries to <strong>achieve maximum accuracy</strong> with the <strong>minimum number of samples (queries)</strong> to <strong>minimize the cost</strong> of obtaining labeled data.</p>
+<p><img alt="Addressing Labeling Bottlenecks" src="../../_images/Oracle_Query_Turtorial.png" /></p>
+</section>
+<section id="example-active-learning-vs-random-sampling">
+<h2>Example: Active Learning vs. Random Sampling<a class="headerlink" href="#example-active-learning-vs-random-sampling" title="Link to this heading">#</a></h2>
+<p>(a) A dataset containing 400 samples, uniformly sampled from two classes with Gaussian distribution. These samples are displayed in feature space.</p>
+<p>(b) A logistic regression model with 30 labeled samples randomly selected from the problem domain. The blue line represents the decision boundary in the classifier. In this case, the accuracy is 70%.</p>
+<p>(c) A logistic regression model with 30 samples for which labels were queried using Active Learning. The queries were performed using the uncertainty sampling method. The classifier’s accuracy with the same number of samples is 90%.</p>
+<p><img alt="WhatSayAL_1_1" src="../../_images/WhatSayAL_1.png" /></p>
+</section>
+<section id="main-scenarios-for-active-learning">
+<h2>main scenarios for active learning:<a class="headerlink" href="#main-scenarios-for-active-learning" title="Link to this heading">#</a></h2>
+<p>The main frameworks or senarios of AL:</p>
+<section id="membership-query-synthesis">
+<h3>1. <strong>Membership Query Synthesis</strong><a class="headerlink" href="#membership-query-synthesis" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Scenario</strong>: The model generates new instances in the feature space and queries their labels from an oracle (e.g., a human annotator).</p></li>
+<li><p><strong>Example</strong>: In image recognition, the model might generate synthetic images (by slightly modifying existing ones) and ask for their labels.</p></li>
+<li><p><strong>Challenges</strong>: The generated instances might be unrealistic or outside the distribution of real-world data, making it hard for the oracle to provide accurate labels.</p></li>
+</ul>
+</section>
+<section id="stream-based-sequential-active-learning">
+<h3>2. <strong>Stream-Based (Sequential) Active Learning</strong><a class="headerlink" href="#stream-based-sequential-active-learning" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Scenario</strong>: Instances arrive one by one, and the model must decide whether to query the label of each instance immediately.</p></li>
+<li><p><strong>Decision Criteria</strong>:</p>
+<ul>
+<li><p><strong>Uncertainty Sampling</strong>: The model queries the label if it is uncertain about the instance (e.g., if the predicted probability is close to 0.5 in binary classification).</p></li>
+<li><p><strong>Fixed Budget</strong>: The model queries a label only if a fixed budget of queries has not been exhausted.</p></li>
+</ul>
+</li>
+<li><p><strong>Example</strong>: In a real-time fraud detection system, transactions are processed one at a time, and the system queries the label (fraud or not) only when it’s highly uncertain.</p></li>
+<li><p><strong>Challenges</strong>: The model must balance the need to be cautious about querying too often with the risk of missing informative instances.</p></li>
+</ul>
+</section>
+<section id="pool-based-active-learning">
+<h3>3. <strong>Pool-Based Active Learning</strong><a class="headerlink" href="#pool-based-active-learning" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Scenario</strong>: The model has access to a large pool of unlabeled data and selects the most informative instances to query.</p></li>
+<li><p><strong>Query Strategies</strong>:</p>
+<ul>
+<li><p><strong>Uncertainty Sampling</strong>: Query instances where the model is least certain (e.g., instances with the smallest margin between the top two predicted classes).</p></li>
+<li><p><strong>Query-by-Committee (QBC)</strong>: Maintain a committee of models and query instances where the committee members disagree the most.</p></li>
+<li><p><strong>Expected Model Change</strong>: Query instances expected to cause the largest change in the model’s parameters.</p></li>
+<li><p><strong>Expected Error Reduction</strong>: Query instances that are expected to reduce the model’s generalization error the most.</p></li>
+<li><p><strong>Density-Weighted Methods</strong>: Select instances that are both uncertain and representatively dense in the feature space.</p></li>
+</ul>
+</li>
+<li><p><strong>Example</strong>: In medical diagnosis, the model might have access to many unlabeled patient records and selectively query the most uncertain ones.</p></li>
+<li><p><strong>Challenges</strong>: Efficiently selecting the most informative instances from a large pool and ensuring that the selected instances are representative of the underlying data distribution.</p></li>
+</ul>
+</section>
+<section id="query-by-committee-qbc">
+<h3>4. <strong>Query-by-Committee (QBC)</strong><a class="headerlink" href="#query-by-committee-qbc" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Scenario</strong>: Maintain a committee of models trained on the same labeled data but initialized differently or trained using different algorithms. The models in the committee will disagree on certain data points, and these points are selected for labeling.</p></li>
+<li><p><strong>Disagreement Measures</strong>:</p>
+<ul>
+<li><p><strong>Vote Entropy</strong>: Measures the amount of disagreement in the predicted classes.</p></li>
+<li><p><strong>KL-Divergence</strong>: Measures the difference in predicted probability distributions among committee members.</p></li>
+</ul>
+</li>
+<li><p><strong>Example</strong>: In a text classification task, multiple classifiers (e.g., Naive Bayes, SVM, etc.) might disagree on certain documents, and those documents would be selected for labeling.</p></li>
+<li><p><strong>Challenges</strong>: Maintaining diversity within the committee and ensuring that the disagreement genuinely reflects uncertainty.</p></li>
+</ul>
+</section>
+<section id="expected-model-change">
+<h3>5. <strong>Expected Model Change</strong><a class="headerlink" href="#expected-model-change" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Scenario</strong>: Query instances that are expected to induce the largest change in the current model’s parameters.</p></li>
+<li><p><strong>Mathematics</strong>: The expected gradient of the model parameters with respect to the queried data point is calculated, and the instance with the highest expected gradient is selected.</p></li>
+<li><p><strong>Example</strong>: In a regression task, instances that are far from the current decision boundary might induce significant changes in the model and are thus queried.</p></li>
+<li><p><strong>Challenges</strong>: Computing the expected model change can be computationally intensive, especially for complex models like deep neural networks.</p></li>
+</ul>
+</section>
+<section id="membership-query-synthesis-explanation-mathematics-and-analytical-perspective">
+<h3>Membership Query Synthesis: Explanation, Mathematics, and Analytical Perspective<a class="headerlink" href="#membership-query-synthesis-explanation-mathematics-and-analytical-perspective" title="Link to this heading">#</a></h3>
+<p><strong>Membership Query Synthesis</strong> generates new instances and queries an oracle (e.g., a human annotator) for their labels. This allows the model to explore areas of the feature space where it might be uncertain or where it lacks sufficient data.</p>
+<ul class="simple">
+<li><p><strong>Challenges:</strong> The generated instances might not correspond to realistic or meaningful data points, leading to difficulties for the oracle in providing accurate labels.</p></li>
+</ul>
+<section id="mathematics-and-analytical-perspective">
+<h4><strong>Mathematics and Analytical Perspective</strong><a class="headerlink" href="#mathematics-and-analytical-perspective" title="Link to this heading">#</a></h4>
+<p>The mathematical framework behind MQS involves defining a distribution can be:</p>
+<ul class="simple">
+<li><p><strong>Uniform</strong>: Sampling uniformly across the feature space.</p></li>
+<li><p><strong>Model-Based</strong>: Generating instances near the decision boundary or in regions of high uncertainty.</p></li>
+<li><p><strong>Model Update</strong>: The instance-label pair <span class="math notranslate nohighlight">\( (x', y') \)</span> is added to the training set, and the model is retrained.</p></li>
+<li><p><strong>goal</strong>: Generate instances that maximize the information gain, often by focusing on regions where the model is uncertain or where the decision boundary is likely to change.</p></li>
+</ul>
+</section>
+<section id="example-for-mqs">
+<h4>Example for MQS<a class="headerlink" href="#example-for-mqs" title="Link to this heading">#</a></h4>
+<p>We assume that a circle defines the boundary between two classes of data. If the MQS initially generates samples that the oracle labels as ω1 (outside the circle), we gradually explore to find the circle. If a query is inside the circle, the oracle labels it as ω0. This process is demonstrated in the following code.<strong>Learner</strong>: The <code class="docutils literal notranslate"><span class="pre">ActiveLearner</span></code> is initialized with a simple K-Nearest Neighbors classifier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">modAL.models</span> <span class="kn">import</span> <span class="n">ActiveLearner</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+
+<span class="c1"># Define a simple synthetic data generator</span>
+<span class="k">def</span> <span class="nf">generate_synthetic_instance</span><span class="p">(</span><span class="n">bounds</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">bounds</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bounds</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># Define the bounds of the feature space</span>
+<span class="n">bounds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]])</span>
+
+<span class="c1"># Define the oracle function (simulating a human annotator)</span>
+<span class="k">def</span> <span class="nf">oracle</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># Initialize a K-Nearest Neighbors classifier with n_neighbors=1</span>
+<span class="n">learner</span> <span class="o">=</span> <span class="n">ActiveLearner</span><span class="p">(</span>
+    <span class="n">estimator</span><span class="o">=</span><span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">X_training</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]),</span> 
+    <span class="n">y_training</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">oracle</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]))])</span>
+<span class="p">)</span>
+
+<span class="c1"># Perform Membership Query Synthesis with subplots</span>
+<span class="n">n_queries</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Create a grid of 2 rows and 5 columns</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>  <span class="c1"># Flatten the axes array for easy indexing</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_queries</span><span class="p">):</span>
+    <span class="c1"># Generate a synthetic instance</span>
+    <span class="n">synthetic_instance</span> <span class="o">=</span> <span class="n">generate_synthetic_instance</span><span class="p">(</span><span class="n">bounds</span><span class="p">)</span>
+    
+    <span class="c1"># Query the oracle for its label</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">oracle</span><span class="p">(</span><span class="n">synthetic_instance</span><span class="p">)</span>
+    
+    <span class="c1"># Teach the learner with the synthetic instance</span>
+    <span class="n">learner</span><span class="o">.</span><span class="n">teach</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">synthetic_instance</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">label</span><span class="p">]))</span>
+    
+    <span class="c1"># Plot the decision boundary</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">),</span> 
+                         <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">))</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">x1</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">x2</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">learner</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x1</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">synthetic_instance</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">synthetic_instance</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Query </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># Add frame number as the title</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Set x limits</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Set y limits</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>  <span class="c1"># Turn off axes for a cleaner look</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>  <span class="c1"># Adjust subplots to fit in the figure area</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">modAL.models</span> <span class="kn">import</span> <span class="n">ActiveLearner</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Define a simple synthetic data generator</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;modAL&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="mqs-in-real-world-problems">
+<h4>MQS in real world problems<a class="headerlink" href="#mqs-in-real-world-problems" title="Link to this heading">#</a></h4>
+<p><strong>Natural Language Processing (NLP) - Generating Sentences:</strong></p>
+<ul class="simple">
+<li><p><strong>Example</strong>: In NLP, an MQS approach might involve <em>generating synthetic sentences</em> that <em><strong>are not</strong></em> part of <em>any existing corpus</em> and then <em>asking a human expert</em> to <em><strong>label</strong></em> them as <em>grammatically correct or incorrect</em>. This can help the model learn linguistic structures that it <em><strong>might not encounter in a standard corpus</strong></em>.</p></li>
+</ul>
+<p><strong>Computer Vision - Generating Images:</strong></p>
+<ul class="simple">
+<li><p><strong>Example</strong>: In computer vision, MQS might be used to generate synthetic images with specific characteristics (e.g., varying shapes, colors, or textures) that the <em>model hasn’t seen before</em>. An expert could then label these images (e.g., identifying objects in the image), allowing the model to learn from more diverse examples.</p></li>
+</ul>
+<p><strong>Anomaly Detection - Creating Uncommon Events:</strong></p>
+<ul class="simple">
+<li><p><strong>Example</strong>: In anomaly detection, especially in fields like cybersecurity or finance, MQS can be used to create synthetic transactions or <em><strong>events</strong></em> that are <em><strong>unusual or rare</strong></em>. These synthetic instances <em>are labeled as normal or anomalous</em> by an expert. This can improve the model’s ability to detect real-world anomalies.</p></li>
+</ul>
+<p><strong>Medical Diagnosis - Simulating Patient Data:</strong></p>
+<ul class="simple">
+<li><p><strong>Example</strong>: In the medical field, MQS could be used to <em>generate synthetic patient data</em> with <em><strong>rare or unusual conditions</strong></em>. <em>Medical professionals</em> can label this data, helping the model to recognize and diagnose rare diseases or conditions that are underrepresented in real patient data.</p></li>
+</ul>
+<p><strong>Application: Generating Synthetic Text Data for Sentiment Analysis</strong></p>
+<p>Imagine you’re developing a <em>sentiment analysis</em> model that classifies <em><strong>sentences as positive, neutral, or negative</strong></em>. Your initial dataset contains typical sentences, but you want your model to handle unusual sentence structures or rare phrases better.</p>
+</section>
+</section>
+<section id="mathematical-perspective-of-mqs">
+<h3>Mathematical Perspective of MQS<a class="headerlink" href="#mathematical-perspective-of-mqs" title="Link to this heading">#</a></h3>
+<p>In Membership Query Synthesis (MQS), the algorithm seeks to explore the input space <span class="math notranslate nohighlight">\( \mathcal{X} \)</span> more broadly by generating instances <span class="math notranslate nohighlight">\( \mathbf{x}_\text{new} \)</span> that are selected based on certain criteria, such as maximizing uncertainty, variance, or divergence from existing data points. The new instances <span class="math notranslate nohighlight">\( \mathbf{x}_\text{new} \)</span> are generated by sampling from a distribution or through transformation functions.</p>
+<p>Mathematically, the synthesis can be expressed as:
+$<span class="math notranslate nohighlight">\( \mathbf{x}_\text{new} = f(\mathbf{x}, \theta) \)</span>$
+where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mathbf{x} \)</span> represents existing data points.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \theta \)</span> are parameters that control the transformation or generation process.</p></li>
+<li><p><span class="math notranslate nohighlight">\( f \)</span> is the function used to generate new instances.</p></li>
+</ul>
+<p>After generating <span class="math notranslate nohighlight">\( \mathbf{x}_\text{new} \)</span>, the oracle provides the label:
+$<span class="math notranslate nohighlight">\( y_\text{new} = \text{Oracle}(\mathbf{x}_\text{new}) \)</span>$</p>
+<p>The model is then updated with this new data point <span class="math notranslate nohighlight">\( (\mathbf{x}_\text{new}, y_\text{new}) \)</span>, allowing it to learn from these synthetic examples.</p>
+</section>
+<section id="id1">
+<h3>Stream-Based (Sequential) Active Learning<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p><strong>Stream-Based Active Learning (SBAL)</strong>, also known as <strong>Sequential Active Learning</strong>, is a paradigm where instances are presented to the learning algorithm one at a time or in small batches, and the algorithm must decide whether to query the label for each instance as it arrives. This is particularly useful in scenarios where data arrives in a continuous stream, and it’s impractical to store or process all the data at once.</p>
+<p><img alt="Stream-Based (Sequential) Active Learning1" src="../../_images/StreamBasedActiveLearning.png" /></p>
+<p>This approach is highly relevant in real-time applications like</p>
+<ul class="simple">
+<li><p>online recommendations</p></li>
+<li><p>sensor data monitoring</p></li>
+<li><p>financial market analysis</p></li>
+</ul>
+<p>where decisions must be made quickly and resources for querying labels are limited.</p>
+<section id="mathematical-perspective-of-sbal">
+<h4>Mathematical Perspective of SBAL<a class="headerlink" href="#mathematical-perspective-of-sbal" title="Link to this heading">#</a></h4>
+<p>In Stream-Based Active Learning, let <span class="math notranslate nohighlight">\( \mathcal{X} \)</span> be the input space, and <span class="math notranslate nohighlight">\( \mathcal{Y} \)</span> be the output space. The algorithm receives a stream of instances <span class="math notranslate nohighlight">\( \{ \mathbf{x}_t \}_{t=1}^\infty \)</span> where <span class="math notranslate nohighlight">\( t \)</span> represents the time or sequence index.</p>
+<p>For each instance <span class="math notranslate nohighlight">\( \mathbf{x}_t \)</span>:</p>
+<ol class="arabic simple">
+<li><p><strong>Decision Function</strong>: The algorithm uses a decision function <span class="math notranslate nohighlight">\( D(\mathbf{x}_t) \)</span> to decide whether to query the label <span class="math notranslate nohighlight">\( y_t \)</span>.
+$<span class="math notranslate nohighlight">\(
+\text{Query} = \begin{cases} 
+1 &amp; \text{if } D(\mathbf{x}_t) &gt; \tau, \\
+0 &amp; \text{otherwise},
+\end{cases}
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span> \tau $ is a threshold that balances the cost of querying with the expected benefit.</p></li>
+<li><p><strong>Uncertainty Sampling</strong>: A common approach is to use uncertainty sampling, where <span class="math notranslate nohighlight">\( D(\mathbf{x}_t) \)</span> is based on the model’s uncertainty about <span class="math notranslate nohighlight">\( \mathbf{x}_t \)</span>. For example, if the classifier’s output probability for the predicted label is close to 0.5 (indicating high uncertainty), the instance is queried.</p></li>
+<li><p><strong>Model Update</strong>: If the label <span class="math notranslate nohighlight">\( y_t \)</span> is queried, the model is updated using the new labeled instance <span class="math notranslate nohighlight">\( (\mathbf{x}_t, y_t) \)</span>.</p></li>
+<li><p><strong>Objective</strong>: The goal is to maximize the model’s performance while minimizing the number of queries. This can be formalized as:
+$<span class="math notranslate nohighlight">\(
+\min_{D} \sum_{t=1}^T \left( L(\hat{y}_t, y_t) + \lambda \cdot \text{Query} \right),
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span> L(\hat{y}_t, y_t) <span class="math notranslate nohighlight">\( is the loss function, and \)</span> \lambda $ is a regularization parameter balancing the cost of queries.</p></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="homework-suitable-real-time-application-with-sbal">
+<h2>Homework: Suitable Real-Time Application with SBAL<a class="headerlink" href="#homework-suitable-real-time-application-with-sbal" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Required text</p></li>
+<li><p>Code and discussion of results</p></li>
+</ul>
+<section id="id2">
+<h3>Pool-Based Active Learning<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p><strong>Pool-Based Active Learning</strong> is the most common form of active learning. It assumes that there is a <em><strong>large pool of unlabeled data and a smaller set of labeled data</strong></em>. The learner iteratively selects the most informative instances from the pool, queries their labels from an oracle (typically a human annotator), and adds them to the labeled set to improve the model.</p>
+<p><img alt="PBAL_Fun_1" src="../../_images/PBAL_1_Fun.PNG" /></p>
+<section id="mathematical-framework-of-pbal">
+<h4>Mathematical Framework of PBAL<a class="headerlink" href="#mathematical-framework-of-pbal" title="Link to this heading">#</a></h4>
+<p><strong>Unlabeled Data Pool (<span class="math notranslate nohighlight">\( U \)</span>)</strong>:</p>
+<ul class="simple">
+<li><p>Let <span class="math notranslate nohighlight">\( U = \{x_1, x_2, \dots, x_n\} \)</span> be the pool of unlabeled data points where <span class="math notranslate nohighlight">\( x_i \in \mathbb{R}^d \)</span></p></li>
+</ul>
+<p><strong>Labeled Dataset (<span class="math notranslate nohighlight">\( L \)</span>)</strong>:</p>
+<ul class="simple">
+<li><p>Let <span class="math notranslate nohighlight">\( L = \{(x_i, y_i) \} \)</span> be the labeled dataset, where <span class="math notranslate nohighlight">\( y_i \)</span> is the label for <span class="math notranslate nohighlight">\( x_i \)</span>.</p></li>
+<li><p>Initially, <span class="math notranslate nohighlight">\( |L| \ll |U| \)</span>.</p></li>
+</ul>
+<p><strong>Query Strategy (<span class="math notranslate nohighlight">\( q \)</span>)</strong>:</p>
+<ul class="simple">
+<li><p>A query strategy <span class="math notranslate nohighlight">\( q \)</span> selects a subset <span class="math notranslate nohighlight">\( X_q \subseteq U \)</span> to be labeled by the oracle.</p></li>
+<li><p>The selection is based on a criterion like uncertainty, diversity, or representativeness.</p></li>
+</ul>
+<p><strong>Model Update</strong>:</p>
+<ul class="simple">
+<li><p>After querying, the model <span class="math notranslate nohighlight">\( f \)</span> is retrained on the updated labeled dataset <span class="math notranslate nohighlight">\( L' = L \cup X_q \)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="id3">
+<h3>Query-by-Committee (QBC)<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p><strong>Query-by-Committee (QBC)</strong> is an active learning strategy where multiple models (a “committee”) are trained on the same labeled data, and they “<strong>vote</strong>” on the label of <em>an unlabeled instance</em>. The idea is to <em>select instances</em> where the <em>committee members disagree the most</em>, under the assumption that these instances are the most informative for improving the model.</p>
+<p>The committee is typically composed of models that are diverse yet competent. <em><strong>Disagreement</strong></em> among the committee members <em><strong>indicates uncertainty</strong></em> about the instance, making it a good candidate for querying the true label.</p>
+<p><img alt="QBC_Strategy1" src="../../_images/QBC_1.png" /></p>
+<section id="mathematical-perspective-of-qbc">
+<h4>Mathematical Perspective OF QBC<a class="headerlink" href="#mathematical-perspective-of-qbc" title="Link to this heading">#</a></h4>
+<p><strong>Committee of Models</strong>:</p>
+<ul class="simple">
+<li><p>Let <span class="math notranslate nohighlight">\( \mathcal{H} = \{h_1, h_2, \dots, h_C\} \)</span> be a committee of <span class="math notranslate nohighlight">\( C \)</span> models, each trained on the current labeled dataset <span class="math notranslate nohighlight">\( \mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^n \)</span>.</p></li>
+</ul>
+<p><strong>Disagreement Measure</strong>:</p>
+<ul class="simple">
+<li><p><strong>Vote Entropy</strong>: One way to <em><strong>measure disagreement</strong></em> is by calculating the entropy of the votes from the committee members. For an unlabeled instance <span class="math notranslate nohighlight">\( \mathbf{x} \)</span>, let <span class="math notranslate nohighlight">\( v_j(\mathbf{x}) \)</span> be the number of committee members predicting label <span class="math notranslate nohighlight">\( j \)</span>.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+H(\mathbf{x}) = -\sum_{j} \frac{v_j(\mathbf{x})}{C} \log \left(\frac{v_j(\mathbf{x})}{C}\right)
+\]</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> The higher the entropy, the greater the disagreement among the models.
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>KL Divergence</strong>: Another approach is to measure the Kullback-Leibler divergence between the predictions of different committee members.</p></li>
+</ul>
+<p><strong>Query Strategy</strong>:</p>
+<ul class="simple">
+<li><p>The <em>instance</em> with the <em>highest disagreement</em> (highest entropy or KL divergence) is <em>selected</em> for labeling.</p></li>
+<li><p>The committee is then updated by incorporating the newly labeled instance into the training data.</p></li>
+</ul>
+</section>
+</section>
+<section id="id4">
+<h3>Expected Model Change<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p><strong>Expected Model Change (EMC)</strong> is an active learning strategy where the goal is to select instances that, <em><strong>if labeled and added to the training set</strong></em>, are expected to <em>cause the greatest change to the model</em>. The idea is that instances causing significant changes are likely to be the most informative, leading to more effective learning.</p>
+<p>An example illustrating the EMCM algorithm in linear regression is presented. In this example, red cross marks indicate the training dataset, while blue plus signs represent the unlabeled dataset. The dotted red line depicts the current linear regression model. Upon selecting example A, which causes the most significant change in the model, the algorithm updates the model with the accumulated data, resulting in the solid blue line.</p>
+<p><img alt="EMCM_1" src="../../_images/ExpectedModelChange_1.PNG" /></p>
+</section>
+<section id="the-framework-of-expected-model-change-maximization">
+<h3>THE FRAMEWORK OF EXPECTED MODEL CHANGE MAXIMIZATION<a class="headerlink" href="#the-framework-of-expected-model-change-maximization" title="Link to this heading">#</a></h3>
+<p>In this section, we introduce the Expected Model Change Maximization (EMCM) framework and provide a brief interpretation to motivate its use.</p>
+<section id="a-the-emcm-framework">
+<h4>A. The EMCM Framework<a class="headerlink" href="#a-the-emcm-framework" title="Link to this heading">#</a></h4>
+<p>In supervised learning, the goal is to learn a model <span class="math notranslate nohighlight">\( f \)</span> that minimizes the generalization error on unseen data:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{L} = \mathbb{E}_{P(x, y)} [L(f(x), y)]
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( L \)</span> is the loss function, and <span class="math notranslate nohighlight">\( P(x, y) \)</span> is the joint distribution of data <span class="math notranslate nohighlight">\( x \)</span> and label <span class="math notranslate nohighlight">\( y \)</span>. As <span class="math notranslate nohighlight">\( P(x, y) \)</span> is often unknown, we instead minimize the empirical error on a training set <span class="math notranslate nohighlight">\( D = \{(x_i, y_i)\}_{i=1}^n \)</span>, drawn i.i.d. from <span class="math notranslate nohighlight">\( P(x, y) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\mathcal{L}}_D = \frac{1}{n} \sum_{i=1}^n L(f(x_i), y_i)
+\]</div>
+<p>For parameter optimization, Stochastic Gradient Descent (SGD) is commonly used:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta := \theta - \alpha \frac{\partial \hat{\mathcal{L}}_D}{\partial \theta}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \alpha \)</span> is the learning rate. In active learning, adding a new example <span class="math notranslate nohighlight">\( (x^+, y^+) \)</span> modifies the empirical risk:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\mathcal{L}}_{D^+} = \frac{1}{n+1} \left(\sum_{i=1}^n L(f(x_i), y_i) + L(f(x^+), y^+) \right)
+\]</div>
+<p>The change in the model <span class="math notranslate nohighlight">\( C(x^+) \)</span> due to this addition is given by:</p>
+<div class="math notranslate nohighlight">
+\[ C(x^+) = \alpha \frac{\partial L(f(x^+), y^+)}{\partial \theta} \]</div>
+<p>The aim is to select <span class="math notranslate nohighlight">\( x^* \)</span> that maximally changes the model:</p>
+<div class="math notranslate nohighlight">
+\[ x^* = \arg\max_{x \in \text{pool}} \|C(x)\| \]</div>
+<p>Since the true label <span class="math notranslate nohighlight">\( y^+ \)</span> is unknown, we estimate the expected change:</p>
+<div class="math notranslate nohighlight">
+\[ x^* = \arg\max_{x \in \text{pool}} \sum_{k=1}^K P(y_k | x) \left\| \frac{\partial L(f(x), y_k)}{\partial \theta} \right\| \]</div>
+<p>where <span class="math notranslate nohighlight">\( P(y_k | x) \)</span> is the probability of label <span class="math notranslate nohighlight">\( y_k \)</span> given <span class="math notranslate nohighlight">\( x \)</span>, estimated by the current model.</p>
+</section>
+<section id="interpretation">
+<h4>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h4>
+<p>The effectiveness of the EMCM framework is linked to its impact on generalization error. Specifically, model changes should ideally reduce generalization error. While large changes may not always improve performance due to potential outliers, the iterative nature of active learning ensures that these outliers are less impactful.</p>
+</section>
+</section>
+<section id="emcm-for-active-learning-in-regression">
+<h3>EMCM FOR ACTIVE LEARNING IN REGRESSION<a class="headerlink" href="#emcm-for-active-learning-in-regression" title="Link to this heading">#</a></h3>
+<p>This section introduces the regression models used and details the active learning algorithms for these models.</p>
+<p><strong>Linear Regression:</strong> The model assumes a linear relationship between features and output:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x; \theta) = \theta^T x
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \theta \)</span> is the weight vector and <span class="math notranslate nohighlight">\( x \)</span> includes the features and an intercept term.</p>
+<p><strong>Nonlinear Regression:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+f(x; \theta) = \theta^T \phi (x)
+\]</div>
+<section id="linear-regression-models">
+<h4>Linear Regression Models<a class="headerlink" href="#linear-regression-models" title="Link to this heading">#</a></h4>
+<p>For linear regression, the goal is to minimize the squared-error loss. Given the training set <span class="math notranslate nohighlight">\( D = \{(x_i, y_i)\}_{i=1}^n \)</span>, the empirical risk is:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{D} = \frac{1}{2} \sum_{i=1}^n (f(x_i) - y_i)^2
+\]</div>
+<p>Adding a new example <span class="math notranslate nohighlight">\( (x^+, y^+) \)</span> changes the empirical risk to:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{D}^+ = \frac{1}{2} \sum_{i=1}^n (f(x_i) - y_i)^2 + \frac{1}{2} (f(x^+) - y^+)^2 
+\]</div>
+<p>The derivative of the squared-error loss with respect to <span class="math notranslate nohighlight">\( \theta \)</span> at <span class="math notranslate nohighlight">\( x^+ \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \hat{D}^+}{\partial \theta} = (f(x^+) - y^+) x^+
+\]</div>
+<p>Since the true label <span class="math notranslate nohighlight">\( y^+ \)</span> is unknown, we use bootstrap to estimate the prediction distribution and approximate the model change. The sampling function for linear regression is:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \arg\max_{x \in \text{pool}} \frac{1}{K} \sum_{k=1}^K \| (f(x) - y_k(x)) x \|
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \{f_1, f_2, \ldots, f_K\} \)</span> are bootstrap models and <span class="math notranslate nohighlight">\( y_k(x) \)</span> are the predicted labels.</p>
+<p>Following algorithm provides the pseudo-code for EMCM in linear regression.</p>
+</section>
+</section>
+<section id="algorithm-emcm-for-active-learning-in-linear-regression">
+<h3>Algorithm : EMCM for Active Learning in Linear Regression<a class="headerlink" href="#algorithm-emcm-for-active-learning-in-linear-regression" title="Link to this heading">#</a></h3>
+<p><strong>Input:</strong></p>
+<ul class="simple">
+<li><p>Small labeled dataset <span class="math notranslate nohighlight">\( D = \{(x_i, y_i)\}_{i=1}^n \)</span></p></li>
+<li><p>Unlabeled pool set</p></li>
+<li><p>Linear regression model <span class="math notranslate nohighlight">\( f(x; \theta) \)</span> trained with the labeled dataset</p></li>
+</ul>
+<p><strong>Steps:</strong></p>
+<p><strong>Construct Bootstrap Ensemble:</strong><br />
+Create an ensemble of <span class="math notranslate nohighlight">\( K \)</span> models using bootstrap sampling:<br />
+$<span class="math notranslate nohighlight">\( B(K) = \{f_1, f_2, \ldots, f_K\} \)</span>$</p>
+<p><strong>For Each Example <span class="math notranslate nohighlight">\( x \)</span> in the Pool Set:</strong><br />
+a. <strong>For Each Bootstrap Model <span class="math notranslate nohighlight">\( k \)</span> from 1 to <span class="math notranslate nohighlight">\( K \)</span>:</strong><br />
+- Predict label <span class="math notranslate nohighlight">\( y_k(x) \)</span> using model <span class="math notranslate nohighlight">\( f_k \)</span>:<br />
+$<span class="math notranslate nohighlight">\( y_k(x) \leftarrow f_k(x) \)</span><span class="math notranslate nohighlight">\(  
+      - Calculate the derivative of the squared-error loss using:  
+        \)</span><span class="math notranslate nohighlight">\( \nabla_{\theta_k}(\theta) \leftarrow (f(x) - y_k(x)) x \)</span>$</p>
+<p>b. <strong>Estimate the Expected Model Change:</strong><br />
+Compute the expected model change over <span class="math notranslate nohighlight">\( K \)</span> possible labels using:<br />
+$<span class="math notranslate nohighlight">\( \text{Expected Change}(x) = \frac{1}{K} \sum_{k=1}^K \|\nabla_{\theta_k}(\theta)\| \)</span>$</p>
+<p><strong>Select the Example <span class="math notranslate nohighlight">\( x^* \)</span> with the Largest Expected Change:</strong><br />
+$<span class="math notranslate nohighlight">\( x^* = \arg\max_{x \in \text{pool}} \text{Expected Change}(x) \)</span>$</p>
+<p><strong>Output:</strong></p>
+<ul class="simple">
+<li><p>The example <span class="math notranslate nohighlight">\( x^* \)</span> from the pool set that has the largest expected change.</p></li>
+</ul>
+</section>
+</section>
+<section id="homework-write-code-for-emcm-in-linear-non-linear-regression">
+<h2>Homework: write code for EMCM in Linear/non-linear Regression<a class="headerlink" href="#homework-write-code-for-emcm-in-linear-non-linear-regression" title="Link to this heading">#</a></h2>
+</section>
+<section id="miniprojects-complete-another-scenarios-such-as">
+<h2>Miniprojects: complete another scenarios such as :<a class="headerlink" href="#miniprojects-complete-another-scenarios-such-as" title="Link to this heading">#</a></h2>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    Variance Reduction, Density-Weighted Methods and so on.
+</pre></div>
+</div>
+<section id="sampling-strategy-in-al">
+<h3>Sampling Strategy in AL<a class="headerlink" href="#sampling-strategy-in-al" title="Link to this heading">#</a></h3>
+<p>In active learning, several sampling strategies are used to select the most informative instances for labeling. This techniques are used in the aforementioned framework of AL.</p>
+<section id="uncertainty-sampling">
+<h4>Uncertainty Sampling<a class="headerlink" href="#uncertainty-sampling" title="Link to this heading">#</a></h4>
+<p>Uncertainty sampling aims to select instances where the model is least certain about its predictions. This approach focuses on querying the data points where the model has the highest uncertainty, assuming that labeling these instances will provide the most informative feedback to improve the model.</p>
+<ul class="simple">
+<li><p><strong>Techniques:</strong></p>
+<ul>
+<li><p><strong>Least Confidence</strong>: Selects instances for which the model has the lowest confidence in its most probable prediction. For a classifier, this is often the instance with the smallest maximum predicted probability.</p></li>
+<li><p><strong>Margin Sampling</strong>: Chooses instances where the difference between the predicted probabilities of the two most likely classes is smallest. This margin indicates how uncertain the model is about the class assignment.</p></li>
+<li><p><strong>Entropy Sampling</strong>: Measures the entropy (or uncertainty) of the predicted probability distribution. Instances with the highest entropy are selected because the model’s predicted probability distribution is most spread out.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="least-confidence-sampling">
+<h3>Least Confidence Sampling<a class="headerlink" href="#least-confidence-sampling" title="Link to this heading">#</a></h3>
+<p><strong>Objective</strong>: The Least Confidence (LC) sampling strategy selects instances where the model has the least confidence in its most probable prediction. This approach is based on the idea that the instances for which the model is most uncertain about its predictions are the ones that could provide the most valuable information if labeled.</p>
+<section id="mathematics-of-least-confidence-sampling">
+<h4>Mathematics of Least Confidence Sampling<a class="headerlink" href="#mathematics-of-least-confidence-sampling" title="Link to this heading">#</a></h4>
+<p>For a classification problem, consider a model <span class="math notranslate nohighlight">\( f \)</span> that outputs a probability distribution over <span class="math notranslate nohighlight">\( K \)</span> classes. Let <span class="math notranslate nohighlight">\( p_k(x) \)</span> denote the predicted probability of the class <span class="math notranslate nohighlight">\( k \)</span> given the input <span class="math notranslate nohighlight">\( x \)</span>. The confidence of the model in its prediction is represented by the probability of the most probable class.</p>
+<p><strong>Probability of Most Likely Class</strong>:</p>
+<ul class="simple">
+<li><p>For a given instance <span class="math notranslate nohighlight">\( x \)</span>, the model predicts probabilities <span class="math notranslate nohighlight">\( \{ p_1(x), p_2(x), \ldots, p_K(x) \} \)</span> for each class.</p></li>
+<li><p>The confidence <span class="math notranslate nohighlight">\( C(x) \)</span> in the model’s prediction is given by:
+$<span class="math notranslate nohighlight">\(
+C(x) = \max_{k} p_k(x)
+\)</span><span class="math notranslate nohighlight">\(
+Here, \)</span> \max_{k} p_k(x) <span class="math notranslate nohighlight">\( is the maximum probability assigned to any class for the instance \)</span> x $.</p></li>
+</ul>
+<p><strong>Uncertainty Measure</strong>:</p>
+<ul class="simple">
+<li><p>The Least Confidence strategy aims to select instances where this maximum probability is the smallest. Hence, the uncertainty <span class="math notranslate nohighlight">\( U(x) \)</span> is computed as:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+  U(x) = 1 - \max_{k} p_k(x)
+\]</div>
+<ul class="simple">
+<li><p>This measure indicates how uncertain the model is about its prediction for instance <span class="math notranslate nohighlight">\( x \)</span>. A higher value of <span class="math notranslate nohighlight">\( U(x) \)</span> means the model is less confident about its prediction.</p></li>
+</ul>
+<p><strong>Selection Criterion</strong>:</p>
+<ul class="simple">
+<li><p>To perform Least Confidence sampling, select the instance <span class="math notranslate nohighlight">\( x \)</span> from the pool that maximizes the uncertainty:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+  x^* = \arg\max_{x \in \text{pool}} \left( 1 - \max_{k} p_k(x) \right)
+  \]</div>
+<ul class="simple">
+<li><p>Here, <span class="math notranslate nohighlight">\( x^* \)</span> is the instance with the highest uncertainty, i.e., the instance where the model is least confident about its most probable prediction.</p></li>
+</ul>
+</section>
+<section id="example">
+<h4>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h4>
+<p>Assume you have a classification model that predicts probabilities for three classes (A, B, C) for an instance <span class="math notranslate nohighlight">\( x \)</span> as follows:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( p_A(x) = 0.3 \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( p_B(x) = 0.4 \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( p_C(x) = 0.3 \)</span></p></li>
+</ul>
+<p>The confidence in the prediction is:</p>
+<div class="math notranslate nohighlight">
+\[
+C(x) = \max\{0.3, 0.4, 0.3\} = 0.4
+\]</div>
+<p>The uncertainty is:</p>
+<div class="math notranslate nohighlight">
+\[
+U(x) = 1 - 0.4 = 0.6
+\]</div>
+<p>If there are other instances in the pool with higher uncertainty values, those instances will be selected for labeling to improve the model’s performance.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">simps</span>
+
+<span class="c1"># Define two Gaussian distributions</span>
+<span class="n">mean1</span><span class="p">,</span> <span class="n">std_dev1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">mean2</span><span class="p">,</span> <span class="n">std_dev2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1.5</span>
+
+<span class="c1"># Create norm distributions</span>
+<span class="n">dist1</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mean1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">std_dev1</span><span class="p">)</span>
+<span class="n">dist2</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mean2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">std_dev2</span><span class="p">)</span>
+
+<span class="c1"># Create a range of values</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Calculate the probability density functions</span>
+<span class="n">pdf1</span> <span class="o">=</span> <span class="n">dist1</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">pdf2</span> <span class="o">=</span> <span class="n">dist2</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">combined_pdf</span> <span class="o">=</span> <span class="n">pdf1</span> <span class="o">+</span> <span class="n">pdf2</span>
+<span class="n">pdf1_normalized</span><span class="o">=</span><span class="n">pdf1</span><span class="o">/</span> <span class="n">combined_pdf</span>
+<span class="n">pdf2_normalized</span><span class="o">=</span><span class="n">pdf2</span><span class="o">/</span> <span class="n">combined_pdf</span>
+
+
+<span class="c1"># Calculate the maximum of the combined PDFs for each x</span>
+<span class="n">max_pdf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">pdf1_normalized</span><span class="p">,</span> <span class="n">pdf2_normalized</span><span class="p">)</span>
+
+<span class="c1"># Find the maximum value of the combined PDFs over the range</span>
+<span class="n">max_pdf_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">max_pdf</span><span class="p">)</span>
+
+<span class="c1"># Calculate uncertainty as max_pdf_max - max_pdf</span>
+<span class="n">uncertainty</span> <span class="o">=</span> <span class="n">max_pdf_max</span> <span class="o">-</span> <span class="n">max_pdf</span>
+
+<span class="c1"># Find the x-value with the maximum uncertainty</span>
+<span class="n">max_uncertainty_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">uncertainty</span><span class="p">)</span>
+<span class="n">x_max_uncertainty</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">max_uncertainty_index</span><span class="p">]</span>
+<span class="n">max_uncertainty</span> <span class="o">=</span> <span class="n">uncertainty</span><span class="p">[</span><span class="n">max_uncertainty_index</span><span class="p">]</span>
+
+<span class="c1"># Plot the Gaussian distributions and uncertainty</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot the first normalized Gaussian distribution</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pdf1_normalized</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Normalized Gaussian 1 (mean=0, std=1)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot the second normalized Gaussian distribution</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pdf2_normalized</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Normalized Gaussian 2 (mean=2, std=1.5)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot the normalized uncertainty</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">uncertainty</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Uncertainty (max_pdf_max - max(p1(x), p2(x)))&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="c1"># Highlight the x-value with the maximum uncertainty</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_max_uncertainty</span><span class="p">,</span> <span class="n">max_uncertainty</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Max Uncertainty Point&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add labels and legend</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Normalized One-Dimensional Gaussian Distributions and Uncertainty&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Feature&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability Density / Uncertainty&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/92e4c6b1614462aa0c8dd57f114f2f30cf42b048f7f4392bb3837a113d61a835.png" src="../../_images/92e4c6b1614462aa0c8dd57f114f2f30cf42b048f7f4392bb3837a113d61a835.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># 1. Generate Synthetic Data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X_labeled</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span>  <span class="c1"># First 50 samples are labeled</span>
+<span class="n">y_labeled</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span>
+<span class="n">X_unlabeled</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">50</span><span class="p">:]</span>  <span class="c1"># Remaining samples are unlabeled</span>
+
+<span class="c1"># 2. Fit a Linear Classifier</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_labeled</span><span class="p">,</span> <span class="n">y_labeled</span><span class="p">)</span>
+
+<span class="c1"># 3. Calculate Uncertainty</span>
+<span class="n">probabilities</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_unlabeled</span><span class="p">)</span>
+<span class="n">max_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Maximum probability for each sample</span>
+<span class="n">uncertainty</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">max_prob</span>  <span class="c1"># Uncertainty as 1 - max probability</span>
+
+<span class="c1"># Find instances with the highest uncertainty</span>
+<span class="n">top_uncertainty_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">uncertainty</span><span class="p">)[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>  <span class="c1"># Select top 10 most uncertain samples</span>
+<span class="n">top_uncertainty_samples</span> <span class="o">=</span> <span class="n">X_unlabeled</span><span class="p">[</span><span class="n">top_uncertainty_indices</span><span class="p">]</span>
+<span class="n">top_uncertainty_values</span> <span class="o">=</span> <span class="n">uncertainty</span><span class="p">[</span><span class="n">top_uncertainty_indices</span><span class="p">]</span>
+
+<span class="c1"># 4. Plot Results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot labeled samples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_labeled</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_labeled</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_labeled</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Labeled Data&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot unlabeled samples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_unlabeled</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_unlabeled</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Unlabeled Data&#39;</span><span class="p">)</span>
+
+<span class="c1"># Highlight most uncertain samples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">top_uncertainty_samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">top_uncertainty_samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;High Uncertainty&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot decision boundary</span>
+<span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Least Confidence Sampling with Linear Classifier&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Feature 1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Feature 2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Decision Boundary&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Dr\AppData\Local\Temp\ipykernel_10456\3691839792.py:35: UserWarning: You passed a edgecolor/edgecolors (&#39;k&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(X_unlabeled[:, 0], X_unlabeled[:, 1], c=&#39;lightgray&#39;, marker=&#39;x&#39;, edgecolor=&#39;k&#39;, label=&#39;Unlabeled Data&#39;)
+C:\Users\Dr\AppData\Local\Temp\ipykernel_10456\3691839792.py:38: UserWarning: You passed a edgecolor/edgecolors (&#39;k&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(top_uncertainty_samples[:, 0], top_uncertainty_samples[:, 1], c=&#39;red&#39;, edgecolor=&#39;k&#39;, marker=&#39;x&#39;, s=100, label=&#39;High Uncertainty&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/98d8f93c6a06d905acb4a185ba3be2fd1e10705850477d753b3f08a7ad34e325.png" src="../../_images/98d8f93c6a06d905acb4a185ba3be2fd1e10705850477d753b3f08a7ad34e325.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="margin-sampling">
+<h3>Margin Sampling<a class="headerlink" href="#margin-sampling" title="Link to this heading">#</a></h3>
+<p><strong>Margin Sampling</strong> is a specific type of uncertainty sampling used in active learning. The idea is to select instances where the model is most uncertain, but instead of looking at the highest uncertainty directly, it looks at the smallest difference between the top two predicted probabilities (the margin).</p>
+<p><strong>Margin Sampling</strong> and <strong>Least Confidence Sampling</strong> are both uncertainty-based strategies in active learning, but they differ in how they measure uncertainty for selecting which instances to label next.</p>
+<ul class="simple">
+<li><p><strong>Mathematics</strong>: For a given instance <span class="math notranslate nohighlight">\( x \)</span>, with predicted class probabilities <span class="math notranslate nohighlight">\( p_1(x), p_2(x), \ldots, p_K(x) \)</span>, sorted such that <span class="math notranslate nohighlight">\( p_{(1)}(x) \geq p_{(2)}(x) \geq \ldots \geq p_{(K)}(x) \)</span>, the margin is calculated as:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+m(x) =\text{Margin}(x) = p_{(1)}(x) - p_{(2)}(x)
+\]</div>
+<p>The uncertainty is inversely proportional to this margin. The sample with the smallest margin is selected for labeling.</p>
+<p>In Margin Sampling, the instance <span class="math notranslate nohighlight">\(x^*\)</span> selected for labeling is:</p>
+<div class="math notranslate nohighlight">
+\[
+x^* = \arg \min_{x \in \text{pool}} m(x)
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="c1"># Define two Gaussian distributions</span>
+<span class="n">mean1</span><span class="p">,</span> <span class="n">std_dev1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">mean2</span><span class="p">,</span> <span class="n">std_dev2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1.5</span>
+
+<span class="c1"># Create norm distributions</span>
+<span class="n">dist1</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mean1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">std_dev1</span><span class="p">)</span>
+<span class="n">dist2</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mean2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">std_dev2</span><span class="p">)</span>
+
+<span class="c1"># Create a range of values</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Calculate PDFs</span>
+<span class="n">pdf1</span> <span class="o">=</span> <span class="n">dist1</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">pdf2</span> <span class="o">=</span> <span class="n">dist2</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Normalize so the sum is 1 for each x</span>
+<span class="n">total_pdf</span> <span class="o">=</span> <span class="n">pdf1</span> <span class="o">+</span> <span class="n">pdf2</span>
+<span class="n">pdf1_normalized</span> <span class="o">=</span> <span class="n">pdf1</span> <span class="o">/</span> <span class="n">total_pdf</span>
+<span class="n">pdf2_normalized</span> <span class="o">=</span> <span class="n">pdf2</span> <span class="o">/</span> <span class="n">total_pdf</span>
+
+<span class="c1"># Calculate margins</span>
+<span class="n">margins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">pdf1_normalized</span> <span class="o">-</span> <span class="n">pdf2_normalized</span><span class="p">)</span>
+
+<span class="c1"># Find the index of the minimum margin</span>
+<span class="n">min_margin_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">margins</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pdf1_normalized</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p1(x) (Class 1)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pdf2_normalized</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p2(x) (Class 2)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">margins</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Margin m(x)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">min_margin_index</span><span class="p">],</span> <span class="n">margins</span><span class="p">[</span><span class="n">min_margin_index</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Margin Sampling: Select instance with minimum margin&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/55c0d0c4be27649a49a6ff118294bb841c755b7644c4b3014ef8cc6ac85a32d4.png" src="../../_images/55c0d0c4be27649a49a6ff118294bb841c755b7644c4b3014ef8cc6ac85a32d4.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+
+<span class="c1"># 1. Generate Synthetic Data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X_labeled</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span>  <span class="c1"># First 50 samples are labeled</span>
+<span class="n">y_labeled</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span>
+<span class="n">X_unlabeled</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">50</span><span class="p">:]</span>  <span class="c1"># Remaining samples are unlabeled</span>
+
+<span class="c1"># 2. Fit a Linear Classifier</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_labeled</span><span class="p">,</span> <span class="n">y_labeled</span><span class="p">)</span>
+
+<span class="c1"># 3. Calculate Margin</span>
+<span class="n">probabilities</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_unlabeled</span><span class="p">)</span>
+<span class="n">sorted_probabilities</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">margins</span> <span class="o">=</span> <span class="n">sorted_probabilities</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">sorted_probabilities</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># Margin as the difference between top two probabilities</span>
+
+<span class="c1"># Find instances with the smallest margin (highest uncertainty)</span>
+<span class="n">top_margin_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">margins</span><span class="p">)[:</span><span class="mi">10</span><span class="p">]</span>  <span class="c1"># Select top 10 most uncertain samples (smallest margin)</span>
+<span class="n">top_margin_samples</span> <span class="o">=</span> <span class="n">X_unlabeled</span><span class="p">[</span><span class="n">top_margin_indices</span><span class="p">]</span>
+<span class="n">top_margin_values</span> <span class="o">=</span> <span class="n">margins</span><span class="p">[</span><span class="n">top_margin_indices</span><span class="p">]</span>
+
+<span class="c1"># 4. Plot Results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot labeled samples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_labeled</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_labeled</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_labeled</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Labeled Data&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot unlabeled samples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_unlabeled</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_unlabeled</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Unlabeled Data&#39;</span><span class="p">)</span>
+
+<span class="c1"># Highlight most uncertain samples (smallest margin)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">top_margin_samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">top_margin_samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Smallest Margin&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot decision boundary</span>
+<span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Margin Sampling with Linear Classifier&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Feature 1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Feature 2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Decision Boundary&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Dr\AppData\Local\Temp\ipykernel_10456\3195940474.py:34: UserWarning: You passed a edgecolor/edgecolors (&#39;k&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(X_unlabeled[:, 0], X_unlabeled[:, 1], c=&#39;lightgray&#39;, marker=&#39;x&#39;, edgecolor=&#39;k&#39;, label=&#39;Unlabeled Data&#39;)
+C:\Users\Dr\AppData\Local\Temp\ipykernel_10456\3195940474.py:37: UserWarning: You passed a edgecolor/edgecolors (&#39;k&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(top_margin_samples[:, 0], top_margin_samples[:, 1], c=&#39;red&#39;, edgecolor=&#39;k&#39;, marker=&#39;x&#39;, s=100, label=&#39;Smallest Margin&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/94aeb1b5fea15a6728685ec6d754b127fda2bfbe2fd08aaf26354d2e7d5fba72.png" src="../../_images/94aeb1b5fea15a6728685ec6d754b127fda2bfbe2fd08aaf26354d2e7d5fba72.png" />
+</div>
+</div>
+</section>
+<section id="entropy-sampling">
+<h3>Entropy Sampling<a class="headerlink" href="#entropy-sampling" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Definition</strong>: Entropy Sampling selects instances for labeling where the model’s prediction distribution is the most uncertain, which is quantified using entropy. Entropy is a measure of uncertainty or disorder in a probability distribution. In the context of active learning, it is used to capture how evenly distributed the predicted probabilities are across all possible classes.</p></li>
+<li><p><strong>Mathematics</strong>: For a given instance <span class="math notranslate nohighlight">\( x \)</span>, the model predicts class probabilities <span class="math notranslate nohighlight">\( p_1(x), p_2(x), \ldots, p_K(x) \)</span> for <span class="math notranslate nohighlight">\( K \)</span> classes. The entropy of the prediction is calculated as:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+H(x) = -\sum_{k=1}^{K} p_k(x) \log p_k(x)
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( H(x) \)</span> measures the uncertainty in the model’s prediction. The higher the entropy, the more uncertain the model is about the prediction. In Entropy Sampling, the instances with the highest entropy are selected for labeling.</p>
+<div class="math notranslate nohighlight">
+\[
+  x^* = \arg \max_{x \in \text{pool}} \left( -\sum_{k} p_k(x) \log p_k(x) \right)
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="c1"># Define two Gaussian distributions</span>
+<span class="n">mean1</span><span class="p">,</span> <span class="n">std_dev1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">mean2</span><span class="p">,</span> <span class="n">std_dev2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">1.5</span>
+
+<span class="c1"># Create norm distributions</span>
+<span class="n">dist1</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mean1</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">std_dev1</span><span class="p">)</span>
+<span class="n">dist2</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mean2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">std_dev2</span><span class="p">)</span>
+
+<span class="c1"># Create a range of values</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Calculate PDFs</span>
+<span class="n">pdf1</span> <span class="o">=</span> <span class="n">dist1</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">pdf2</span> <span class="o">=</span> <span class="n">dist2</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Normalize so the sum is 1 for each x</span>
+<span class="n">total_pdf</span> <span class="o">=</span> <span class="n">pdf1</span> <span class="o">+</span> <span class="n">pdf2</span>
+<span class="n">pdf1_normalized</span> <span class="o">=</span> <span class="n">pdf1</span> <span class="o">/</span> <span class="n">total_pdf</span>
+<span class="n">pdf2_normalized</span> <span class="o">=</span> <span class="n">pdf2</span> <span class="o">/</span> <span class="n">total_pdf</span>
+
+<span class="c1"># Calculate entropy</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span> <span class="p">(</span><span class="n">pdf1_normalized</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">pdf1_normalized</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">)</span> <span class="o">+</span> 
+             <span class="n">pdf2_normalized</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">pdf2_normalized</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">))</span>
+
+<span class="c1"># Find the index of the maximum entropy</span>
+<span class="n">max_entropy_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">entropy</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pdf1_normalized</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p1(x) (Class 1)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pdf2_normalized</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;p2(x) (Class 2)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">entropy</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Entropy H(x)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">max_entropy_index</span><span class="p">],</span> <span class="n">entropy</span><span class="p">[</span><span class="n">max_entropy_index</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Entropy Sampling: Select instance with maximum entropy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability / Entropy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/874efc4660336ffd0b936750c4c1407b41d15435d49051dc8d11c6cd03b826d1.png" src="../../_images/874efc4660336ffd0b936750c4c1407b41d15435d49051dc8d11c6cd03b826d1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<span class="c1"># 1. Generate Synthetic Data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">X_labeled</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span>  <span class="c1"># First 50 samples are labeled</span>
+<span class="n">y_labeled</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span>
+<span class="n">X_unlabeled</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">50</span><span class="p">:]</span>  <span class="c1"># Remaining samples are unlabeled</span>
+
+<span class="c1"># 2. Fit a Linear Classifier</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_labeled</span><span class="p">,</span> <span class="n">y_labeled</span><span class="p">)</span>
+
+<span class="c1"># 3. Calculate Entropy</span>
+<span class="n">probabilities</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_unlabeled</span><span class="p">)</span>
+<span class="n">entropy</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">probabilities</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">probabilities</span> <span class="o">+</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Calculate entropy for each sample</span>
+
+<span class="c1"># Find instances with the highest entropy</span>
+<span class="n">top_entropy_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">entropy</span><span class="p">)[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>  <span class="c1"># Select top 10 most uncertain samples</span>
+<span class="n">top_entropy_samples</span> <span class="o">=</span> <span class="n">X_unlabeled</span><span class="p">[</span><span class="n">top_entropy_indices</span><span class="p">]</span>
+<span class="n">top_entropy_values</span> <span class="o">=</span> <span class="n">entropy</span><span class="p">[</span><span class="n">top_entropy_indices</span><span class="p">]</span>
+
+<span class="c1"># 4. Plot Results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot labeled samples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_labeled</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_labeled</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_labeled</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Labeled Data&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot unlabeled samples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_unlabeled</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_unlabeled</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;lightgray&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Unlabeled Data&#39;</span><span class="p">)</span>
+
+<span class="c1"># Highlight samples with the highest entropy</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">top_entropy_samples</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">top_entropy_samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;High Entropy&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot decision boundary</span>
+<span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">xx</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Entropy Sampling with Linear Classifier&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Feature 1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Feature 2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Decision Boundary&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Dr\AppData\Local\Temp\ipykernel_10456\1936272304.py:34: UserWarning: You passed a edgecolor/edgecolors (&#39;k&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(X_unlabeled[:, 0], X_unlabeled[:, 1], c=&#39;lightgray&#39;, marker=&#39;x&#39;, edgecolor=&#39;k&#39;, label=&#39;Unlabeled Data&#39;)
+C:\Users\Dr\AppData\Local\Temp\ipykernel_10456\1936272304.py:37: UserWarning: You passed a edgecolor/edgecolors (&#39;k&#39;) for an unfilled marker (&#39;x&#39;).  Matplotlib is ignoring the edgecolor in favor of the facecolor.  This behavior may change in the future.
+  plt.scatter(top_entropy_samples[:, 0], top_entropy_samples[:, 1], c=&#39;red&#39;, edgecolor=&#39;k&#39;, marker=&#39;x&#39;, s=100, label=&#39;High Entropy&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/d4fb586a90f9ca075d7fa850a7c57f4b3cfbf8bab6500aeab0cfe0d0bb7dae8d.png" src="../../_images/d4fb586a90f9ca075d7fa850a7c57f4b3cfbf8bab6500aeab0cfe0d0bb7dae8d.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="miniprojects-another-sampling-methods-such-as-diversity-sampling-and-so-on">
+<h2>Miniprojects: Another sampling methods such as Diversity Sampling, and so on.<a class="headerlink" href="#miniprojects-another-sampling-methods-such-as-diversity-sampling-and-so-on" title="Link to this heading">#</a></h2>
+</section>
+<section id="miniprojects-working-with-modal">
+<h2>Miniprojects : Working with modAL<a class="headerlink" href="#miniprojects-working-with-modal" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://modal-python.readthedocs.io/en/latest/">modAL</a>
+also
+<a class="reference external" href="https://github.com/modAL-python/modAL/tree/dev">modAl_github</a>
+some example of keras
+<a class="reference external" href="https://keras.io/examples/nlp/active_learning_review_classification/">keras_AL</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ML\ActiveLearning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../RepresentationLearning/RepresentationLearning1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Representation Learning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../TransferLearning/TransferLearning_1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Transfer Learning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-active-learning">Why Active Learning?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-at-active-learning">Hypothesis at Active Learning:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-of-active-learning">objective of Active Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#active-learning-addressing-labeling-bottlenecks">Active Learning: Addressing Labeling Bottlenecks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-active-learning-vs-random-sampling">Example: Active Learning vs. Random Sampling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-scenarios-for-active-learning">main scenarios for active learning:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membership-query-synthesis">1. <strong>Membership Query Synthesis</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stream-based-sequential-active-learning">2. <strong>Stream-Based (Sequential) Active Learning</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pool-based-active-learning">3. <strong>Pool-Based Active Learning</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#query-by-committee-qbc">4. <strong>Query-by-Committee (QBC)</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-model-change">5. <strong>Expected Model Change</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#membership-query-synthesis-explanation-mathematics-and-analytical-perspective">Membership Query Synthesis: Explanation, Mathematics, and Analytical Perspective</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematics-and-analytical-perspective"><strong>Mathematics and Analytical Perspective</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-for-mqs">Example for MQS</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mqs-in-real-world-problems">MQS in real world problems</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-perspective-of-mqs">Mathematical Perspective of MQS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Stream-Based (Sequential) Active Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-perspective-of-sbal">Mathematical Perspective of SBAL</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-suitable-real-time-application-with-sbal">Homework: Suitable Real-Time Application with SBAL</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Pool-Based Active Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-framework-of-pbal">Mathematical Framework of PBAL</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Query-by-Committee (QBC)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-perspective-of-qbc">Mathematical Perspective OF QBC</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Expected Model Change</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-framework-of-expected-model-change-maximization">THE FRAMEWORK OF EXPECTED MODEL CHANGE MAXIMIZATION</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-the-emcm-framework">A. The EMCM Framework</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#emcm-for-active-learning-in-regression">EMCM FOR ACTIVE LEARNING IN REGRESSION</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression-models">Linear Regression Models</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-emcm-for-active-learning-in-linear-regression">Algorithm : EMCM for Active Learning in Linear Regression</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-write-code-for-emcm-in-linear-non-linear-regression">Homework: write code for EMCM in Linear/non-linear Regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniprojects-complete-another-scenarios-such-as">Miniprojects: complete another scenarios such as :</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-strategy-in-al">Sampling Strategy in AL</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#uncertainty-sampling">Uncertainty Sampling</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#least-confidence-sampling">Least Confidence Sampling</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematics-of-least-confidence-sampling">Mathematics of Least Confidence Sampling</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#margin-sampling">Margin Sampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#entropy-sampling">Entropy Sampling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniprojects-another-sampling-methods-such-as-diversity-sampling-and-so-on">Miniprojects: Another sampling methods such as Diversity Sampling, and so on.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniprojects-working-with-modal">Miniprojects : Working with modAL</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

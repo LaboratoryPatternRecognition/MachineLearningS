@@ -1,0 +1,1193 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Metric Learning &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ML/MetricLearning/MetricLearning_1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Representation Learning" href="../RepresentationLearning/RepresentationLearning1.html" />
+    <link rel="prev" title="Contrastive learning" href="../ContrastiveLearning/ContrastiveLearning_Introduction.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../machine_learning.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../machine_learning.html">
+                    Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Regression/NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/GP_Regression.html">Gaussian Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/FR_Intro.html">Introduction of Feature Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/PCA.html">Principal Component Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/Autoencoders1.html">Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/LLE.html">Locally Linear Embedding (LLE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/EnsembleStart_BaggingBoosting.html">Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/Ensemble_Voting_Variant_Bayesian.html">Ensemble by Voting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/TrainableCombiner.html">Trainable Combiners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/FederatedLearning.html">Federated Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/DiffusionNetwork.html">Diffusion Network of Learner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ContrastiveLearning/ContrastiveLearning_Introduction.html">Contrastive learning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Metric Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RepresentationLearning/RepresentationLearning1.html">Representation Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ActiveLearning/ActiveLearning_1.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TransferLearning/TransferLearning_1.html">Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TransferLearning/InstanceBasedTransferLearning1.html">Instance-Based Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MetaLearning/MetaLearning_1.html">MetaLearning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FML/MetricLearning/MetricLearning_1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/ML/MetricLearning/MetricLearning_1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Metric Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-objective-of-metric-learning">The Objective of Metric Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-metric-learning">Visualizing Metric Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics-for-numerical-data">Metrics for Numerical Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mahalanobis-distance-learning">Mahalanobis Distance Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nca-defect">NCA Defect</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-set-parameter-of-nca-such-as-tau">Homework : set parameter of NCA such as <span class="math notranslate nohighlight">\( \tau \)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#large-margin-nearest-neighbor-lmnn">Large Margin Nearest Neighbor (LMNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-version-of-lmnn">Soft version of LMNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-handling-strategy">Noise Handling Strategy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-itml-davis-et-al-information-eoretic-metric-learning-itml">Miniproject: ITML (Davis et al.) Information-eoretic Metric Learning (ITML)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-change-divergence-into-itml">Miniproject: change divergence into ITML</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-of-itml">Algorithm of ITML</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#metric-learning-as-logdet-optimization">Metric Learning as LogDet Optimization</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-information-theoretic-metric-learning">Algorithm: Information-Theoretic Metric Learning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-nonlinear-metric-learning">Miniproject: Nonlinear Metric Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-course-discussion-on-the-following-code">Homework: Course Discussion on the Following Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-metric-learning-by-contrastive-loss">Miniproject: Metric Learning by Contrastive loss</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="metric-learning">
+<h1>Metric Learning<a class="headerlink" href="#metric-learning" title="Link to this heading">#</a></h1>
+<p>The goal of <strong>metric learning</strong> is to adjust a pairwise distance metric, such as the <strong>Mahalanobis distance</strong> <span class="math notranslate nohighlight">\( d_\mathbf{M}(x, y) = \sqrt{(x-y)^T \mathbf{M} (x-y)} \)</span>, to better suit the specific problem based on training examples.</p>
+<p><strong>Types of Constraints in Metric Learning</strong></p>
+<p>Metric learning methods typically rely on <strong>side information</strong> presented in the form of constraints such as:</p>
+<ul>
+<li><p><strong>Must-link / Cannot-link Constraints</strong>:</p>
+<ul class="simple">
+<li><p><strong>Must-link (Positive Pairs)</strong>: These are pairs of examples <span class="math notranslate nohighlight">\( (x_i, x_j) \)</span> that should be similar. For instance, in a facial recognition task, different images of the same person would be considered a must-link pair.</p></li>
+<li><p><strong>Cannot-link (Negative Pairs)</strong>: These are pairs of examples <span class="math notranslate nohighlight">\( (x_i, x_j) \)</span> that should be dissimilar, such as images of different people in the facial recognition task.</p></li>
+</ul>
+<p>Formally, these constraints are denoted as:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( S = \{(x_i, x_j) \mid x_i \text{ and } x_j \text{ should be similar}\} \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( D = \{(x_i, x_j) \mid x_i \text{ and } x_j \text{ should be dissimilar}\} \)</span></p></li>
+</ul>
+</li>
+<li><p><strong>Relative Constraints (Training Triplets)</strong>:</p>
+<ul class="simple">
+<li><p>These involve triplets <span class="math notranslate nohighlight">\( (x_i, x_j, x_k) \)</span> where <span class="math notranslate nohighlight">\( x_i \)</span> should be more similar to <span class="math notranslate nohighlight">\( x_j \)</span> than to <span class="math notranslate nohighlight">\( x_k \)</span>.
+Formally:</p></li>
+<li><p><span class="math notranslate nohighlight">\( R = \{(x_i, x_j, x_k) \mid x_i \text{ should be more similar to } x_j \text{ than to } x_k\} \)</span></p></li>
+</ul>
+</li>
+</ul>
+<section id="the-objective-of-metric-learning">
+<h2>The Objective of Metric Learning<a class="headerlink" href="#the-objective-of-metric-learning" title="Link to this heading">#</a></h2>
+<p>A metric learning algorithm aims to find the parameters of the metric (in the case of the Mahalanobis distance, this means learning the matrix <span class="math notranslate nohighlight">\( \mathbf{M} \)</span>) so that the metric best aligns with the provided constraints.</p>
+</section>
+<section id="visualizing-metric-learning">
+<h2>Visualizing Metric Learning<a class="headerlink" href="#visualizing-metric-learning" title="Link to this heading">#</a></h2>
+<p>Imagine a situation where we’re trying to cluster images based on their content. Initially, the distance metric might not distinguish well between similar and dissimilar images. After metric learning, however, the learned metric should ensure that images of the same object are clustered together, while images of different objects are farther apart.</p>
+<p><img alt="Metric_L_first" src="../../_images/MetricLearningWhatdo.JPG" /></p>
+</section>
+<section id="metrics-for-numerical-data">
+<h2>Metrics for Numerical Data<a class="headerlink" href="#metrics-for-numerical-data" title="Link to this heading">#</a></h2>
+<p>For data points in a vector space <span class="math notranslate nohighlight">\( X \subset \mathbb{R}^d \)</span>, the following distance metrics are commonly used:</p>
+<ul class="simple">
+<li><p><strong>Minkowski Distances:</strong></p></li>
+</ul>
+<p>Minkowski distances are defined by the <span class="math notranslate nohighlight">\( L_p \)</span> norms:</p>
+<div class="math notranslate nohighlight">
+\[
+d_p(x, x_0) = \left( \sum_{i=1}^d |x_i - x_{0i}|^p \right)^{1/p}
+\]</div>
+<p><img alt="Minkowski_distance" src="../../_images/Minkowski_d_1.JPG" /></p>
+<p>For specific values of <span class="math notranslate nohighlight">\( p \)</span>:</p>
+<ul class="simple">
+<li><p><strong>Manhattan Distance (p=1):</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+d_{\text{man}}(x, x_0) = \sum_{i=1}^d |x_i - x_{0i}|
+\]</div>
+<ul class="simple">
+<li><p><strong>Euclidean Distance (p=2):</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+d_{\text{euc}}(x, x_0) = \sqrt{\sum_{i=1}^d (x_i - x_{0i})^2}
+\]</div>
+<ul class="simple">
+<li><p><strong>Chebyshev Distance (p \to \infty):</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+d_{\text{che}}(x, x_0) = \max_{i} |x_i - x_{0i}|
+\]</div>
+<ul class="simple">
+<li><p><strong>Mahalanobis Distance:</strong></p></li>
+</ul>
+<p>The Mahalanobis distance accounts for feature correlations:</p>
+<div class="math notranslate nohighlight">
+\[
+d_M(x, x_0) = \sqrt{(x - x_0)^\top \Sigma^{-1} (x - x_0)}
+\]</div>
+<p>Where <span class="math notranslate nohighlight">\( \Sigma \)</span> is the covariance matrix of the data. In metric learning, it is often generalized as:</p>
+<div class="math notranslate nohighlight">
+\[
+d_{\text{gen}}(x, x_0) = \sqrt{(x - x_0)^\top M (x - x_0)}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( M \)</span> is a positive semi-definite matrix. When <span class="math notranslate nohighlight">\( M \)</span> is the identity matrix, it reduces to the Euclidean distance. This distance allows for data projections into lower dimensions.</p>
+<ul class="simple">
+<li><p><strong>Cosine Similarity:</strong></p></li>
+</ul>
+<p>Cosine similarity measures the cosine of the angle between vectors:</p>
+<div class="math notranslate nohighlight">
+\[
+s_\text{cos}(x, x_0) = \frac{x^\top x_0}{\|x\|_2 \|x_0\|_2}
+\]</div>
+</section>
+<section id="mahalanobis-distance-learning">
+<h2>Mahalanobis Distance Learning<a class="headerlink" href="#mahalanobis-distance-learning" title="Link to this heading">#</a></h2>
+<p>Mahalanobis distance learning focuses on adapting the Mahalanobis distance, which is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+d(x, x_0) = \sqrt{(x - x_0)^\top \Sigma^{-1} (x - x_0)}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \Sigma \)</span> is the covariance matrix of the data. In practice, the squared form is often used:</p>
+<div class="math notranslate nohighlight">
+\[ d^2(x, x_0) = (x - x_0)^\top \Sigma^{-1} (x - x_0) \]</div>
+<p>The goal is to learn the matrix <span class="math notranslate nohighlight">\( \Sigma \)</span> from the training data, where <span class="math notranslate nohighlight">\( \Sigma \)</span> must remain positive semi-definite (PSD) during optimization.</p>
+<p><strong>Key Approaches:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>MMC (Xing et al., 2002):</strong></p>
+<ul class="simple">
+<li><p><strong>Objective:</strong> Learn a Mahalanobis distance for clustering based on similar and dissimilar pairs.</p></li>
+<li><p><strong>Formulation:</strong>
+$<span class="math notranslate nohighlight">\(
+\begin{aligned}
+\max_{M \in \mathcal{S}_d^+} \quad \sum_{(x_i, x_j) \in D} d^2(x_i, x_j) \\
+\text{subject to} \\
+&amp;\sum_{(x_i, x_j) \in S} d^2(x_i, x_j) \le 1 \\
+\end{aligned}
+\)</span>$</p></li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{S}_d^+ = \{ M \in \mathbb{R}^{d \times d} \mid M \text{ is symmetric and } M \succeq 0 \}
+\]</div>
+<ul class="simple">
+<li><p><strong>Method:</strong> Uses a projected gradient descent algorithm, with projections onto the PSD cone.</p></li>
+<li><p><strong>Complexity:</strong> The PSD projection requires <span class="math notranslate nohighlight">\( O(d^3) \)</span> time, making it inefficient for large <span class="math notranslate nohighlight">\( d \)</span>.</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p><strong>NCA ( neighborhood Component Analysis) (Goldberger et al., 2004):</strong></p>
+<ul class="simple">
+<li><p><strong>Objective:</strong> Optimize the expected leave-one-out error ($ p_{ii}=0)for a stochastic <em><strong>nearest neighbor classifier</strong></em> in the projection space.</p></li>
+<li><p><strong>Probability Definition:</strong></p></li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+p_{ij} = \frac{\exp(-\|x_i - x_j\|_M^2 / \tau)}{\sum_{k \neq i} \exp(-\|x_i - x_k\|_M^2 / \tau)}
+\]</div>
+<p>and <span class="math notranslate nohighlight">\(p_{ii}=0\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\|x_i - x_j\|_M^2 \\
+&amp; =(x_i-x_j)^{T}M(x_i-x_j)\\
+&amp; =(x_i-x_j)^{T}L^{T}L(x_i-x_j)\\
+&amp; =(Lx_i-Lx_j)^{T}(Lx_i-Lx_j)
+\end{aligned}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+p_{ij} = \frac{\exp(-\|Lx_i - Lx_j\|^2 / \tau)}{\sum_{k \neq i} \exp(-\|Lx_i - Lx_k\|^2 / \tau)}
+\]</div>
+<p>and <span class="math notranslate nohighlight">\(p_{ii}=0\)</span></p>
+<ul class="simple">
+<li><p><strong>Probability <span class="math notranslate nohighlight">\( x_i \)</span> correctly classified:</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+p_i = \sum_{j: y_j = y_i} p_{ij} \]</div>
+<p>The Mahalanobis distance is learned by maximizing the sum of probabilities:</p>
+<div class="math notranslate nohighlight">
+\[
+\max_L \sum_{i=1}^n  p_i
+\]</div>
+<p>The problem is solved using <strong><em>gradient descent</em></strong>, but the formulation is nonconvex, which can lead to <em>local optima</em>.</p>
+</section>
+<section id="nca-defect">
+<h2>NCA Defect<a class="headerlink" href="#nca-defect" title="Link to this heading">#</a></h2>
+<p>NCA primarily aims to improve the performance of k-nearest neighbors (k-NN) by learning a Mahalanobis distance that increases the probability of correctly classifying data points. <em>However</em>, its effectiveness can be limited by the <strong>non-linearity</strong> of the data, especially in cases like the “<em>two moons</em>” dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">metric_learn</span> <span class="kn">import</span> <span class="n">NCA</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+
+<span class="c1"># Step 1: Create a synthetic dataset with 2 classes</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">class_1</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># Class ω1 centered at (2, 2)</span>
+<span class="n">class_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># Class ω2 centered at (-2, -2)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">class_1</span><span class="p">,</span> <span class="n">class_2</span><span class="p">))</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">50</span><span class="p">)))</span>  <span class="c1"># Labels: 0 for ω1, 1 for ω2</span>
+
+<span class="c1"># Step 2: Apply NCA</span>
+<span class="n">nca</span> <span class="o">=</span> <span class="n">NCA</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">X_nca</span> <span class="o">=</span> <span class="n">nca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="c1"># Step 3: Visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Before NCA</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Before NCA&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Feature 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Feature 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># After NCA</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_nca</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_nca</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_nca</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_nca</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;After NCA&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Transformed Feature 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Transformed Feature 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">metric_learn</span> <span class="kn">import</span> <span class="n">NCA</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="c1"># Step 1: Create a synthetic dataset with 2 classes</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;metric_learn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="homework-set-parameter-of-nca-such-as-tau">
+<h2>Homework : set parameter of NCA such as <span class="math notranslate nohighlight">\( \tau \)</span><a class="headerlink" href="#homework-set-parameter-of-nca-such-as-tau" title="Link to this heading">#</a></h2>
+</section>
+<section id="large-margin-nearest-neighbor-lmnn">
+<h2>Large Margin Nearest Neighbor (LMNN)<a class="headerlink" href="#large-margin-nearest-neighbor-lmnn" title="Link to this heading">#</a></h2>
+<p>it is another popular metric learning algorithm that aims to improve the k-Nearest Neighbors (k-NN) classification by learning a Mahalanobis distance metric. The goal of LMNN is to ensure that:</p>
+<ul class="simple">
+<li><p>Target neighbors (points of the same class) are close to each other in the transformed space.</p></li>
+<li><p>Impostors (points from different classes) are pushed further apart by a large margin.</p></li>
+</ul>
+<p>LMNN popularity is from <strong>the way the training constraints</strong> are defined, particularly in the context of k-NN classification. For each training instance (<span class="math notranslate nohighlight">\( x \)</span> ), the k nearest neighbors of the same class (referred to as “target neighbors”) are required to be closer than instances from other classes (referred to as “impostors”).</p>
+<p><img alt="NCA_Figure" src="../../_images/NCA_Figure.JPG" /></p>
+<p>Formally, the constraints are defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation}
+\begin{aligned}
+S_{\text{lmnn}} &amp;= \{(i, j) : y_i = y_j \text{ and } j \text{ belongs to the } k\text{-neighborhood of } i\} \\
+R_{\text{lmnn}} &amp;= \{(i, j, k) : (i, j) \in S \text{ and } y_i \neq y_k\}
+\end{aligned}
+\end{equation}
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\( S \)</span> is set of neighbor of <span class="math notranslate nohighlight">\(i\)</span></p>
+<p>The distance is learned using the following convex program:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{L} \sum_{(i,j) \in S_{\text{lmnn}}} \|L(x_i - x_j)\|^2 + \lambda \sum_{(i,j,k) \in R_{\text{lmnn}}} \left[1 + \|L(x_i - x_j)\|^2 - \|L(x_i - x_k)\|^2 \right]_+
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \lambda \in [0,1] \)</span> controls the trade-off between pulling target neighbors closer together and pushing away impostors.</p>
+<p>Although the number of constraints in this problem grows quickly with the number of data points <span class="math notranslate nohighlight">\(n\)</span>, many constraints are often trivially satisfied.</p>
+<section id="soft-version-of-lmnn">
+<h3>Soft version of LMNN<a class="headerlink" href="#soft-version-of-lmnn" title="Link to this heading">#</a></h3>
+<p>The distance is then learned using the following convex program:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{\mathcal{S}_d^+,\xi}  (1-\lambda) \sum_{(x_i, x_j) \in S_{\text{lmnn}}} d_M^2(x_i, x_j) + \lambda \sum_{(x_i,x_j,x_k) \in R_{\text{lmnn}}} \xi_{ijk}
+\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[
+d_M^2(i, k) - d_M^2(i, j) \geq 1 - \xi_{ijk}, \quad \forall (i, j, k) \in R_{\text{lmnn}}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\xi_{ijk} \geq 0, \quad \forall (i, j, k) \in R_{\text{lmnn}}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\xi_{ijk} \geq 0\)</span> and <span class="math notranslate nohighlight">\( \lambda \in [0,1]\)</span> controls the trade-off between pulling target neighbors closer together and pushing away impostors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">metric_learn</span> <span class="kn">import</span> <span class="n">LMNN</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+
+<span class="c1"># Step 1: Create a synthetic dataset with 2 classes</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">class_1</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># Class ω1 centered at (2, 2)</span>
+<span class="n">class_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># Class ω2 centered at (-2, -2)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">class_1</span><span class="p">,</span> <span class="n">class_2</span><span class="p">))</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">50</span><span class="p">)))</span>  <span class="c1"># Labels: 0 for ω1, 1 for ω2</span>
+
+<span class="c1"># Step 2: Apply LMNN</span>
+<span class="n">lmnn</span> <span class="o">=</span> <span class="n">LMNN</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">learn_rate</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">)</span>
+<span class="n">X_lmnn</span> <span class="o">=</span> <span class="n">lmnn</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="c1"># Step 3: Visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Before LMNN</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Before LMNN&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Feature 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Feature 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># After LMNN</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_lmnn</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_lmnn</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_lmnn</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_lmnn</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;After LMNN&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Transformed Feature 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Transformed Feature 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/6c0b72ec969d1d146c7e80c714416fb9cf06e1788a058dde404ee1ee10e60973.png" src="../../_images/6c0b72ec969d1d146c7e80c714416fb9cf06e1788a058dde404ee1ee10e60973.png" />
+</div>
+</div>
+</section>
+<section id="noise-handling-strategy">
+<h3>Noise Handling Strategy<a class="headerlink" href="#noise-handling-strategy" title="Link to this heading">#</a></h3>
+<p>In the above example, we can address this by adjusting the value of <span class="math notranslate nohighlight">\( k \)</span>.</p>
+</section>
+</section>
+<section id="miniproject-itml-davis-et-al-information-eoretic-metric-learning-itml">
+<h2>Miniproject: ITML (Davis et al.) Information-eoretic Metric Learning (ITML)<a class="headerlink" href="#miniproject-itml-davis-et-al-information-eoretic-metric-learning-itml" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>expalin and correct following text</p></li>
+<li><p>present to classroom</p></li>
+</ul>
+</section>
+<section id="miniproject-change-divergence-into-itml">
+<h2>Miniproject: change divergence into ITML<a class="headerlink" href="#miniproject-change-divergence-into-itml" title="Link to this heading">#</a></h2>
+<p>We quantify the measure of “closeness” between two distribution function with equal means and covariance of <span class="math notranslate nohighlight">\( A^{-1} \)</span> and <span class="math notranslate nohighlight">\( A_0^{-1} \)</span>.</p>
+<p>Given a distribution function parameterized by <span class="math notranslate nohighlight">\( A \)</span>, the corresponding multivariate Gaussian distribution is:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x; A) = \frac{1}{Z} \exp \left(-\frac{1}{2} d_A(x, \mu) \right)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( Z \)</span> is a normalizing constant and <span class="math notranslate nohighlight">\( A^{-1} \)</span> is the covariance of the distribution. The distance between two distribution function parameterized by <span class="math notranslate nohighlight">\( A \)</span> and <span class="math notranslate nohighlight">\( A_0 \)</span> is measured by the (differential) relative entropy between their corresponding Gaussians:</p>
+<div class="math notranslate nohighlight">
+\[
+KL(p(x; A_0) \| p(x; A)) = \int p(x; A_0) \log \frac{p(x; A_0)}{p(x; A} \, dx
+\]</div>
+<p>This measure provides a well-founded quantification of “closeness” between two probability density functions.</p>
+<p>Given pairs of similar points <span class="math notranslate nohighlight">\( S \)</span> and dissimilar points <span class="math notranslate nohighlight">\( D \)</span>, the distance metric learning problem is formulated as:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{A} KL(p(x; A_0) \| p(x; A))
+\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[
+d_A(x_i, x_j) \leq u \quad \text{for } (i, j) \in S
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+d_A(x_i, x_j) \geq \ell \quad \text{for } (i, j) \in D
+\]</div>
+<section id="algorithm-of-itml">
+<h3>Algorithm of ITML<a class="headerlink" href="#algorithm-of-itml" title="Link to this heading">#</a></h3>
+<p>We demonstrate that our information-theoretic objective for metric learning can be expressed using a specific type of Bregman divergence, enabling us to apply Bregman’s method for solving the metric learning problem. We also show an equivalence to a recent low-rank kernel learning problem, allowing for kernelization of the algorithm.</p>
+<section id="metric-learning-as-logdet-optimization">
+<h4>Metric Learning as LogDet Optimization<a class="headerlink" href="#metric-learning-as-logdet-optimization" title="Link to this heading">#</a></h4>
+<p>The LogDet divergence is a Bregman matrix divergence generated by the convex function <span class="math notranslate nohighlight">\(\phi(X) = - \log \det X\)</span> defined over the cone of positive-definite matrices. For <span class="math notranslate nohighlight">\(n \times n\)</span> matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(A'\)</span>, it is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{\ell d}(A, A') = \text{tr}(AA'^{-1}) - \log \det(AA'^{-1}) - n
+\]</div>
+<p>The differential relative entropy between two multivariate Gaussians can be expressed as a combination of a Mahalanobis distance between mean vectors and the LogDet divergence between covariance matrices:</p>
+<div class="math notranslate nohighlight">
+\[
+KL(p(x; A') \| p(x; A)) = \frac{1}{2} D_{\ell d}(A^{-1}, A^{-1})
+= \frac{1}{2} D_{\ell d}(A, A')
+\]</div>
+<p>The LogDet divergence, also known as Stein’s loss, is invariant under scaling and invertible linear transformations:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{\ell d}(S^T A S, S^T B S) = D_{\ell d}(A, B)
+\]</div>
+<p>Using this equivalence, we can reframe the distance metric learning problem as a LogDet optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{A \succeq 0} D_{\ell d}(A, A') 
+\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{tr}(A(x_i - x_j)(x_i - x_j)^T) \leq \xi_{c(i,j)} \quad \text{for } (i, j) \in S
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\text{tr}(A(x_i - x_j)(x_i - x_j)^T) \geq \xi_{c(i,j)} \quad \text{for } (i, j) \in D
+\]</div>
+<p>To address the possibility of infeasible solutions, slack variables <span class="math notranslate nohighlight">\(\xi\)</span> are introduced:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{A \succeq 0, \xi} D_{\ell d}(A, A') + \gamma \cdot D_{\ell d}(\text{diag}(\xi), \text{diag}(\xi_0))
+\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{tr}(A(x_i - x_j)(x_i - x_j)^T) \leq \xi_{c(i,j)} \quad \text{for } (i, j) \in S
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\text{tr}(A(x_i - x_j)(x_i - x_j)^T) \geq \xi_{c(i,j)} \quad \text{for } (i, j) \in D
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\gamma\)</span> controls the trade-off between constraint satisfaction and minimizing <span class="math notranslate nohighlight">\(D_{\ell d}(A, A')\)</span>.</p>
+<p>To solve this optimization problem, we extend methods from low-rank kernel learning, which involves Bregman projections:</p>
+<div class="math notranslate nohighlight">
+\[
+A^{t+1} = A^t + \beta A^t(x_i - x_j)(x_i - x_j)^T A^t
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(x_j\)</span> are constrained data points, and <span class="math notranslate nohighlight">\(\beta\)</span> is the projection parameter. Each projection operation costs <span class="math notranslate nohighlight">\(O(d^2)\)</span>, making a single iteration <span class="math notranslate nohighlight">\(O(cd^2)\)</span>. The algorithm avoids eigen-decomposition, and projections can be efficiently computed over a factorization <span class="math notranslate nohighlight">\(W\)</span> of <span class="math notranslate nohighlight">\(A\)</span>, where <span class="math notranslate nohighlight">\(A = W^T W\)</span>.</p>
+</section>
+</section>
+<section id="algorithm-information-theoretic-metric-learning">
+<h3>Algorithm: Information-Theoretic Metric Learning<a class="headerlink" href="#algorithm-information-theoretic-metric-learning" title="Link to this heading">#</a></h3>
+<p><strong>Input:</strong></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( X \)</span>: Input <span class="math notranslate nohighlight">\( d \times n \)</span> matrix</p></li>
+<li><p><span class="math notranslate nohighlight">\( S \)</span>: Set of similar pairs</p></li>
+<li><p><span class="math notranslate nohighlight">\( D \)</span>: Set of dissimilar pairs</p></li>
+<li><p><span class="math notranslate nohighlight">\( u \)</span>, <span class="math notranslate nohighlight">\( \ell \)</span>: Distance thresholds</p></li>
+<li><p><span class="math notranslate nohighlight">\( A_0 \)</span>: Input Mahalanobis matrix</p></li>
+<li><p><span class="math notranslate nohighlight">\( \gamma \)</span>: Slack parameter</p></li>
+<li><p><span class="math notranslate nohighlight">\( c \)</span>: Constraint index function</p></li>
+</ul>
+<p><strong>Output:</strong></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( A \)</span>: Output Mahalanobis matrix</p></li>
+</ul>
+<p><strong>Procedure:</strong></p>
+<ol class="arabic simple">
+<li><p>Initialize:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( A \leftarrow A_0 \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( \lambda_{ij} \leftarrow 0 \)</span> for all <span class="math notranslate nohighlight">\( i, j \)</span></p></li>
+<li><p>Set <span class="math notranslate nohighlight">\( \xi_{c(i,j)} \leftarrow u \)</span> for <span class="math notranslate nohighlight">\( (i, j) \in S \)</span>; otherwise, set <span class="math notranslate nohighlight">\( \xi_{c(i,j)} \leftarrow \ell \)</span></p></li>
+</ul>
+</li>
+<li><p><strong>Repeat until convergence:</strong></p>
+<ol class="arabic simple">
+<li><p>Pick a constraint <span class="math notranslate nohighlight">\( (i, j) \in S \)</span> or <span class="math notranslate nohighlight">\( (i, j) \in D \)</span></p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\( p \leftarrow (x_i - x_j)^T A (x_i - x_j) \)</span></p></li>
+<li><p>Set <span class="math notranslate nohighlight">\( \delta \leftarrow 1 \)</span> if <span class="math notranslate nohighlight">\( (i, j) \in S \)</span>; otherwise, set <span class="math notranslate nohighlight">\( \delta \leftarrow -1 \)</span></p></li>
+<li><p>Compute:
+$<span class="math notranslate nohighlight">\(
+\alpha \leftarrow \min \left( \lambda_{ij}, \frac{\delta}{2} \left( \frac{1}{p} - \frac{\gamma}{\xi_{c(i,j)}} \right) \right)
+\)</span>$</p></li>
+<li><p>Compute:
+$<span class="math notranslate nohighlight">\(
+\beta \leftarrow \frac{\delta \alpha}{1 - \delta \alpha p}
+\)</span>$</p></li>
+<li><p>Update:
+$<span class="math notranslate nohighlight">\(
+\xi_{c(i,j)} \leftarrow \frac{\gamma \xi_{c(i,j)}}{\gamma + \delta \alpha \xi_{c(i,j)}}
+\)</span>$</p></li>
+<li><p>Update:
+$<span class="math notranslate nohighlight">\(
+\lambda_{ij} \leftarrow \lambda_{ij} - \alpha
+\)</span>$</p></li>
+<li><p>Update:
+$<span class="math notranslate nohighlight">\(
+A \leftarrow A + \beta A (x_i - x_j) (x_i - x_j)^T A
+\)</span>$</p></li>
+</ol>
+</li>
+<li><p><strong>Return:</strong></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( A \)</span></p></li>
+</ul>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">metric_learn</span> <span class="kn">import</span> <span class="n">ITML_Supervised</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+
+<span class="c1"># Step 1: Create a synthetic dataset with 2 classes</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">class_1</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># Class ω1 centered at (2, 2)</span>
+<span class="n">class_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># Class ω2 centered at (-2, -2)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">class_1</span><span class="p">,</span> <span class="n">class_2</span><span class="p">))</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">50</span><span class="p">)))</span>  <span class="c1"># Labels: 0 for ω1, 1 for ω2</span>
+
+<span class="c1"># Step 2: Apply ITML_Supervised</span>
+<span class="n">itml</span> <span class="o">=</span> <span class="n">ITML_Supervised</span><span class="p">()</span>
+<span class="n">X_itml</span> <span class="o">=</span> <span class="n">itml</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="c1"># Step 3: Visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Before ITML</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Before ITML&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Feature 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Feature 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># After ITML</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_itml</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_itml</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_itml</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_itml</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;After ITML&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Transformed Feature 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Transformed Feature 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4059fe139d6324a1a9ee12e38a0e26a68ca31d309229525926df93f43021031d.png" src="../../_images/4059fe139d6324a1a9ee12e38a0e26a68ca31d309229525926df93f43021031d.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="miniproject-nonlinear-metric-learning">
+<h2>Miniproject: Nonlinear Metric Learning<a class="headerlink" href="#miniproject-nonlinear-metric-learning" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>introducing AE based joint with  Multidimensional Scaling (MDS) method</p></li>
+<li><p>code with suitable Lib</p></li>
+</ul>
+</section>
+<section id="homework-course-discussion-on-the-following-code">
+<h2>Homework: Course Discussion on the Following Code<a class="headerlink" href="#homework-course-discussion-on-the-following-code" title="Link to this heading">#</a></h2>
+<p>Isomap is applied to reduce the dimensionality of the dataset while capturing nonlinear relationships.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">manifold</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+
+<span class="c1"># Step 1: Create a synthetic dataset with 2 classes</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">class_1</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  <span class="c1"># Class ω1 centered at (2, 2)</span>
+<span class="n">class_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># Class ω2 centered at (-2, -2)</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">class_1</span><span class="p">,</span> <span class="n">class_2</span><span class="p">))</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">50</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">50</span><span class="p">)))</span>  <span class="c1"># Labels: 0 for ω1, 1 for ω2</span>
+
+<span class="c1"># Step 2: Apply Isomap for nonlinear dimensionality reduction</span>
+<span class="n">isomap</span> <span class="o">=</span> <span class="n">manifold</span><span class="o">.</span><span class="n">Isomap</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">X_isomap</span> <span class="o">=</span> <span class="n">isomap</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Before Isomap</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Before Isomap&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Feature 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Feature 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># After Isomap</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_isomap</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_isomap</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_1$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_isomap</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X_isomap</span><span class="p">[</span><span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\omega_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;After Isomap&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Component 1&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Component 2&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/ed544bebc3a45adef2f2237337eb3a2c3ee4f8c29be2e7c505f3cf9b13640856.png" src="../../_images/ed544bebc3a45adef2f2237337eb3a2c3ee4f8c29be2e7c505f3cf9b13640856.png" />
+</div>
+</div>
+</section>
+<section id="miniproject-metric-learning-by-contrastive-loss">
+<h2>Miniproject: Metric Learning by Contrastive loss<a class="headerlink" href="#miniproject-metric-learning-by-contrastive-loss" title="Link to this heading">#</a></h2>
+<p>Metric Learning aims to map objects into an embedded space where distances reflect their similarities, with <strong>contrastive loss</strong> specifically ensuring that similar objects are close and dissimilar ones are farther apart by maintaining a margin. Additionally, triplet loss ensures that an anchor sample is closer to positive samples than to negative ones.</p>
+<p><strong>Some useful link</strong></p>
+<p><a class="reference external" href="https://towardsdatascience.com/metric-learning-loss-functions-5b67b3da99a5">Digging Deeper into Metric Learning with Loss Functions</a></p>
+<p><a class="reference external" href="https://paperswithcode.com/task/metric-learning#task-libraries">Metric Learning</a></p>
+<p><a class="reference external" href="https://arxiv.org/pdf/2308.00458">Center Contrastive Loss for Metric Learning</a></p>
+<p><strong>Useful References</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Metric Learning</strong></p>
+<ul class="simple">
+<li><p><strong>Aurélien Bellet</strong>, Télécom ParisTech</p></li>
+<li><p><strong>Amaury Habrard</strong>, Université de Saint-Étienne</p></li>
+<li><p><strong>Marc Sebban</strong>, Université de Saint-Étienne</p></li>
+</ul>
+</li>
+<li><p><strong>Metric Learning: A Survey</strong></p>
+<ul class="simple">
+<li><p><strong>Brian Kulis</strong></p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ML\MetricLearning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../ContrastiveLearning/ContrastiveLearning_Introduction.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Contrastive learning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../RepresentationLearning/RepresentationLearning1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Representation Learning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-objective-of-metric-learning">The Objective of Metric Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-metric-learning">Visualizing Metric Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics-for-numerical-data">Metrics for Numerical Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mahalanobis-distance-learning">Mahalanobis Distance Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nca-defect">NCA Defect</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-set-parameter-of-nca-such-as-tau">Homework : set parameter of NCA such as <span class="math notranslate nohighlight">\( \tau \)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#large-margin-nearest-neighbor-lmnn">Large Margin Nearest Neighbor (LMNN)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-version-of-lmnn">Soft version of LMNN</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-handling-strategy">Noise Handling Strategy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-itml-davis-et-al-information-eoretic-metric-learning-itml">Miniproject: ITML (Davis et al.) Information-eoretic Metric Learning (ITML)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-change-divergence-into-itml">Miniproject: change divergence into ITML</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-of-itml">Algorithm of ITML</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#metric-learning-as-logdet-optimization">Metric Learning as LogDet Optimization</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-information-theoretic-metric-learning">Algorithm: Information-Theoretic Metric Learning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-nonlinear-metric-learning">Miniproject: Nonlinear Metric Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-course-discussion-on-the-following-code">Homework: Course Discussion on the Following Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-metric-learning-by-contrastive-loss">Miniproject: Metric Learning by Contrastive loss</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

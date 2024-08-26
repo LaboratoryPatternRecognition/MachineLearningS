@@ -1,0 +1,1052 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Contrastive learning &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ML/ContrastiveLearning/ContrastiveLearning_Introduction';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Metric Learning" href="../MetricLearning/MetricLearning_1.html" />
+    <link rel="prev" title="Diffusion Network of Learner" href="../EnsembleLearning/DiffusionNetwork.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../machine_learning.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../machine_learning.html">
+                    Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Regression/NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/GP_Regression.html">Gaussian Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/FR_Intro.html">Introduction of Feature Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/PCA.html">Principal Component Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/Autoencoders1.html">Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/LLE.html">Locally Linear Embedding (LLE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/EnsembleStart_BaggingBoosting.html">Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/Ensemble_Voting_Variant_Bayesian.html">Ensemble by Voting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/TrainableCombiner.html">Trainable Combiners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/FederatedLearning.html">Federated Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/DiffusionNetwork.html">Diffusion Network of Learner</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Contrastive learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MetricLearning/MetricLearning_1.html">Metric Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RepresentationLearning/RepresentationLearning1.html">Representation Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ActiveLearning/ActiveLearning_1.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TransferLearning/TransferLearning_1.html">Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TransferLearning/InstanceBasedTransferLearning1.html">Instance-Based Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MetaLearning/MetaLearning_1.html">MetaLearning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FML/ContrastiveLearning/ContrastiveLearning_Introduction.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/ML/ContrastiveLearning/ContrastiveLearning_Introduction.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Contrastive learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-function">Cost function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continue-with-example">Continue with example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-function-and-loss">1. Define the Function and Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-f-x-a-f-x-p-2-and-f-x-a-f-x-n-2">2. Compute <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_P) \|^2 \)</span> and <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_N) \|^2 \)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-between-anchor-and-positive">Distance between Anchor and Positive</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-between-anchor-and-negative">Distance between Anchor and Negative</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expand-the-squared-distances">3. Expand the Squared Distances</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#expand-f-x-a-f-x-p-2">Expand <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_P) \|^2 \)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#expand-f-x-a-f-x-n-2">Expand <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_N) \|^2 \)</span>:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-triplet-loss">4. Compute the Triplet Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplify-the-triplet-loss-function">5. Simplify the Triplet Loss Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivatives-with-respect-to-a-b-and-c">6. Derivatives with Respect to <span class="math notranslate nohighlight">\( a \)</span>, <span class="math notranslate nohighlight">\( b \)</span>, and <span class="math notranslate nohighlight">\( c \)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#derivative-with-respect-to-a">Derivative with Respect to <span class="math notranslate nohighlight">\( a \)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#derivative-with-respect-to-b">Derivative with Respect to <span class="math notranslate nohighlight">\( b \)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#derivative-with-respect-to-c">Derivative with Respect to <span class="math notranslate nohighlight">\( c \)</span>:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#representing-function-with-optimal-a-and-b">Representing Function with Optimal <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-contrastive-learning">probabilistic contrastive learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-variables-and-functions">Understanding the Variables and Functions:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concept">Key Concept:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-contrastive-estimation-nce">Noise Contrastive Estimation (NCE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clarification-on-p-d-1-q-k-vs-p-k-q">Clarification on <span class="math notranslate nohighlight">\( p(D = 1|q, k) \)</span> vs. <span class="math notranslate nohighlight">\( p(k^+|q) \)</span>:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-p-d-1-q-k-represents">What <span class="math notranslate nohighlight">\( p(D = 1|q, k) \)</span> Represents:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-p-d-1-q-k-instead-of-p-k-q">Why Use <span class="math notranslate nohighlight">\( p(D = 1|q, k) \)</span> Instead of <span class="math notranslate nohighlight">\( p(k^+|q) \)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-m-scaling-factor">Why Use <span class="math notranslate nohighlight">\( m \)</span> (Scaling Factor)?</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#infonce-a-key-tool-for-self-supervised-learning">InfoNCE: A Key Tool for Self-Supervised Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-infonce-loss-function">The InfoNCE Loss Function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-general-scheme-for-constrastive-learning">Miniproject: General scheme for constrastive learning</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="contrastive-learning">
+<h1>Contrastive learning<a class="headerlink" href="#contrastive-learning" title="Link to this heading">#</a></h1>
+<p>Contrastive learning is a powerful technique within self-supervised learning, particularly useful for tasks involving large amounts of unlabeled data, such as images.The primary goal in contrastive learning is to learn an encoder, <span class="math notranslate nohighlight">\( 𝐸(𝑥) \)</span>, that maps input data <span class="math notranslate nohighlight">\(𝑥\)</span> to a feature space where we can effectively distinguish between positive and negative samples.</p>
+<p><strong>How its work</strong>
+Contrastive learning considers both similar and dissimilar samples, learning useful representations from them. The main idea is to <strong>pull similar samples</strong> closer together in the learned representation space and <strong>push dissimilar ones farther apart</strong>. In this approach, the model is trained to maximize the similarity between positive pairs and minimize the similarity between negative pairs. By optimizing this contrastive loss function, the model learns to discover meaningful features that are useful for distinguishing between different samples.</p>
+<p><strong>Positive &amp; Negative samples</strong>
+In self-supervised contrastive learning, since there are no class labels, positive and negative samples are generated from the reference image using various augmentation techniques. For example, if a picture of a dog is used as the reference sample, only the augmented versions of this image will form the positive samples. Consequently, other images of dogs will be part of the negative sample set.</p>
+<p><img alt="SSCL_SCL" src="../../_images/SelfSupervisedContrastiveLearning_SupervisedContrastiveLearning.jpg" /></p>
+<p><em>The anchor</em>: is the data sample that you start with. It is the reference point for which you want to find similar (positive) or dissimilar (negative) samples.</p>
+<p><em>SCL</em>: supervised contrastive learning (Sample with label) as shown below</p>
+<p><em>SSCL</em>: self-supervised contrastive learning (sample without label)</p>
+<p>Contrastive learning, also known as self-supervised learning (CL), is equivalent to SSL.</p>
+<p><img alt="SCL1" src="../../_images/ContrastiveSupervisedLearning1.jpg" /></p>
+<p><strong>Data generation</strong></p>
+<ul class="simple">
+<li><p><strong>Data augmentation:</strong>
+Data augmentation refers to the process of increasing the diversity of data by applying various transformations or modifications, such as rotations, flips, or noise addition, to the existing data, thereby generating additional data samples for training machine learning models.</p></li>
+</ul>
+<p><img alt="Data augmentation1" src="../../_images/Data_Augmentation.png" /></p>
+<ul class="simple">
+<li><p><strong>Image patches</strong></p></li>
+</ul>
+<p>Break image into <strong>patches</strong>. Use patches from the same image as <strong>positive</strong>, from others as <strong>negative</strong>.</p>
+<p><img alt="ImagePatch1" src="../../_images/ImagePatch.jpg" /></p>
+<section id="cost-function">
+<h2>Cost function<a class="headerlink" href="#cost-function" title="Link to this heading">#</a></h2>
+<p><strong>Triplet Loss function</strong></p>
+<p><em>Distance Constraints:</em> Following equation states that the squared Euclidean distance between the anchor <span class="math notranslate nohighlight">\( f(A) \)</span> and the positive sample <span class="math notranslate nohighlight">\( f(P) \)</span> should be less than or equal to the squared Euclidean distance between the anchor <span class="math notranslate nohighlight">\( f(A) \)</span> and the negative sample <span class="math notranslate nohighlight">\( f(N) \)</span>. In other words, the anchor should be closer to the positive sample than to the negative sample.</p>
+<div class="math notranslate nohighlight">
+\[
+| f(A) - f(P) |_2^2 \leq | f(A) - f(N) |_2^2
+\]</div>
+<p><em><strong>The function <span class="math notranslate nohighlight">\( f \)</span> is the encoder that converts data samples into feature representations in a latent space. We aim to find the encoder <span class="math notranslate nohighlight">\( f \)</span> that minimizes a loss function, such as the triplet loss.</strong></em></p>
+<p><strong>Triplet Loss Function</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+| f(A) - f(P) |_2^2 - | f(A) - f(N) |_2^2 \leq 0
+\]</div>
+<p>This can be rewritten as:</p>
+<div class="math notranslate nohighlight">
+\[
+| f(A) - f(P) |_2^2 - | f(A) - f(N) |_2^2 + \alpha \leq 0
+\]</div>
+<p><span class="math notranslate nohighlight">\( \)</span>alpha <span class="math notranslate nohighlight">\( is a margin parameter that ensures a buffer between the distances of positive and negative pairs. The margin \)</span> <span class="math notranslate nohighlight">\(alpha \)</span> helps in maintaining a minimum distance between the anchor-negative pair and the anchor-positive pair. This margin can be adjusted based on the problem and dataset.</p>
+<p><strong>Final Triplet Loss Function</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Loss}(A, P, N) = \max(| f(A) - f(P) |_2^2 - | f(A) - f(N) |_2^2 + \alpha, 0)
+\]</div>
+<ul class="simple">
+<li><p><strong>Loss</strong>: This function computes the final loss for a triplet of anchor <span class="math notranslate nohighlight">\( A \)</span>, positive <span class="math notranslate nohighlight">\( P \)</span>, and negative <span class="math notranslate nohighlight">\( N \)</span>.</p>
+<ul>
+<li><p>The term <span class="math notranslate nohighlight">\( \)</span>| f(A) - f(P) <span class="math notranslate nohighlight">\(|_2^2 - \)</span>| f(A) - f(N) <span class="math notranslate nohighlight">\(|_2^2 + \)</span>alpha $ measures how much the positive distance is less than the negative distance plus a margin.</p></li>
+<li><p>If this value is positive, it indicates that the distance between the anchor and the positive sample is not sufficiently smaller than the distance between the anchor and the negative sample. Thus, the loss is computed as this positive value. If it’s zero or negative, the loss is zero, indicating that the constraints are satisfied.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="continue-with-example">
+<h2>Continue with example<a class="headerlink" href="#continue-with-example" title="Link to this heading">#</a></h2>
+<p>To derive the triplet loss function for a specific function <span class="math notranslate nohighlight">\( f(x) = ax^2 + bx + c \)</span>, we’ll follow these steps:</p>
+<section id="define-the-function-and-loss">
+<h3>1. Define the Function and Loss<a class="headerlink" href="#define-the-function-and-loss" title="Link to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\( f(x) = ax^2 + bx + c \)</span>. We are using the triplet loss function which is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Loss}(A, P, N) = \max \left( \| f(x_A) - f(x_P) \|^2 - \| f(x_A) - f(x_N) \|^2 + \alpha, 0 \right)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( x_A \)</span> is the anchor sample, <span class="math notranslate nohighlight">\( x_P \)</span> is the positive sample, <span class="math notranslate nohighlight">\( x_N \)</span> is the negative sample, and <span class="math notranslate nohighlight">\( \alpha \)</span> is a margin.</p>
+</section>
+<section id="compute-f-x-a-f-x-p-2-and-f-x-a-f-x-n-2">
+<h3>2. Compute <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_P) \|^2 \)</span> and <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_N) \|^2 \)</span><a class="headerlink" href="#compute-f-x-a-f-x-p-2-and-f-x-a-f-x-n-2" title="Link to this heading">#</a></h3>
+<p>Calculate the squared Euclidean distances for the pairs <span class="math notranslate nohighlight">\( (A, P) \)</span> and <span class="math notranslate nohighlight">\( (A, N) \)</span>:</p>
+<section id="distance-between-anchor-and-positive">
+<h4>Distance between Anchor and Positive<a class="headerlink" href="#distance-between-anchor-and-positive" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+f(x_A) = ax_A^2 + bx_A + c
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(x_P) = ax_P^2 + bx_P + c
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\| f(x_A) - f(x_P) \|^2 = \left( (ax_A^2 + bx_A + c) - (ax_P^2 + bx_P + c) \right)^2
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\| f(x_A) - f(x_P) \|^2 = \left( a(x_A^2 - x_P^2) + b(x_A - x_P) \right)^2
+\]</div>
+</section>
+<section id="distance-between-anchor-and-negative">
+<h4>Distance between Anchor and Negative<a class="headerlink" href="#distance-between-anchor-and-negative" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+f(x_N) = ax_N^2 + bx_N + c
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\| f(x_A) - f(x_N) \|^2 = \left( (ax_A^2 + bx_A + c) - (ax_N^2 + bx_N + c) \right)^2
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\| f(x_A) - f(x_N) \|^2 = \left( a(x_A^2 - x_N^2) + b(x_A - x_N) \right)^2
+\]</div>
+</section>
+</section>
+<section id="expand-the-squared-distances">
+<h3>3. Expand the Squared Distances<a class="headerlink" href="#expand-the-squared-distances" title="Link to this heading">#</a></h3>
+<section id="expand-f-x-a-f-x-p-2">
+<h4>Expand <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_P) \|^2 \)</span>:<a class="headerlink" href="#expand-f-x-a-f-x-p-2" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+\| f(x_A) - f(x_P) \|^2 = \left( a(x_A^2 - x_P^2) + b(x_A - x_P) \right)^2
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= a^2 (x_A^2 - x_P^2)^2 + 2ab (x_A^2 - x_P^2)(x_A - x_P) + b^2 (x_A - x_P)^2
+\]</div>
+</section>
+<section id="expand-f-x-a-f-x-n-2">
+<h4>Expand <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_N) \|^2 \)</span>:<a class="headerlink" href="#expand-f-x-a-f-x-n-2" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+\| f(x_A) - f(x_N) \|^2 = \left( a(x_A^2 - x_N^2) + b(x_A - x_N) \right)^2
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= a^2 (x_A^2 - x_N^2)^2 + 2ab (x_A^2 - x_N^2)(x_A - x_N) + b^2 (x_A - x_N)^2
+\]</div>
+</section>
+</section>
+<section id="compute-the-triplet-loss">
+<h3>4. Compute the Triplet Loss<a class="headerlink" href="#compute-the-triplet-loss" title="Link to this heading">#</a></h3>
+<p>Substitute the expanded forms into the loss function:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Loss}(A, P, N) = \max \left( \| f(x_A) - f(x_P) \|^2 - \| f(x_A) - f(x_N) \|^2 + \alpha, 0 \right)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\text{Loss}(A, P, N) = \max \left( \left[ a^2 (x_A^2 - x_P^2)^2 + 2ab (x_A^2 - x_P^2)(x_A - x_P) + b^2 (x_A - x_P)^2 \right] - \left[ a^2 (x_A^2 - x_N^2)^2 + 2ab (x_A^2 - x_N^2)(x_A - x_N) + b^2 (x_A - x_N)^2 \right] + \alpha, 0 \right)
+\]</div>
+</section>
+<section id="simplify-the-triplet-loss-function">
+<h3>5. Simplify the Triplet Loss Function<a class="headerlink" href="#simplify-the-triplet-loss-function" title="Link to this heading">#</a></h3>
+<p>Subtract the two terms:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Loss}(A, P, N) = \max \left( a^2 \left[ (x_A^2 - x_P^2)^2 - (x_A^2 - x_N^2)^2 \right] + 2ab \left[ (x_A^2 - x_P^2)(x_A - x_P) - (x_A^2 - x_N^2)(x_A - x_N) \right] + b^2 \left[ (x_A - x_P)^2 - (x_A - x_N)^2 \right] + \alpha, 0 \right)
+\]</div>
+</section>
+<section id="derivatives-with-respect-to-a-b-and-c">
+<h3>6. Derivatives with Respect to <span class="math notranslate nohighlight">\( a \)</span>, <span class="math notranslate nohighlight">\( b \)</span>, and <span class="math notranslate nohighlight">\( c \)</span><a class="headerlink" href="#derivatives-with-respect-to-a-b-and-c" title="Link to this heading">#</a></h3>
+<section id="derivative-with-respect-to-a">
+<h4>Derivative with Respect to <span class="math notranslate nohighlight">\( a \)</span>:<a class="headerlink" href="#derivative-with-respect-to-a" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \text{Loss}}{\partial a} = 2a \left[ (x_A^2 - x_P^2)^2 - (x_A^2 - x_N^2)^2 \right] + 2 \left[ (x_A^2 - x_P^2)(x_A - x_P) - (x_A^2 - x_N^2)(x_A - x_N) \right]
+\]</div>
+</section>
+<section id="derivative-with-respect-to-b">
+<h4>Derivative with Respect to <span class="math notranslate nohighlight">\( b \)</span>:<a class="headerlink" href="#derivative-with-respect-to-b" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \text{Loss}}{\partial b} = 2b \left[ (x_A - x_P)^2 - (x_A - x_N)^2 \right] + 2a \left[ (x_A^2 - x_P^2)(x_A - x_P) - (x_A^2 - x_N^2)(x_A - x_N) \right]
+\]</div>
+</section>
+<section id="derivative-with-respect-to-c">
+<h4>Derivative with Respect to <span class="math notranslate nohighlight">\( c \)</span>:<a class="headerlink" href="#derivative-with-respect-to-c" title="Link to this heading">#</a></h4>
+<p>Since <span class="math notranslate nohighlight">\( c \)</span> does not affect the difference <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_P) \|^2 - \| f(x_A) - f(x_N) \|^2 \)</span>, the derivative with respect to <span class="math notranslate nohighlight">\( c \)</span> is zero:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial \text{Loss}}{\partial c} = 0
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span>
+
+<span class="c1"># Define variables</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a b&#39;</span><span class="p">)</span>
+
+<span class="c1"># Given values</span>
+<span class="n">x_A</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">x_P</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">x_N</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># Derivative with respect to a</span>
+<span class="n">expr_a</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span> <span class="o">*</span> <span class="p">((</span><span class="n">x_N</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x_P</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x_A</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="n">x_P</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x_N</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_A</span> <span class="o">-</span> <span class="n">x_P</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">x_P</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x_N</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Derivative with respect to b</span>
+<span class="n">expr_b</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">b</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_N</span> <span class="o">-</span> <span class="n">x_P</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x_A</span> <span class="o">-</span> <span class="p">(</span><span class="n">x_P</span> <span class="o">+</span> <span class="n">x_N</span><span class="p">))</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_A</span> <span class="o">-</span> <span class="n">x_P</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">x_P</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x_N</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Set derivatives to zero</span>
+<span class="n">eq1</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">expr_a</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">expr_b</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Solve the equations</span>
+<span class="n">solution</span> <span class="o">=</span> <span class="n">solve</span><span class="p">((</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">),</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+
+<span class="c1"># Print the results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Solution for a and b:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;a = </span><span class="si">{</span><span class="n">solution</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;b = </span><span class="si">{</span><span class="n">solution</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Solution for a and b:
+a = -0.180722891566265
+b = 0.174268502581756
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="representing-function-with-optimal-a-and-b">
+<h3>Representing Function with Optimal <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span><a class="headerlink" href="#representing-function-with-optimal-a-and-b" title="Link to this heading">#</a></h3>
+<p>To better understand the optimization process, I have plotted the function using the optimal values of <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>. To illustrate how changing the <span class="math notranslate nohighlight">\(b\)</span> value affects the comparison between the anchor (reference) point and the positive and negative samples, I adjusted the <span class="math notranslate nohighlight">\(b\)</span> value. This adjustment helps to visualize the differences more clearly and shows how varying <span class="math notranslate nohighlight">\(b\)</span> impacts the anchor’s relationship with positive and negative samples. For a more intuitive comparison, it is often useful to change <span class="math notranslate nohighlight">\(b\)</span> based on heuristic methods.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">Eq</span><span class="p">,</span> <span class="n">solve</span>
+
+<span class="c1"># Define variables</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;a b&#39;</span><span class="p">)</span>
+
+<span class="c1"># Given values</span>
+<span class="n">x_A</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">x_P</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">x_N</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># Derivative expressions</span>
+<span class="n">expr_a</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span> <span class="o">*</span> <span class="p">((</span><span class="n">x_N</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x_P</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x_A</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="n">x_P</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x_N</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_A</span> <span class="o">-</span> <span class="n">x_P</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">x_P</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x_N</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">expr_b</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">b</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_N</span> <span class="o">-</span> <span class="n">x_P</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x_A</span> <span class="o">-</span> <span class="p">(</span><span class="n">x_P</span> <span class="o">+</span> <span class="n">x_N</span><span class="p">))</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_A</span> <span class="o">-</span> <span class="n">x_P</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">x_P</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x_N</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Solve for optimal a and b</span>
+<span class="n">opt_eq1</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">expr_a</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">opt_eq2</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">expr_b</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Solve for a and b</span>
+<span class="n">optimal_solution</span> <span class="o">=</span> <span class="n">solve</span><span class="p">((</span><span class="n">opt_eq1</span><span class="p">,</span> <span class="n">opt_eq2</span><span class="p">),</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+
+<span class="c1"># Extract the optimal values for a and b</span>
+<span class="n">a_opt</span> <span class="o">=</span> <span class="n">optimal_solution</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+<span class="n">b_opt</span> <span class="o">=</span> <span class="n">optimal_solution</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
+
+<span class="c1"># Define a function for f(x) = ax^2 + bx + c</span>
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a_value</span><span class="p">,</span> <span class="n">b_value</span><span class="p">,</span> <span class="n">c_value</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a_value</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b_value</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">c_value</span>
+
+<span class="c1"># Define target b value</span>
+<span class="n">b_target</span> <span class="o">=</span> <span class="n">b_opt</span> <span class="o">+</span> <span class="mf">0.2</span>
+
+<span class="c1"># Compute the function values with the optimal a and the target b</span>
+<span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">y_opt</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">a_opt</span><span class="p">,</span> <span class="n">b_opt</span><span class="p">)</span>
+<span class="n">y_target</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">a_opt</span><span class="p">,</span> <span class="n">b_target</span><span class="p">)</span>
+
+<span class="c1"># Compute function values at x_A, x_P, x_N</span>
+<span class="n">y_A_opt</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_A</span><span class="p">,</span> <span class="n">a_opt</span><span class="p">,</span> <span class="n">b_opt</span><span class="p">)</span>
+<span class="n">y_P_opt</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_P</span><span class="p">,</span> <span class="n">a_opt</span><span class="p">,</span> <span class="n">b_opt</span><span class="p">)</span>
+<span class="n">y_N_opt</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_N</span><span class="p">,</span> <span class="n">a_opt</span><span class="p">,</span> <span class="n">b_opt</span><span class="p">)</span>
+
+<span class="n">y_A_target</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_A</span><span class="p">,</span> <span class="n">a_opt</span><span class="p">,</span> <span class="n">b_target</span><span class="p">)</span>
+<span class="n">y_P_target</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_P</span><span class="p">,</span> <span class="n">a_opt</span><span class="p">,</span> <span class="n">b_target</span><span class="p">)</span>
+<span class="n">y_N_target</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x_N</span><span class="p">,</span> <span class="n">a_opt</span><span class="p">,</span> <span class="n">b_target</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># Plot for optimal b</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_opt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Optimal: a=</span><span class="si">{</span><span class="n">a_opt</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, b=</span><span class="si">{</span><span class="n">b_opt</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot for target b</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_target</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;New b: a=</span><span class="si">{</span><span class="n">a_opt</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">, b=</span><span class="si">{</span><span class="n">b_target</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="c1"># Marking points on the plot for optimal b</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">x_A</span><span class="p">,</span> <span class="n">x_P</span><span class="p">,</span> <span class="n">x_N</span><span class="p">],</span> <span class="p">[</span><span class="n">y_A_opt</span><span class="p">,</span> <span class="n">y_P_opt</span><span class="p">,</span> <span class="n">y_N_opt</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_A</span><span class="p">,</span> <span class="n">y_A_opt</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;x_A (</span><span class="si">{</span><span class="n">x_A</span><span class="si">}</span><span class="s1">): </span><span class="si">{</span><span class="n">y_A_opt</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_P</span><span class="p">,</span> <span class="n">y_P_opt</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;x_P (</span><span class="si">{</span><span class="n">x_P</span><span class="si">}</span><span class="s1">): </span><span class="si">{</span><span class="n">y_P_opt</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_N</span><span class="p">,</span> <span class="n">y_N_opt</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;x_N (</span><span class="si">{</span><span class="n">x_N</span><span class="si">}</span><span class="s1">): </span><span class="si">{</span><span class="n">y_N_opt</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+
+<span class="c1"># Marking points on the plot for target b</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">x_A</span><span class="p">,</span> <span class="n">x_P</span><span class="p">,</span> <span class="n">x_N</span><span class="p">],</span> <span class="p">[</span><span class="n">y_A_target</span><span class="p">,</span> <span class="n">y_P_target</span><span class="p">,</span> <span class="n">y_N_target</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_A</span><span class="p">,</span> <span class="n">y_A_target</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;x_A (</span><span class="si">{</span><span class="n">x_A</span><span class="si">}</span><span class="s1">): </span><span class="si">{</span><span class="n">y_A_target</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;italic&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_P</span><span class="p">,</span> <span class="n">y_P_target</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;x_P (</span><span class="si">{</span><span class="n">x_P</span><span class="si">}</span><span class="s1">): </span><span class="si">{</span><span class="n">y_P_target</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;italic&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x_N</span><span class="p">,</span> <span class="n">y_N_target</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;x_N (</span><span class="si">{</span><span class="n">x_N</span><span class="si">}</span><span class="s1">): </span><span class="si">{</span><span class="n">y_N_target</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;italic&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;f(x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Effect of Changing b on f(x) = ax^2 + bx + c&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/aec7b4c3832b9b913315f680cdfffc29f9f6e8a0c5569a6b8e910ecbd93b12db.png" src="../../_images/aec7b4c3832b9b913315f680cdfffc29f9f6e8a0c5569a6b8e910ecbd93b12db.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="probabilistic-contrastive-learning">
+<h2>probabilistic contrastive learning<a class="headerlink" href="#probabilistic-contrastive-learning" title="Link to this heading">#</a></h2>
+<p>In probabilistic contrastive learning, we aim to model the likelihood of a positive sample <span class="math notranslate nohighlight">\( k^+ \)</span> being associated with a query <span class="math notranslate nohighlight">\( q \)</span> using the following expression:</p>
+<div class="math notranslate nohighlight">
+\[
+p(k^+|q) = \frac{\exp(q^{\top} k^+)}{\sum_{k \in \mathcal{K}} \exp(q^T k)} = \frac{\exp(q^{\top} k^+)}{Z(q)},
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( Z(q) \)</span> is the normalization constant, which sums over all possible samples in the dataset <span class="math notranslate nohighlight">\(\mathcal{K}\)</span>.</p>
+<p>the key function that needs to be discovered or learned is the <strong>embedding function</strong> or <strong>encoder</strong> <span class="math notranslate nohighlight">\(f(\cdot) \)</span>.</p>
+<section id="understanding-the-variables-and-functions">
+<h3>Understanding the Variables and Functions:<a class="headerlink" href="#understanding-the-variables-and-functions" title="Link to this heading">#</a></h3>
+<p><strong>Embedding Function <span class="math notranslate nohighlight">\(f(\cdot) \)</span></strong>:</p>
+<ul class="simple">
+<li><p>This is the function that maps an input (e.g., an image, a sentence, etc.) to a feature vector in a latent space. For example, if <span class="math notranslate nohighlight">\(q \)</span> and <span class="math notranslate nohighlight">\(k^+ \)</span> are vectors in this latent space, they are the outputs of the encoder applied to some input data:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+   q = f(\text{input\_q}), \quad k^+ = f(\text{input\_k+})
+   \]</div>
+<p><img alt="Latent_PRobCL_1" src="../../_images/Image_ProbCL_LatentSpace.jpg" /></p>
+<p>The goal is to learn this function <span class="math notranslate nohighlight">\(f \)</span> such that it effectively represents the data points in a way that the positive samples are closer to the query than negative samples.</p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Inner Product <span class="math notranslate nohighlight">\(q^{\top} k^+ \)</span></strong>:</p>
+<ul class="simple">
+<li><p>This represents the similarity between the query <span class="math notranslate nohighlight">\(q \)</span> and the positive sample <span class="math notranslate nohighlight">\(k^+ \)</span> in the latent space. The similarity is typically measured using a dot product (or cosine similarity after normalizing the vectors).</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="key-concept">
+<h3>Key Concept:<a class="headerlink" href="#key-concept" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Learning the Encoder</strong>:</p>
+<ul>
+<li><p>Just as in triplet loss where <span class="math notranslate nohighlight">\(f \)</span> (the encoder function) is learned to minimize the distance between similar items and maximize the distance between dissimilar items, in probabilistic contrastive learning, the encoder <span class="math notranslate nohighlight">\(f \)</span> is learned to maximize the probability <span class="math notranslate nohighlight">\(p(k^+|q) \)</span> of correctly identifying positive samples given the query.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="implementation">
+<h3>Implementation:<a class="headerlink" href="#implementation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>In practice, you start with a neural network as the encoder <span class="math notranslate nohighlight">\(f(\cdot) \)</span> with parameters <span class="math notranslate nohighlight">\(\theta \)</span>. During training, you adjust <span class="math notranslate nohighlight">\(\theta \)</span> to maximize the likelihood of positive pairs. The exponential function <span class="math notranslate nohighlight">\(\exp(q^{\top} k^+) \)</span> is a part of this likelihood and is computed at the outputs of the encoder <span class="math notranslate nohighlight">\(f(\cdot) \)</span>.</p></li>
+</ul>
+</section>
+<section id="example">
+<h3>Example:<a class="headerlink" href="#example" title="Link to this heading">#</a></h3>
+<p>For instance, if you’re working with image data, <span class="math notranslate nohighlight">\(f(\cdot) \)</span> could be a convolutional neural network (CNN) that outputs a feature vector for each image. The <em>goal of training</em> is to adjust <em><strong>the parameters of this CNN</strong></em> so that the feature vectors of similar images (e.g., different views of the same object) are close together in the latent space, while dissimilar images are far apart.</p>
+</section>
+</section>
+<section id="noise-contrastive-estimation-nce">
+<h2>Noise Contrastive Estimation (NCE)<a class="headerlink" href="#noise-contrastive-estimation-nce" title="Link to this heading">#</a></h2>
+<p>This normalization term <span class="math notranslate nohighlight">\( Z(q) \)</span> is computationally expensive to evaluate because it requires summing over all negative samples for a given query <span class="math notranslate nohighlight">\(q\)</span>.</p>
+<p>To address this challenge, Noise Contrastive Estimation (NCE) introduces an approximation. NCE assumes that the negative samples follow a uniform distribution with respect to the query. By sampling <span class="math notranslate nohighlight">\( m \)</span> times more negative samples, we can compute the probability that a particular sample <span class="math notranslate nohighlight">\( k \)</span> is a positive one as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+p(D = 1|q, k) = \frac{p(k^+ \vert q)}{p(k^+\vert q) + m \cdot p(k^- \vert q)}.
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( D = 1 \)</span> indicates that the sample <span class="math notranslate nohighlight">\( k \)</span> is drawn from the positive distribution. <span class="math notranslate nohighlight">\( m \)</span> represents the ratio of negative samples to positive samples, and <span class="math notranslate nohighlight">\( p(k^- \vert q) \)</span> is the likelihood of the sample being negative given the query <span class="math notranslate nohighlight">\( q \)</span>. This approximation helps make the estimation computationally feasible by reducing the complexity of evaluating the normalization constant <span class="math notranslate nohighlight">\( Z(q) \)</span>.</p>
+<section id="clarification-on-p-d-1-q-k-vs-p-k-q">
+<h3>Clarification on <span class="math notranslate nohighlight">\( p(D = 1|q, k) \)</span> vs. <span class="math notranslate nohighlight">\( p(k^+|q) \)</span>:<a class="headerlink" href="#clarification-on-p-d-1-q-k-vs-p-k-q" title="Link to this heading">#</a></h3>
+<section id="what-p-d-1-q-k-represents">
+<h4>What <span class="math notranslate nohighlight">\( p(D = 1|q, k) \)</span> Represents:<a class="headerlink" href="#what-p-d-1-q-k-represents" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong><span class="math notranslate nohighlight">\( p(D = 1|q, k) \)</span></strong>: This term represents the probability that a given pair of query <span class="math notranslate nohighlight">\( q \)</span> and sample <span class="math notranslate nohighlight">\( k \)</span> belongs to the positive class (denoted by <span class="math notranslate nohighlight">\( D = 1 \)</span>). In other words, it quantifies the likelihood that <span class="math notranslate nohighlight">\( k \)</span> is a positive sample given the context of the query <span class="math notranslate nohighlight">\( q \)</span>.</p></li>
+</ul>
+</section>
+<section id="why-use-p-d-1-q-k-instead-of-p-k-q">
+<h4>Why Use <span class="math notranslate nohighlight">\( p(D = 1|q, k) \)</span> Instead of <span class="math notranslate nohighlight">\( p(k^+|q) \)</span>:<a class="headerlink" href="#why-use-p-d-1-q-k-instead-of-p-k-q" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong><span class="math notranslate nohighlight">\( p(k^+|q) \)</span></strong>: This term specifically represents the conditional probability of the positive sample <span class="math notranslate nohighlight">\( k^+ \)</span> given the query <span class="math notranslate nohighlight">\( q \)</span>. It’s the likelihood of <span class="math notranslate nohighlight">\( k \)</span> being positive, assuming we’re only considering positive samples.</p></li>
+</ul>
+<p>However, in the context of <strong>Noise Contrastive Estimation (NCE)</strong>, we are interested in distinguishing between the positive class <span class="math notranslate nohighlight">\( k^+ \)</span> and the negative class <span class="math notranslate nohighlight">\( k^- \)</span> for a given query <span class="math notranslate nohighlight">\( q \)</span>. To achieve this, we use a probabilistic framework that considers both positive and negative classes simultaneously.</p>
+<ul>
+<li><p><strong><span class="math notranslate nohighlight">\( p(D = 1|q, k) \)</span></strong>: This formulation allows us to express the probability of the query-sample pair belonging to the positive class while considering both positive and negative samples in the calculation. The equation:</p>
+<div class="math notranslate nohighlight">
+\[
+  p(D = 1|q, k) = \frac{p(k^+ \vert q)}{p(k^+\vert q) + m \cdot p(k^- \vert q)}
+  \]</div>
+<p>is a more comprehensive measure because it contrasts the likelihood of the positive sample <span class="math notranslate nohighlight">\( p(k^+|q) \)</span> against the combined likelihood of both positive and negative samples.</p>
+</li>
+</ul>
+</section>
+<section id="why-use-m-scaling-factor">
+<h4>Why Use <span class="math notranslate nohighlight">\( m \)</span> (Scaling Factor)?<a class="headerlink" href="#why-use-m-scaling-factor" title="Link to this heading">#</a></h4>
+<p>The term <span class="math notranslate nohighlight">\( m \)</span> in the equation:</p>
+<div class="math notranslate nohighlight">
+\[
+p(D = 1|q, k) = \frac{p(k^+ \vert q)}{p(k^+\vert q) + m \cdot p(k^- \vert q)}
+\]</div>
+<p>serves several important purposes:</p>
+<ul class="simple">
+<li><p><strong>Adjusting for the Imbalance</strong>: In many datasets, negative samples (non-relevant or noise samples) are far more numerous than positive samples. The factor <span class="math notranslate nohighlight">\( m \)</span> accounts for this imbalance by weighting the contribution of negative samples in the denominator. If <span class="math notranslate nohighlight">\( m \)</span> were 1, it would mean we are sampling negative and positive samples equally. By increasing <span class="math notranslate nohighlight">\( m \)</span>, we give more weight to the negative samples, reflecting their prevalence in the data.</p></li>
+<li><p><strong>Making Computation Feasible</strong>: Directly computing the normalization constant <span class="math notranslate nohighlight">\( Z(q) \)</span> by summing over all negative samples is computationally infeasible, especially in large datasets. Instead, by sampling and scaling, NCE approximates this sum. The factor <span class="math notranslate nohighlight">\( m \)</span> helps to ensure that this approximation is balanced and represents the true distribution of negative samples effectively.</p></li>
+</ul>
+</section>
+</section>
+<section id="infonce-a-key-tool-for-self-supervised-learning">
+<h3>InfoNCE: A Key Tool for Self-Supervised Learning<a class="headerlink" href="#infonce-a-key-tool-for-self-supervised-learning" title="Link to this heading">#</a></h3>
+<p><strong>InfoNCE</strong> (Information Noise Contrastive Estimation) is a fundamental loss function used in self-supervised learning, particularly in contrastive learning frameworks. It plays a crucial role in learning meaningful representations by contrasting positive and negative pairs. InfoNCE is widely used in models like SimCLR, where the objective is to bring similar data points closer together in the feature space while pushing dissimilar points apart.</p>
+</section>
+<section id="the-infonce-loss-function">
+<h3>The InfoNCE Loss Function<a class="headerlink" href="#the-infonce-loss-function" title="Link to this heading">#</a></h3>
+<p>The InfoNCE loss is designed to optimize the similarity between a query and its corresponding positive example while minimizing the similarity between the query and a set of negative examples. The loss is formulated as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{InfoNCE} = -\log \frac{\exp(h(q, p) / \tau)}{\exp(h(q, p) / \tau) + \sum_{n \in N} \exp(h(q, n) / \tau)},
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( q \)</span> is the query (e.g., an augmented view of an image).</p></li>
+<li><p><span class="math notranslate nohighlight">\( p \)</span> is the positive key, another view or augmentation of the same data point as <span class="math notranslate nohighlight">\( q \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( N = \{n_1, \dots, n_k\} \)</span> is a set of negative keys, typically different data points from the dataset.</p></li>
+<li><p><span class="math notranslate nohighlight">\( h(q, y) \)</span> represents the similarity measure, commonly the cosine similarity between the embeddings of <span class="math notranslate nohighlight">\( q \)</span> and <span class="math notranslate nohighlight">\( y \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \tau \)</span> is a temperature parameter that controls the smoothness of the output distribution.</p></li>
+</ul>
+<p>This loss function encourages the model to maximize the similarity <span class="math notranslate nohighlight">\( h(q, p) \)</span> while minimizing the similarity <span class="math notranslate nohighlight">\( h(q, n) \)</span> for all negative samples <span class="math notranslate nohighlight">\( n \in N \)</span>. The result is a model that learns to cluster representations of similar data points together while distinguishing them from others.</p>
+</section>
+</section>
+<section id="miniproject-general-scheme-for-constrastive-learning">
+<h2>Miniproject: General scheme for constrastive learning<a class="headerlink" href="#miniproject-general-scheme-for-constrastive-learning" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>CPC (Contrastive Predictive Coding)</p></li>
+<li><p>Memory bank</p></li>
+<li><p>SimCLR</p></li>
+<li><p>MoCo</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ML\ContrastiveLearning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../EnsembleLearning/DiffusionNetwork.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Diffusion Network of Learner</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../MetricLearning/MetricLearning_1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Metric Learning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-function">Cost function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#continue-with-example">Continue with example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-function-and-loss">1. Define the Function and Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-f-x-a-f-x-p-2-and-f-x-a-f-x-n-2">2. Compute <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_P) \|^2 \)</span> and <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_N) \|^2 \)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-between-anchor-and-positive">Distance between Anchor and Positive</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-between-anchor-and-negative">Distance between Anchor and Negative</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expand-the-squared-distances">3. Expand the Squared Distances</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#expand-f-x-a-f-x-p-2">Expand <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_P) \|^2 \)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#expand-f-x-a-f-x-n-2">Expand <span class="math notranslate nohighlight">\( \| f(x_A) - f(x_N) \|^2 \)</span>:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-the-triplet-loss">4. Compute the Triplet Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplify-the-triplet-loss-function">5. Simplify the Triplet Loss Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivatives-with-respect-to-a-b-and-c">6. Derivatives with Respect to <span class="math notranslate nohighlight">\( a \)</span>, <span class="math notranslate nohighlight">\( b \)</span>, and <span class="math notranslate nohighlight">\( c \)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#derivative-with-respect-to-a">Derivative with Respect to <span class="math notranslate nohighlight">\( a \)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#derivative-with-respect-to-b">Derivative with Respect to <span class="math notranslate nohighlight">\( b \)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#derivative-with-respect-to-c">Derivative with Respect to <span class="math notranslate nohighlight">\( c \)</span>:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#representing-function-with-optimal-a-and-b">Representing Function with Optimal <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-contrastive-learning">probabilistic contrastive learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-the-variables-and-functions">Understanding the Variables and Functions:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concept">Key Concept:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-contrastive-estimation-nce">Noise Contrastive Estimation (NCE)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clarification-on-p-d-1-q-k-vs-p-k-q">Clarification on <span class="math notranslate nohighlight">\( p(D = 1|q, k) \)</span> vs. <span class="math notranslate nohighlight">\( p(k^+|q) \)</span>:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-p-d-1-q-k-represents">What <span class="math notranslate nohighlight">\( p(D = 1|q, k) \)</span> Represents:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-p-d-1-q-k-instead-of-p-k-q">Why Use <span class="math notranslate nohighlight">\( p(D = 1|q, k) \)</span> Instead of <span class="math notranslate nohighlight">\( p(k^+|q) \)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-m-scaling-factor">Why Use <span class="math notranslate nohighlight">\( m \)</span> (Scaling Factor)?</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#infonce-a-key-tool-for-self-supervised-learning">InfoNCE: A Key Tool for Self-Supervised Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-infonce-loss-function">The InfoNCE Loss Function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-general-scheme-for-constrastive-learning">Miniproject: General scheme for constrastive learning</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

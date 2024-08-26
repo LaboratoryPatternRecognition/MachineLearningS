@@ -1,0 +1,1110 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Instance-Based Transfer Learning &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ML/TransferLearning/InstanceBasedTransferLearning1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="MetaLearning" href="../MetaLearning/MetaLearning_1.html" />
+    <link rel="prev" title="Transfer Learning" href="TransferLearning_1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../machine_learning.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../machine_learning.html">
+                    Machine Learning
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Regression/NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Regression/GP_Regression.html">Gaussian Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/FR_Intro.html">Introduction of Feature Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/PCA.html">Principal Component Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/Autoencoders1.html">Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/LLE.html">Locally Linear Embedding (LLE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/EnsembleStart_BaggingBoosting.html">Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/Ensemble_Voting_Variant_Bayesian.html">Ensemble by Voting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/TrainableCombiner.html">Trainable Combiners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/FederatedLearning.html">Federated Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/DiffusionNetwork.html">Diffusion Network of Learner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ContrastiveLearning/ContrastiveLearning_Introduction.html">Contrastive learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MetricLearning/MetricLearning_1.html">Metric Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RepresentationLearning/RepresentationLearning1.html">Representation Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ActiveLearning/ActiveLearning_1.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TransferLearning_1.html">Transfer Learning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Instance-Based Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MetaLearning/MetaLearning_1.html">MetaLearning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FML/TransferLearning/InstanceBasedTransferLearning1.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/ML/TransferLearning/InstanceBasedTransferLearning1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Instance-Based Transfer Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instance-based-noninductive-transfer-learning">Instance-Based Noninductive Transfer Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reformulation-using-source-domain-data">Reformulation Using Source Domain Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-approximation">Empirical Approximation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#density-ratio-estimation">Density Ratio Estimation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-density-ratio-estimation">Homework: Density ratio estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-mean-matching-kmm-mathematical-framework">Kernel Mean Matching (KMM): Mathematical Framework</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-idea">Basic Idea</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#notations-and-definitions">Notations and Definitions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-problem">Optimization Problem</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-objective-function">Empirical Objective Function</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reformulate-the-objective-function">Reformulate the Objective Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-expand-the-objective-function">Step 2: Expand the Objective Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#express-in-terms-of-kernel-functions">Express in Terms of Kernel Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#incorporating-weights-into-model-training">Incorporating Weights into Model Training</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-approximation-for-density-ratio-estimation">Function Approximation for Density Ratio Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#approximation-framework">Approximation Framework</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-coefficients">Learning Coefficients</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#kullback-leibler-kl-divergence">Kullback-Leibler (KL) Divergence</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#squared-loss">Squared Loss</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instance-based-inductive-transfer-learning">Instance-Based Inductive Transfer Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-of-source-and-target-loss">Integration of Source and Target Loss</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-based-transfer-learning">Feature-Based Transfer Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-mean-discrepancy-mmd">Maximum Mean Discrepancy (MMD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definitions-and-notation">Definitions and Notation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-equality-holds">Why the Equality Holds</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mmd-in-rkhs">MMD in RKHS</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-you-can-proof-following">Homework you can proof following,</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-mmd-embedding-mmde">The MMD embedding (MMDE)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniprojects">Miniprojects:</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="instance-based-transfer-learning">
+<h1>Instance-Based Transfer Learning<a class="headerlink" href="#instance-based-transfer-learning" title="Link to this heading">#</a></h1>
+<p>Instance-based transfer learning utilizes labeled data from a source domain to improve learning in a target domain. When the source and target domains are similar, integrating source domain data can simplify the problem to a standard single-domain task. However, this approach often struggles when the domains are significantly different.</p>
+<p><img alt="Transfer_SimilarDomain" src="../../_images/TransferLearning_2.PNG" /></p>
+<p><strong>Mathematical Motivation:</strong></p>
+<p>Instance-based transfer learning focuses on selecting and using relevant source domain instances to enhance target domain learning. The process involves addressing two primary issues:</p>
+<ol class="arabic simple">
+<li><p><strong>Selecting Relevant Instances:</strong></p>
+<ul class="simple">
+<li><p><strong>Objective</strong>: Identify which source domain instances are most similar to those in the target domain to reduce model variance and bias. When the target domain dataset is limited, integrating source domain data can help mitigate high variance. Nonetheless, substantial differences between the domains might introduce bias.</p></li>
+</ul>
+</li>
+<li><p><strong>Utilizing Selected Instances:</strong></p>
+<ul class="simple">
+<li><p><strong>Objective</strong>: Incorporate the selected source domain instances into learning algorithms to improve the accuracy of the target domain model.</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Mathematical Formulation:</strong></p>
+<p>Given:</p>
+<ul class="simple">
+<li><p><strong>Domain</strong> <span class="math notranslate nohighlight">\( D = \{X, P_X\} \)</span>: Feature space <span class="math notranslate nohighlight">\( X \)</span> and marginal distribution <span class="math notranslate nohighlight">\( P_X \)</span>.</p></li>
+<li><p><strong>Task</strong> <span class="math notranslate nohighlight">\( T = \{Y, P_{Y|X}\} \)</span>: Label space <span class="math notranslate nohighlight">\( Y \)</span> and conditional probability distribution <span class="math notranslate nohighlight">\( P_{Y|X} \)</span>.</p></li>
+</ul>
+<p>When <span class="math notranslate nohighlight">\( D_s = \{X_s, P_{X_s}\} \)</span> and <span class="math notranslate nohighlight">\( D_t = \{X_t, P_{X_t}\} \)</span>, and <span class="math notranslate nohighlight">\( T_s = \{Y_s, P_{Y_s|X_s}\} \)</span> and <span class="math notranslate nohighlight">\( T_t = \{Y_t, P_{Y_t|X_t}\} \)</span>:</p>
+<ul class="simple">
+<li><p><strong>Noninductive Transfer Learning</strong>: Occurs when <span class="math notranslate nohighlight">\( P_{X_s} \neq P_{X_t} \)</span> but <span class="math notranslate nohighlight">\( P_{Y_s|X_s} = P_{Y_t|X_t} \)</span>. The problem is when the marginal distributions differ but the conditional probabilities are the same. For example, different hospitals (domains) have different patient populations (marginal distributions), but the disease causes (conditional probabilities) are the same.</p></li>
+<li><p><strong>Inductive Transfer Learning</strong>: Occurs when <span class="math notranslate nohighlight">\( P_{Y_s|X_s} \neq P_{Y_t|X_t} \)</span>. Here, both marginal distributions and conditional probabilities differ. For example, different subtypes of a virus (tasks) have different causes (conditional probabilities).</p></li>
+</ul>
+<section id="instance-based-noninductive-transfer-learning">
+<h2>Instance-Based Noninductive Transfer Learning<a class="headerlink" href="#instance-based-noninductive-transfer-learning" title="Link to this heading">#</a></h2>
+<p><span class="math notranslate nohighlight">\(X_s = X_t\)</span>, <span class="math notranslate nohighlight">\(P_{X_s} \neq P_{X_t}\)</span>. To learn a predictive model for the target domain <span class="math notranslate nohighlight">\(D_t\)</span>, we aim to find the optimal parameter vector <span class="math notranslate nohighlight">\(\theta_t\)</span> by minimizing the risk function. This involves solving:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta_t^* = \arg \min_{\theta_t \in \Theta} E_{(x,y) \sim P_{X_t,Y_t}}[l(x, y, \theta_t)]
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(l(x, y, \theta_t)\)</span> is a loss function depending on <span class="math notranslate nohighlight">\(\theta_t\)</span>. However, since there are no labeled target domain data, this direct optimization is not feasible.</p>
+<section id="reformulation-using-source-domain-data">
+<h3>Reformulation Using Source Domain Data<a class="headerlink" href="#reformulation-using-source-domain-data" title="Link to this heading">#</a></h3>
+<p>Using Bayes’ rule and the definition of expectation, the optimization problem can be reformulated.</p>
+<div class="math notranslate nohighlight">
+\[ \theta_t^* = \arg \min_{\theta_t \in \Theta} E_{(x,y) \sim P_{X_s,Y_s}} \left[ \frac{P_t(x, y)}{P_s(x, y)} l(x, y, \theta_t) \right] 
+\]</div>
+<p>If <span class="math notranslate nohighlight">\(P_{Y_s|X_s}=P_{Y_t|X_t}\)</span> and becuase  <span class="math notranslate nohighlight">\(P_{X,Y} = P_{Y|X} P_X\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{P_t(x, y)}{P_s(x, y)} = \frac{P_t(x)}{P_s(x)}
+\]</div>
+<p>Therefore:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta_t^* = \arg \min_{\theta_t \in \Theta} E_{(x,y) \sim P_{X,Y_s}} \left[ \frac{P_t(x)}{P_s(x)} l(x, y, \theta_t) \right]
+\]</div>
+</section>
+<section id="empirical-approximation">
+<h3>Empirical Approximation<a class="headerlink" href="#empirical-approximation" title="Link to this heading">#</a></h3>
+<p>To practically estimate <span class="math notranslate nohighlight">\(\theta_t^*\)</span> using source domain data <span class="math notranslate nohighlight">\(\{(x_{si}, y_{si})\}_{i=1}^{n_s}\)</span>, we need to estimate the density ratio <span class="math notranslate nohighlight">\(\beta(x) = \frac{P_t(x)}{P_s(x)}\)</span>. The empirical approximation is:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta_t^* = \arg \min_{\theta_t \in \Theta} \left[ \sum_{i=1}^{n_s} \beta(x_{si}) l(x_{si}, y_{si}, \theta_t) \right]
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\beta(x_{si})\)</span> is the weight for the source domain instance <span class="math notranslate nohighlight">\(x_{si}\)</span>.</p>
+</section>
+<section id="density-ratio-estimation">
+<h3>Density Ratio Estimation<a class="headerlink" href="#density-ratio-estimation" title="Link to this heading">#</a></h3>
+<p>Estimating <span class="math notranslate nohighlight">\(\beta(x_{si})\)</span> involves:</p>
+<ul class="simple">
+<li><p>Estimating <span class="math notranslate nohighlight">\(P_t(x)\)</span> and <span class="math notranslate nohighlight">\(P_s(x)\)</span> from the available data.</p></li>
+<li><p>Computing the ratio <span class="math notranslate nohighlight">\(\frac{P_t(x_{si})}{P_s(x_{si})}\)</span> for each source domain instance <span class="math notranslate nohighlight">\(x_{si}\)</span>.</p></li>
+</ul>
+<p>This step can be challenging, especially with high-dimensional data, where density estimation errors affect the ratio estimation.</p>
+</section>
+</section>
+<section id="homework-density-ratio-estimation">
+<h2>Homework: Density ratio estimation<a class="headerlink" href="#homework-density-ratio-estimation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Classification</p></li>
+<li><p>Regression</p></li>
+</ul>
+<section id="kernel-mean-matching-kmm-mathematical-framework">
+<h3>Kernel Mean Matching (KMM): Mathematical Framework<a class="headerlink" href="#kernel-mean-matching-kmm-mathematical-framework" title="Link to this heading">#</a></h3>
+<p>Kernel Mean Matching (KMM) is an effective technique for estimating the density ratio between source and target domains using kernel methods. The approach leverages kernel embedding of distributions and aims to align the mean of the source domain data with that of the target domain data in a Reproducing Kernel Hilbert Space (RKHS).</p>
+<section id="basic-idea">
+<h4>Basic Idea<a class="headerlink" href="#basic-idea" title="Link to this heading">#</a></h4>
+<p>The goal of KMM is to estimate the density ratio <span class="math notranslate nohighlight">\( \frac{P_t(x)}{P_s(x)} \)</span> by aligning the mean of source domain instances with the mean of target domain instances in an RKHS.</p>
+</section>
+<section id="notations-and-definitions">
+<h4>Notations and Definitions<a class="headerlink" href="#notations-and-definitions" title="Link to this heading">#</a></h4>
+<p><strong>Density Ratio</strong>: For each source domain instance <span class="math notranslate nohighlight">\( x_i^s \)</span>, denote <span class="math notranslate nohighlight">\( \beta_i = \frac{P_t(x_i^s)}{P_s(x_i^s)} \)</span>. Define <span class="math notranslate nohighlight">\( \beta \)</span> as:</p>
+<div class="math notranslate nohighlight">
+\[
+\beta = (\beta_1, \beta_2, \ldots, \beta_{n_s})
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( n_s \)</span> is the size of the source domain dataset.</p>
+<p><strong>RKHS Transformation</strong>: Map each data instance <span class="math notranslate nohighlight">\( x \)</span> to a feature space using a kernel function, transforming it to <span class="math notranslate nohighlight">\( \Phi(x) \)</span> in the RKHS <span class="math notranslate nohighlight">\( \mathcal{F} \)</span>.</p>
+<p><strong>Mean in RKHS</strong>: Define <span class="math notranslate nohighlight">\( \mu(P_t) \)</span> as the mean of the target domain instances in the RKHS:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu(P_t) = \mathbb{E}_{P_t}[\Phi(x)]
+\]</div>
+</section>
+<section id="optimization-problem">
+<h4>Optimization Problem<a class="headerlink" href="#optimization-problem" title="Link to this heading">#</a></h4>
+<p>The KMM method aims to find weights <span class="math notranslate nohighlight">\( \beta \)</span> such that the mean of the weighted source domain instances matches the mean of the target domain instances in the RKHS. The optimization problem is formulated as:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_\beta \left\| \mu(P_t) - \mathbb{E}_{P_s}[\beta(x) \Phi(x)] \right\|^2
+\]</div>
+<p>subject to:
+$<span class="math notranslate nohighlight">\(
+\beta(x) \geq 0, \quad \mathbb{E}_{P_s}[\beta(x)] = 1 
+\)</span>$</p>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \Phi(x) \)</span> is the feature representation of <span class="math notranslate nohighlight">\( x \)</span> in the RKHS.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \mathbb{E}_{P_s}[\cdot] \)</span> denotes the expectation over the source domain distribution.</p></li>
+</ul>
+</section>
+<section id="empirical-objective-function">
+<h4>Empirical Objective Function<a class="headerlink" href="#empirical-objective-function" title="Link to this heading">#</a></h4>
+<p>In practice, the objective is optimized based on empirical data. The empirical version of the objective function is:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_\beta \left\| \frac{1}{n_s} \sum_{i=1}^{n_s} \beta_i \Phi(x_i^s) - \frac{1}{n_t} \sum_{i=1}^{n_t} \Phi(x_i^t) \right\|^2
+\]</div>
+<p>subject to:
+$<span class="math notranslate nohighlight">\(
+\beta_i \geq 0, \quad \frac{1}{n_s} \sum_{i=1}^{n_s} \beta_i = 1
+\)</span>$</p>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( x_i^s \)</span> are source domain instances.</p></li>
+<li><p><span class="math notranslate nohighlight">\( x_i^t \)</span> are target domain instances.</p></li>
+<li><p><span class="math notranslate nohighlight">\( n_t \)</span> is the number of target domain instances.</p></li>
+</ul>
+<p>To solve the optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_\beta \left\| \frac{1}{n_s} \sum_{i=1}^{n_s} \beta_i \Phi(x_i^s) - \frac{1}{n_t} \sum_{i=1}^{n_t} \Phi(x_i^t) \right\|^2
+\]</div>
+<p>subject to:
+$<span class="math notranslate nohighlight">\(
+\beta_i \geq 0, \quad \frac{1}{n_s} \sum_{i=1}^{n_s} \beta_i = 1,
+\)</span>$</p>
+<p><strong>Soloution:</strong>
+we can proceed with the following steps:</p>
+</section>
+</section>
+<section id="reformulate-the-objective-function">
+<h3>Reformulate the Objective Function<a class="headerlink" href="#reformulate-the-objective-function" title="Link to this heading">#</a></h3>
+<p>Let’s denote the average of the source and target feature mappings as:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu_s = \frac{1}{n_s} \sum_{i=1}^{n_s} \Phi(x_i^s), \quad \mu_t = \frac{1}{n_t} \sum_{i=1}^{n_t} \Phi(x_i^t).
+\]</div>
+<p>The objective function becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_\beta \left\| \sum_{i=1}^{n_s} \frac{\beta_i}{n_s} \Phi(x_i^s) - \mu_t \right\|^2.
+\]</div>
+</section>
+<section id="step-2-expand-the-objective-function">
+<h3>Step 2: Expand the Objective Function<a class="headerlink" href="#step-2-expand-the-objective-function" title="Link to this heading">#</a></h3>
+<p>We can expand the squared norm:</p>
+<div class="math notranslate nohighlight">
+\[
+\left\| \sum_{i=1}^{n_s} \frac{\beta_i}{n_s} \Phi(x_i^s) - \mu_t \right\|^2 = \left( \sum_{i=1}^{n_s} \frac{\beta_i}{n_s} \Phi(x_i^s) - \mu_t \right)^\top \left( \sum_{i=1}^{n_s} \frac{\beta_i}{n_s} \Phi(x_i^s) - \mu_t \right).
+\]</div>
+<p>Expanding the product:</p>
+<div class="math notranslate nohighlight">
+\[
+= \sum_{i,j=1}^{n_s} \frac{\beta_i \beta_j}{n_s^2} \langle \Phi(x_i^s), \Phi(x_j^s) \rangle - 2 \sum_{i=1}^{n_s} \frac{\beta_i}{n_s} \langle \Phi(x_i^s), \mu_t \rangle + \|\mu_t\|^2.
+\]</div>
+</section>
+<section id="express-in-terms-of-kernel-functions">
+<h3>Express in Terms of Kernel Functions<a class="headerlink" href="#express-in-terms-of-kernel-functions" title="Link to this heading">#</a></h3>
+<p>We can rewrite the inner products using the kernel function <span class="math notranslate nohighlight">\( k(x, y) = \langle \Phi(x), \Phi(y) \rangle \)</span>:</p>
+<ul class="simple">
+<li><p>The term <span class="math notranslate nohighlight">\( \langle \Phi(x_i^s), \Phi(x_j^s) \rangle \)</span> becomes <span class="math notranslate nohighlight">\( k(x_i^s, x_j^s) \)</span>.</p></li>
+<li><p>The term <span class="math notranslate nohighlight">\( \langle \Phi(x_i^s), \mu_t \rangle \)</span> becomes <span class="math notranslate nohighlight">\( \frac{1}{n_t} \sum_{j=1}^{n_t} k(x_i^s, x_j^t) \)</span>.</p></li>
+</ul>
+<p>So, the objective function can be rewritten as:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_\beta \sum_{i,j=1}^{n_s} \frac{\beta_i \beta_j}{n_s^2} k(x_i^s, x_j^s) - 2 \sum_{i=1}^{n_s} \frac{\beta_i}{n_s n_t} \sum_{j=1}^{n_t} k(x_i^s, x_j^t) + \text{constant}.
+\]</div>
+<p>The constant term <span class="math notranslate nohighlight">\( \|\mu_t\|^2 \)</span> does not depend on <span class="math notranslate nohighlight">\( \beta \)</span>, so we can ignore it for optimization purposes.
+The above problem is a quadratic programming problem with a linear equality constraint.</p>
+<section id="incorporating-weights-into-model-training">
+<h4>Incorporating Weights into Model Training<a class="headerlink" href="#incorporating-weights-into-model-training" title="Link to this heading">#</a></h4>
+<p>Once the optimal weights <span class="math notranslate nohighlight">\( \beta \)</span> are computed, they can be used to reweight the source domain data in the loss function for training the predictive model <span class="math notranslate nohighlight">\( \theta_t^* \)</span>. The model is learned by minimizing the weighted empirical risk:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta_t^* = \arg \min_{\theta_t} \frac{1}{n_s} \sum_{i=1}^{n_s} \beta_i \ell(x_i^s, y_i^s, \theta_t)
+\]</div>
+</section>
+</section>
+<section id="function-approximation-for-density-ratio-estimation">
+<h3>Function Approximation for Density Ratio Estimation<a class="headerlink" href="#function-approximation-for-density-ratio-estimation" title="Link to this heading">#</a></h3>
+<p>Function approximation methods for estimating the density ratio focus on representing the ratio <span class="math notranslate nohighlight">\( \frac{P_t(x)}{P_s(x)} \)</span> as a function <span class="math notranslate nohighlight">\( \beta(x) \)</span>, which is then approximated by a combination of base functions.</p>
+<section id="approximation-framework">
+<h4>Approximation Framework<a class="headerlink" href="#approximation-framework" title="Link to this heading">#</a></h4>
+<p><strong>Density Ratio Function</strong>
+Define the density ratio <span class="math notranslate nohighlight">\( \frac{P_t(x)}{P_s(x)} \)</span> as a function <span class="math notranslate nohighlight">\( \beta(x) \)</span>. Assume <span class="math notranslate nohighlight">\( \beta(x) \)</span> can be represented as a linear combination of base functions:</p>
+<div class="math notranslate nohighlight">
+\[
+\beta(x) = \sum_{l=1}^b \alpha_l \phi_l(x)
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \alpha = (\alpha_1, \alpha_2, \ldots, \alpha_b)^T \)</span> are the coefficients to be learned.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \phi_l(x) \)</span> are the base functions, which can be linear or nonlinear.</p></li>
+</ul>
+<p><strong>Approximating <span class="math notranslate nohighlight">\( P_t(x) \)</span></strong>: Using the approximated density ratio <span class="math notranslate nohighlight">\( \beta(x) \)</span>, the target domain density <span class="math notranslate nohighlight">\( P_t(x) \)</span> can be approximated as:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{P}_t(x) = \beta(x) P_s(x)
+\]</div>
+</section>
+<section id="learning-coefficients">
+<h4>Learning Coefficients<a class="headerlink" href="#learning-coefficients" title="Link to this heading">#</a></h4>
+<p>To learn the coefficients <span class="math notranslate nohighlight">\( \alpha \)</span>, minimize the discrepancy between the true density ratio <span class="math notranslate nohighlight">\( \beta(x) \)</span> and the approximated ratio <span class="math notranslate nohighlight">\( \hat{\beta}(x) \)</span>. Different loss functions can be employed for this purpose:</p>
+<section id="kullback-leibler-kl-divergence">
+<h5>Kullback-Leibler (KL) Divergence<a class="headerlink" href="#kullback-leibler-kl-divergence" title="Link to this heading">#</a></h5>
+<p>The KL divergence between the true target density <span class="math notranslate nohighlight">\( P_t(x) \)</span> and the approximated density <span class="math notranslate nohighlight">\( \hat{P}_t(x) = \beta(x) P_s(x) \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P_t \parallel \hat{P}_t) = \int_X P_t(x) \log \frac{P_t(x)}{\hat{P}_t(x)} \, dx
+\]</div>
+<p>Substituting <span class="math notranslate nohighlight">\( \hat{P}_t(x) = \beta(x) P_s(x) \)</span>, we get:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P_t \parallel \hat{P}_t) = \int_X P_t(x) \log \frac{P_t(x)}{\beta(x) P_s(x)} \, dx
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \int_X P_t(x) \log \frac{P_t(x)}{P_s(x)} \, dx - \int_X P_t(x) \log \beta(x) \, dx
+\]</div>
+<p>Empirically, minimizing the KL divergence can be approximated by solving:</p>
+<div class="math notranslate nohighlight">
+\[
+\max_\alpha \frac{1}{n_t} \sum_{j=1}^{n_t} \log \left( \sum_{l=1}^b \alpha_l \phi_l(x_j^t) \right)
+\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{n_s} \sum_{i=1}^{n_s} \sum_{l=1}^b \alpha_l \phi_l(x_i^s) = 1
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\alpha_l \geq 0 \quad \forall l \in \{1, \ldots, b\}
+\]</div>
+</section>
+<section id="squared-loss">
+<h5>Squared Loss<a class="headerlink" href="#squared-loss" title="Link to this heading">#</a></h5>
+<p>An alternative loss function is the squared loss, which measures the discrepancy between the true density ratio <span class="math notranslate nohighlight">\( \beta(x) \)</span> and the approximated ratio <span class="math notranslate nohighlight">\( \hat{\beta}(x) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_\alpha \int_{X_s \cup X_t} \left( \beta(x) - \hat{\beta}(x) \right)^2 P_s(x) \, dx
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( \hat{\beta}(x) \)</span> is approximated by:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\beta}(x) = \sum_{l=1}^b \alpha_l \phi_l(x)
+\]</div>
+</section>
+</section>
+</section>
+<section id="instance-based-inductive-transfer-learning">
+<h3>Instance-Based Inductive Transfer Learning<a class="headerlink" href="#instance-based-inductive-transfer-learning" title="Link to this heading">#</a></h3>
+<p>Instance-based inductive transfer learning is a technique where the source and target tasks may differ in their conditional probabilities, <span class="math notranslate nohighlight">\(P_{Y_s|X_s} \neq P_{Y_t|X_t}\)</span>. This difference poses challenges in adapting the model from the source domain to the target domain, especially when there is limited labeled data in the target domain. To address this, instance-based inductive transfer learning typically requires both source domain-labeled data <span class="math notranslate nohighlight">\( D_s = \{ (x_i^s, y_i^s) \}_{i=1}^{n_s} \)</span> and a small set of target domain-labeled data <span class="math notranslate nohighlight">\( D_t = \{ (x_i^t, y_i^t) \}_{i=1}^{n_t} \)</span>.</p>
+<p><img alt="SmallSampleTargetDomain1" src="../../_images/SmallData_TargetDomain.PNG" /></p>
+<section id="integration-of-source-and-target-loss">
+<h4>Integration of Source and Target Loss<a class="headerlink" href="#integration-of-source-and-target-loss" title="Link to this heading">#</a></h4>
+<p>A common approach involves decomposing the loss function into two parts: one for the source domain and one for the target domain. A trade-off parameter is introduced to balance the contributions of these losses.</p>
+<p><strong>K-Nearest Neighbors (KNN) Method</strong></p>
+<p>The KNN classifier identifies the <span class="math notranslate nohighlight">\( K_s \)</span> nearest source domain instances and <span class="math notranslate nohighlight">\( K_t \)</span> nearest target domain instances for each test instance <span class="math notranslate nohighlight">\( x_i^t \)</span>. The overall vote for a class label <span class="math notranslate nohighlight">\( y \)</span> is computed as:</p>
+<div class="math notranslate nohighlight">
+\[
+V(y) = \theta \left( \frac{V_t(y)}{K_t} \right) + (1 - \theta) \left( \frac{V_s(y)}{K_s} \right)
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( V_t(y) \)</span> and <span class="math notranslate nohighlight">\( V_s(y) \)</span> are the counts of votes from the target and source domains, respectively.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \theta \)</span> is a trade-off parameter balancing the influence of the source and target domain neighbors.</p></li>
+</ul>
+<p><strong>Support Vector Machines (SVM) Method</strong></p>
+<p>Simple form type of SVM is:
+$<span class="math notranslate nohighlight">\(
+Rreg[f] := Remp[f] + λ \|α\|1   
+\)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\( \|α\|1 \)</span> denotes the <span class="math notranslate nohighlight">\(l_1\)</span> norm in the coefficient space. Thus, we use the Support Vector (SV) kernel expansion:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) = \sum_{i=1}^{N} α_i k(x_i, x) + b,
+\]</div>
+<p>where capacity is controlled differently by minimizing:</p>
+<div class="math notranslate nohighlight">
+\[
+Rreg[f] = 1/N \sum_{i=1}^{N} c(x_i, y_i, f(x_i)) + λ \sum_{i=1}^{N} |α_i|.
+\]</div>
+<p>For the <span class="math notranslate nohighlight">\( \epsilon\)</span>-insensitive loss function, this leads to a linear programming problem:</p>
+<div class="math notranslate nohighlight">
+\[
+min_\alpha \sum_{i=1}^{N} (α_i + α*_i) + C \sum_{i=1}^{N} (ξ_i + ξ*_i)
+\]</div>
+<p>Subject to:</p>
+<div class="math notranslate nohighlight">
+\[
+y_i − \sum_{j=1}^{N} (α_j − α*_j)k(x_j, x_i) − b ≤ ε + ξ_i
+\sum_{j=1}^{N} (α_j − α*_j)k(x_j, x_i) + b − y_i ≤ ε + ξ*_i
+α_i, α*_i, ξ_i, ξ*_i ≥ 0
+\]</div>
+<p>The objective function of SVMs is modified to account for both source and target domain data:
+$<span class="math notranslate nohighlight">\(
+\min_{\alpha_s, \alpha_t} \left( \sum_{j=1}^{n_s} \alpha_j^s + \sum_{j=1}^{n_t} \alpha_j^t \right) + C_s \sum_{j=1}^{n_s} \xi_j^s + C_t \sum_{j=1}^{n_t} \xi_j^t
+\)</span>$</p>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[
+y_i^t \left( \sum_{j=1}^{n_s} y_j^s \alpha_j^s K(x_j^s, x_i^t) + \sum_{j=1}^{n_t} y_j^t \alpha_j^t K(x_j^t, x_i^t) + b \right) \geq 1 - \xi_i^t
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+y_i^s \left( \sum_{j=1}^{n_t} y_j^t \alpha_j^t K(x_j^t, x_i^s) + \sum_{j=1}^{n_s} y_j^s \alpha_j^s K(x_j^s, x_i^s) + b \right) \geq 1 - \xi_i^s
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \alpha_j^s \)</span> and <span class="math notranslate nohighlight">\( \alpha_j^t \)</span> are the model parameters for source and target domains, and <span class="math notranslate nohighlight">\( \xi_j^s \)</span> and <span class="math notranslate nohighlight">\( \xi_j^t \)</span> are slack variables.</p>
+<p><strong>Semi-Supervised Framework</strong></p>
+<p>Semi-supervised framework utiliz both labeled and unlabeled target domain data. Parameters <span class="math notranslate nohighlight">\( \alpha_i \)</span> and <span class="math notranslate nohighlight">\( \beta_i \)</span> measure differences between the source and target domains, and <span class="math notranslate nohighlight">\( \gamma_i(y) \)</span> approximates the probability of true label of <span class="math notranslate nohighlight">\( x_i^{t,u} \)</span> is y. The optimization problem is:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta = \arg\max_\theta \left( \lambda_s \frac{C_s}{n_s} \sum_{i=1}^{n_s} \alpha_i \beta_i \log P(y_i^s | x_i^s; \theta) + \lambda_{t,l} \frac{C_{t,l}}{n_{t,l}} \sum_{j=1}^{n_{t,l}} \log P(y_j^t | x_j^t; \theta) + \lambda_{t,u} \frac{C_{t,u}}{n_{t,u}} \sum_{k=1}^{n_{t,u}} \sum_{y \in Y} \gamma_k(y) \log P(y | x_k^u; \theta) + \log P(\theta) \right)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \lambda_s \)</span>, <span class="math notranslate nohighlight">\( \lambda_{t,l} \)</span>, and <span class="math notranslate nohighlight">\( \lambda_{t,u} \)</span> are regularization parameters, and <span class="math notranslate nohighlight">\( P(\theta) \)</span> is a prior for the parameters <span class="math notranslate nohighlight">\( \theta \)</span>.</p>
+</section>
+</section>
+</section>
+<section id="feature-based-transfer-learning">
+<h2>Feature-Based Transfer Learning<a class="headerlink" href="#feature-based-transfer-learning" title="Link to this heading">#</a></h2>
+<p>In many real-world scenarios, the assumption that the source and target domain data have similar may not hold. Feature-based transfer learning provides “feature space” rather than the raw input space.</p>
+<p>The core idea is to learn a pair of mapping functions, <span class="math notranslate nohighlight">\(\{\phi_s(\cdot), \phi_t(\cdot)\}\)</span>, that map data from the source domain <span class="math notranslate nohighlight">\(\mathcal{D}_s\)</span> and the target domain <span class="math notranslate nohighlight">\(\mathcal{D}_t\)</span> into a common feature space <span class="math notranslate nohighlight">\(\mathcal{Z}\)</span>. This reduces the discrepancy between the domains, allowing for better transfer of knowledge.</p>
+<p>Let <span class="math notranslate nohighlight">\(\mathcal{X}_s\)</span> and <span class="math notranslate nohighlight">\(\mathcal{X}_t\)</span> represent the feature spaces of the source and target domains, respectively. In homogeneous transfer learning, we assume that there is some overlap between <span class="math notranslate nohighlight">\(\mathcal{X}_s\)</span> and <span class="math notranslate nohighlight">\(\mathcal{X}_t\)</span>, denoted by <span class="math notranslate nohighlight">\(\mathcal{X}_s \cap \mathcal{X}_t \neq \emptyset\)</span>, and that the label spaces are the same, i.e., <span class="math notranslate nohighlight">\(\mathcal{Y}_s = \mathcal{Y}_t\)</span>.</p>
+<p>Once the mapping functions <span class="math notranslate nohighlight">\(\phi_s\)</span> and <span class="math notranslate nohighlight">\(\phi_t\)</span> are learned, the data from both domains are mapped into the common feature space:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{Z}_s = \phi_s(\mathcal{X}_s) \quad \text{and} \quad \mathcal{Z}_t = \phi_t(\mathcal{X}_t)
+\]</div>
+<p>A target classifier <span class="math notranslate nohighlight">\(h: \mathcal{Z} \to \mathcal{Y}_t\)</span> is then trained on this new feature space using the mapped data <span class="math notranslate nohighlight">\(\mathcal{Z}_s\)</span> and <span class="math notranslate nohighlight">\(\mathcal{Z}_t\)</span>. For unseen data in the target domain, the data is first mapped to the common feature space <span class="math notranslate nohighlight">\(\mathcal{Z}_t\)</span>, and the trained classifier <span class="math notranslate nohighlight">\(h\)</span> is used to make predictions.</p>
+<p><img alt="Feature-based Approaches1" src="../../_images/FeaturebasedApproaches.PNG" /></p>
+<section id="maximum-mean-discrepancy-mmd">
+<h3>Maximum Mean Discrepancy (MMD)<a class="headerlink" href="#maximum-mean-discrepancy-mmd" title="Link to this heading">#</a></h3>
+<p>Minimizing domain discrepancy in transfer learning involves identifying latent features that are consistent across domains. This allows for accurate model training in the target domain using source domain data. The Maximum Mean Discrepancy (MMD) metric measures the distance between domain distributions through kernel embedding in a reproducing kernel Hilbert space (RKHS). Formally, MMD between source <span class="math notranslate nohighlight">\( X_s \)</span> and target <span class="math notranslate nohighlight">\( X_t \)</span> domain samples is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{MMD}(X_s, X_t) = \left\| \frac{1}{n_s} \sum_{i=1}^{n_s} \phi(x_{s_i}) - \frac{1}{n_t} \sum_{i=1}^{n_t} \phi(x_{t_i}) \right\|_H
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi(x)\)</span> maps instances to RKHS.</p>
+<p>We explain why the Maximum Mean Discrepancy (MMD) is defined as shown above.</p>
+<p><strong>Lemma:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\left( \sup_{\|f\|_H \leq 1} \langle \mu_p - \mu_q, f \rangle_H \right)^2 = \|\mu_p - \mu_q\|_H^2,
+\]</div>
+<p><strong>Discussion:</strong></p>
+</section>
+<section id="definitions-and-notation">
+<h3>Definitions and Notation<a class="headerlink" href="#definitions-and-notation" title="Link to this heading">#</a></h3>
+<p><strong>Hilbert Space <span class="math notranslate nohighlight">\(H\)</span>:</strong> A Hilbert space is a complete inner product space. The norm <span class="math notranslate nohighlight">\(\|f\|_H\)</span> of a function <span class="math notranslate nohighlight">\(f\)</span> in this space is defined by <span class="math notranslate nohighlight">\(\|f\|_H = \sqrt{\langle f, f \rangle_H}\)</span>.</p>
+<p><strong>Mean Embeddings:</strong> <span class="math notranslate nohighlight">\(\mu_p\)</span> and <span class="math notranslate nohighlight">\(\mu_q\)</span> are the mean embeddings of distributions <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span> in the Hilbert space <span class="math notranslate nohighlight">\(H\)</span>. Specifically, <span class="math notranslate nohighlight">\(\mu_p\)</span> and <span class="math notranslate nohighlight">\(\mu_q\)</span> are the expectations of the functions with respect to <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(q\)</span>, respectively.</p>
+<p><strong>Supremum:</strong> <span class="math notranslate nohighlight">\(\sup_{\|f\|_H \leq 1} \langle \mu_p - \mu_q, f \rangle_H\)</span> is the supremum (or maximum) of the inner product <span class="math notranslate nohighlight">\(\langle \mu_p - \mu_q, f \rangle_H\)</span> over all functions <span class="math notranslate nohighlight">\(f\)</span> in <span class="math notranslate nohighlight">\(H\)</span> with norm <span class="math notranslate nohighlight">\(\|f\|_H \leq 1\)</span>.</p>
+</section>
+<section id="why-the-equality-holds">
+<h3>Why the Equality Holds<a class="headerlink" href="#why-the-equality-holds" title="Link to this heading">#</a></h3>
+<p><strong>Inner Product and Norm Relationship:</strong> By definition, the norm of a vector <span class="math notranslate nohighlight">\(\mu_p - \mu_q\)</span> in the Hilbert space <span class="math notranslate nohighlight">\(H\)</span> is given by <span class="math notranslate nohighlight">\(\|\mu_p - \mu_q\|_H = \sqrt{\langle \mu_p - \mu_q, \mu_p - \mu_q \rangle_H}\)</span>.</p>
+<p><strong>Supremum Value:</strong> To find the supremum of <span class="math notranslate nohighlight">\(\langle \mu_p - \mu_q, f \rangle_H\)</span> subject to <span class="math notranslate nohighlight">\(\|f\|_H \leq 1\)</span>, note that:</p>
+<ul class="simple">
+<li><p>The supremum is maximized when <span class="math notranslate nohighlight">\(f\)</span> is chosen to be in the direction of <span class="math notranslate nohighlight">\(\mu_p - \mu_q\)</span>.</p></li>
+<li><p>Specifically, if <span class="math notranslate nohighlight">\(f = \frac{\mu_p - \mu_q}{\|\mu_p - \mu_q\|_H}\)</span>, then <span class="math notranslate nohighlight">\(\|f\|_H = 1\)</span> and</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\langle \mu_p - \mu_q, f \rangle_H = \langle \mu_p - \mu_q, \frac{\mu_p - \mu_q}{\|\mu_p - \mu_q\|_H} \rangle_H = \|\mu_p - \mu_q\|_H.
+\]</div>
+<p>Therefore,</p>
+<div class="math notranslate nohighlight">
+\[
+\sup_{\|f\|_H \leq 1} \langle \mu_p - \mu_q, f \rangle_H = \|\mu_p - \mu_q\|_H.
+\]</div>
+<p><strong>Square of the Supremum:</strong> Squaring the supremum gives</p>
+<div class="math notranslate nohighlight">
+\[
+\left( \sup_{\|f\|_H \leq 1} \langle \mu_p - \mu_q, f \rangle_H \right)^2 = \|\mu_p - \mu_q\|_H^2.
+\]</div>
+<p><span class="math notranslate nohighlight">\( \square\)</span></p>
+</section>
+<section id="mmd-in-rkhs">
+<h3>MMD in RKHS<a class="headerlink" href="#mmd-in-rkhs" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\text{MMD}^2[F, p, q] = \|\mu_p - \mu_q\|_H^2
+\]</div>
+<p><strong>Express the squared norm using inner products:</strong></p>
+<p>Using the properties of the norm in Hilbert space, the squared norm can be expanded as:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\mu_p - \mu_q\|_H^2 = \langle \mu_p - \mu_q, \mu_p - \mu_q \rangle_H.
+\]</div>
+<p>Expanding this, we get:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\mu_p - \mu_q\|_H^2 = \langle \mu_p, \mu_p \rangle_H + \langle \mu_q, \mu_q \rangle_H - 2 \langle \mu_p, \mu_q \rangle_H.
+\]</div>
+<p><strong>Relate to expectations:</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(\langle \phi(x), \phi(x') \rangle_H = k(x, x')\)</span> be the inner product in the feature space <span class="math notranslate nohighlight">\(H\)</span>, where <span class="math notranslate nohighlight">\(k\)</span> is the kernel function. Substituting the empirical estimates of the feature space means, <span class="math notranslate nohighlight">\(\mu_X\)</span> and <span class="math notranslate nohighlight">\(\mu_Y\)</span>, based on the respective samples <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu_X := \frac{1}{m} \sum_{i=1}^m \phi(x_i) \quad \text{and} \quad \mu_Y := \frac{1}{n} \sum_{i=1}^n \phi(y_i).
+\]</div>
+<p>The empirical estimate of the Maximum Mean Discrepancy (MMD) is:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{MMD}_b^2[F, X, Y] = \left[ \frac{1}{m^2} \sum_{i, j=1}^m k(x_i, x_j) - \frac{2}{mn} \sum_{i=1}^m \sum_{j=1}^n k(x_i, y_j) + \frac{1}{n^2} \sum_{i, j=1}^n k(y_i, y_j) \right]^{\frac{1}{2}}.
+\]</div>
+</section>
+</section>
+<section id="homework-you-can-proof-following">
+<h2>Homework you can proof following,<a class="headerlink" href="#homework-you-can-proof-following" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[
+\text{MMD}(X_s, X_t) = \text{tr}(KL)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( K \)</span> is a composite kernel matrix and <span class="math notranslate nohighlight">\( L \)</span> defines the weights.
+where <span class="math notranslate nohighlight">\( K \)</span> is a composite kernel matrix defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+K = \begin{pmatrix}
+K_{s,s} &amp; K_{s,t} \\
+K_{t,s} &amp; K_{t,t}
+\end{pmatrix} \in \mathbb{R}^{(n_S + n_T) \times (n_S + n_T)}
+\end{split}\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( K_{s,s} \)</span>, <span class="math notranslate nohighlight">\( K_{t,t} \)</span>, and <span class="math notranslate nohighlight">\( K_{s,t} \)</span> represent the kernel matrices for the source domain, target domain, and the cross-domain interactions, respectively. The matrix <span class="math notranslate nohighlight">\( L \)</span> has entries <span class="math notranslate nohighlight">\( l_{ij} \)</span> defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+l_{ij} =\begin{cases} 
+\frac{1}{n_s^2} &amp; \text{if } x_i, x_j \in X_s \\
+\frac{1}{n_t^2} &amp; \text{if } x_i, x_j \in X_t \\
+\frac{-1}{n_s n_t} &amp; \text{otherwise}
+\end{cases}
+\end{split}\]</div>
+<section id="the-mmd-embedding-mmde">
+<h3>The MMD embedding (MMDE)<a class="headerlink" href="#the-mmd-embedding-mmde" title="Link to this heading">#</a></h3>
+<p>The MMD embedding (MMDE) approach optimizes the following objective:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{\phi} \text{MMD}(\phi(X_s), \phi(X_t)) + \lambda \Omega(\phi)
+\]</div>
+<p>subject to constraints on <span class="math notranslate nohighlight">\( \phi(X_s) \)</span> and <span class="math notranslate nohighlight">\( \phi(X_t) \)</span>.
+The optimization problem is reformulated as:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{K \geq 0} \text{tr}(KL) - \lambda \text{tr}(K)
+\]</div>
+<p>subject to the constraints:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( K_{ii} + K_{jj} - 2K_{ij} = d_{ij}^2 \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( K1 = 0 \)</span></p></li>
+</ul>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( K_{ii} \)</span> and <span class="math notranslate nohighlight">\( K_{jj} \)</span> are the diagonal elements of the kernel matrices for the source and target domains, respectively.</p></li>
+<li><p><span class="math notranslate nohighlight">\( K_{ij} \)</span> is the cross-domain kernel matrix.</p></li>
+<li><p><span class="math notranslate nohighlight">\( d_{ij} \)</span> represents the pairwise distance between instances in the source and target domains.</p></li>
+<li><p><span class="math notranslate nohighlight">\( K_1 = 0 \)</span> ensures that the kernel matrix is centered.</p></li>
+</ul>
+</section>
+</section>
+<section id="miniprojects">
+<h2>Miniprojects:<a class="headerlink" href="#miniprojects" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Transfer Component Analysis</p></li>
+<li><p>Deep Architectures with MMD</p></li>
+<li><p>Learning Universal Features
+Also other subjects
+from “Transfer Learning” by Q.YANG, Y. ZHANG, W. DAI, S. J. PAN.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ML\TransferLearning"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="TransferLearning_1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Transfer Learning</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../MetaLearning/MetaLearning_1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">MetaLearning</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#instance-based-noninductive-transfer-learning">Instance-Based Noninductive Transfer Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reformulation-using-source-domain-data">Reformulation Using Source Domain Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-approximation">Empirical Approximation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#density-ratio-estimation">Density Ratio Estimation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-density-ratio-estimation">Homework: Density ratio estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-mean-matching-kmm-mathematical-framework">Kernel Mean Matching (KMM): Mathematical Framework</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-idea">Basic Idea</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#notations-and-definitions">Notations and Definitions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#optimization-problem">Optimization Problem</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#empirical-objective-function">Empirical Objective Function</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reformulate-the-objective-function">Reformulate the Objective Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-expand-the-objective-function">Step 2: Expand the Objective Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#express-in-terms-of-kernel-functions">Express in Terms of Kernel Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#incorporating-weights-into-model-training">Incorporating Weights into Model Training</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#function-approximation-for-density-ratio-estimation">Function Approximation for Density Ratio Estimation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#approximation-framework">Approximation Framework</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-coefficients">Learning Coefficients</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#kullback-leibler-kl-divergence">Kullback-Leibler (KL) Divergence</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#squared-loss">Squared Loss</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#instance-based-inductive-transfer-learning">Instance-Based Inductive Transfer Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#integration-of-source-and-target-loss">Integration of Source and Target Loss</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-based-transfer-learning">Feature-Based Transfer Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-mean-discrepancy-mmd">Maximum Mean Discrepancy (MMD)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definitions-and-notation">Definitions and Notation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-the-equality-holds">Why the Equality Holds</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mmd-in-rkhs">MMD in RKHS</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-you-can-proof-following">Homework you can proof following,</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-mmd-embedding-mmde">The MMD embedding (MMDE)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniprojects">Miniprojects:</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
