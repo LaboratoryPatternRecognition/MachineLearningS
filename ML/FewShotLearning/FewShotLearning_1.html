@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Introduction of Feature Reduction &#8212; Dr.Hadi Sadoghi Yazdi</title>
+    <title>Few Shot Learning &#8212; Dr.Hadi Sadoghi Yazdi</title>
   
   
   
@@ -57,11 +57,13 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ML/FeatureReduction/FR_Intro';</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ML/FewShotLearning/FewShotLearning_1';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Principal Component Analysis" href="PCA.html" />
-    <link rel="prev" title="Gaussian Process" href="../Regression/GP_Regression.html" />
+    <link rel="next" title="Meta Learning" href="../MetaLearning/MetaLearning_1.html" />
+    <link rel="prev" title="Instance-Based Transfer Learning" href="../TransferLearning/InstanceBasedTransferLearning1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,10 +183,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../Regression/NonParamRegression.html">Regression Review</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Regression/KernelRegression.html">Kernel Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Regression/GP_Regression.html">Gaussian Process</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction of Feature Reduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PCA.html">Principal Component Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Autoencoders1.html">Autoencoders</a></li>
-<li class="toctree-l1"><a class="reference internal" href="LLE.html">Locally Linear Embedding (LLE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/FR_Intro.html">Introduction of Feature Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/PCA.html">Principal Component Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/Autoencoders1.html">Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/LLE.html">Locally Linear Embedding (LLE)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/EnsembleStart_BaggingBoosting.html">Ensemble Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/Ensemble_Voting_Variant_Bayesian.html">Ensemble by Voting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/TrainableCombiner.html">Trainable Combiners</a></li>
@@ -196,7 +198,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../ActiveLearning/ActiveLearning_1.html">Active Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../TransferLearning/TransferLearning_1.html">Transfer Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../TransferLearning/InstanceBasedTransferLearning1.html">Instance-Based Transfer Learning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../FewShotLearning/FewShotLearning_1.html">Few Shot Learning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Few Shot Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MetaLearning/MetaLearning_1.html">Meta Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
@@ -271,7 +273,7 @@
       
       
       
-      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FML/FeatureReduction/FR_Intro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FML/FewShotLearning/FewShotLearning_1.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -301,7 +303,7 @@
       
       
       
-      <li><a href="../../_sources/ML/FeatureReduction/FR_Intro.ipynb" target="_blank"
+      <li><a href="../../_sources/ML/FewShotLearning/FewShotLearning_1.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -385,7 +387,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction of Feature Reduction</h1>
+    <h1>Few Shot Learning</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -395,17 +397,24 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-feature-reduction">Introduction to Feature Reduction</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-feature-reduction">Why Feature Reduction?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#techniques-for-feature-reduction">Techniques for Feature Reduction</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-selection">Feature Selection</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-extraction">Feature Extraction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-way-k-shot-classification">N-way-K-shot classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omniglot-dataset">Omniglot Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fsl-by-shusen-wang">FSL by Shusen Wang</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#support-set">Support set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-set">Training Set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-per-ways-and-shots">Prediction per Ways and Shots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity-query-and-support-set">Similarity Query and Support Set</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-of-feature-reduction">Applications of Feature Reduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-and-considerations">Challenges and Considerations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-complete-few-shot-learning">Miniproject: Complete few shot learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-shot-learning">Zero-Shot Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithms-for-zero-shot-learning">Algorithms for Zero-Shot Learning</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-approach-to-zero-shot-learning">A Simple Approach To Zero-Shot Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-shot-learning-in-two-parts">Zero-Shot Learning In Two Parts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-very-simple-zero-shot-learning-model">A Very Simple Zero-Shot Learning Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-practice-with-eszsl">Miniproject: Practice with ESZSL</a></li>
 </ul>
             </nav>
         </div>
@@ -417,77 +426,118 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction-of-feature-reduction">
-<h1>Introduction of Feature Reduction<a class="headerlink" href="#introduction-of-feature-reduction" title="Link to this heading">#</a></h1>
-<section id="introduction-to-feature-reduction">
-<h2>Introduction to Feature Reduction<a class="headerlink" href="#introduction-to-feature-reduction" title="Link to this heading">#</a></h2>
-<p>Feature reduction, also known as dimensionality reduction, is a crucial preprocessing step in many machine learning tasks. It involves reducing the number of input variables (features) in a dataset, while retaining the essential information needed to perform a given task effectively. This process is especially important when dealing with high-dimensional data, as it helps to mitigate issues such as overfitting, computational inefficiency, and the curse of dimensionality.</p>
-<section id="why-feature-reduction">
-<h3>Why Feature Reduction?<a class="headerlink" href="#why-feature-reduction" title="Link to this heading">#</a></h3>
-<ol class="arabic simple">
-<li><p><strong>Improved Model Performance</strong>: Reducing the number of features can help prevent overfitting, where the model becomes too complex and captures noise in the data instead of the underlying pattern.</p></li>
-<li><p><strong>Enhanced Computational Efficiency</strong>: With fewer features, the computational cost of training and predicting with models decreases.</p></li>
-<li><p><strong>Simplified Models</strong>: Simpler models are easier to interpret and understand, which is valuable in many real-world applications.</p></li>
-<li><p><strong>Reduced Storage Requirements</strong>: Lower-dimensional data requires less storage space, which can be crucial for large datasets.</p></li>
-</ol>
+  <section class="tex2jax_ignore mathjax_ignore" id="few-shot-learning">
+<h1>Few Shot Learning<a class="headerlink" href="#few-shot-learning" title="Link to this heading">#</a></h1>
+<p>Few-shot learning is inspired by the human ability to learn new concepts with minimal examples. Humans, like babies, can quickly grasp key features of an object, such as an apple’s shape, color, and texture, from a single observation. This allows them to recognize similar objects, even under different conditions, without needing extensive examples.</p>
+<p><img alt="Few Shot Learning_1" src="../../_images/Baby_Apple_example.PNG" /></p>
+<p>While humans easily learn from a few examples, most machine learning models, especially deep learning, require large datasets. To address this, researchers are developing few-shot learning, which mimics human cognitive abilities by enabling models to generalize from small samples. This approach, related to transfer learning, includes methods like zero-shot, one-shot learning, and Bayesian program learning.</p>
+<section id="n-way-k-shot-classification">
+<h2>N-way-K-shot classification<a class="headerlink" href="#n-way-k-shot-classification" title="Link to this heading">#</a></h2>
+<p><strong>N-way:</strong> Refers to the number of distinct classes the model must classify.</p>
+<p><strong>K-shot:</strong> Represents the number of labeled examples provided for each class during training.</p>
+<p><strong>Training set:</strong> every class in the training set has many samples, and it is big enough for training a deep neural network.</p>
+<p><strong>Support Set:</strong> For each episode, a support set is provided, containing <span class="math notranslate nohighlight">\( 𝐾 \)</span> labeled examples for each of the <span class="math notranslate nohighlight">\(𝑁\)</span> classes. The model uses these examples to learn a representation of each class.
+For example, in a 3-way-2-shot task, the support set would consist of 3 classes, with 2 examples for each class. When <span class="math notranslate nohighlight">\(𝐾=1\)</span>, it’s termed one-shot learning; when <span class="math notranslate nohighlight">\(𝐾=0\)</span>, it’s zero-shot learning, which often requires specialized approaches since no examples are given.</p>
+<p><strong>Query Set:</strong> After learning from the support set, the model is tested on a query set, which contains new, unlabeled examples from the same <span class="math notranslate nohighlight">\(𝑁\)</span> classes. The model must predict the correct class for each example in the query set.</p>
 </section>
-<section id="techniques-for-feature-reduction">
-<h3>Techniques for Feature Reduction<a class="headerlink" href="#techniques-for-feature-reduction" title="Link to this heading">#</a></h3>
-<p>There are two main approaches to feature reduction: feature selection and feature extraction.</p>
-<section id="feature-selection">
-<h4>Feature Selection<a class="headerlink" href="#feature-selection" title="Link to this heading">#</a></h4>
-<p>Feature selection involves choosing a subset of the original features based on certain criteria. Common methods include:</p>
-<ol class="arabic simple">
-<li><p><strong>Filter Methods</strong>: These methods use statistical techniques to evaluate the relevance of each feature. Examples include:</p>
+<section id="omniglot-dataset">
+<h2>Omniglot Dataset<a class="headerlink" href="#omniglot-dataset" title="Link to this heading">#</a></h2>
+<p>The <a class="reference external" href="https://www.kaggle.com/code/iamleonie/few-shot-learning-tutorial-1-n-way-k-shot">Omniglot data set</a> was proposed by Lake et al. and consists of:</p>
+<p>1623 characters
+from 50 different alphabets
+each character has 20 instances
+each image is a grayscale image
+each image is 105 x 105 pixels
+Note: Recent advances in FSL have achieved high accuracies for the Omniglot dataset (e.g. MAML XX %). Therefore, new datasets, such as the meta-dataset have been introduced. However, the Omniglot dataset is sufficient for the purpose of this tutorial.</p>
+<p>In contrast to the MNIST dataset, which is commonly used for image classification in the traditional Supervised Learning setting, the Omniglot dataset has many different classes (MNIST only has 10 classes) but only 20 instances of each character (MNIST contains many instances for each character).</p>
+</section>
+<section id="fsl-by-shusen-wang">
+<h2>FSL by Shusen Wang<a class="headerlink" href="#fsl-by-shusen-wang" title="Link to this heading">#</a></h2>
+<section id="support-set">
+<h3>Support set<a class="headerlink" href="#support-set" title="Link to this heading">#</a></h3>
+<p><img alt="QuerySet_SupportSet" src="../../_images/QuerySet_SupportSet.png" /></p>
+</section>
+<section id="training-set">
+<h3>Training Set<a class="headerlink" href="#training-set" title="Link to this heading">#</a></h3>
+<p><img alt="TrainingSet_Wang_1" src="../../_images/TrainingSet_Wang.PNG" /></p>
+</section>
+<section id="prediction-per-ways-and-shots">
+<h3>Prediction per Ways and Shots<a class="headerlink" href="#prediction-per-ways-and-shots" title="Link to this heading">#</a></h3>
+<p><img alt="PredictionAccuracy_PerWays_Wang_1" src="../../_images/PredictionAccuracy_PerWays_Wang.PNG" /></p>
+<p><img alt="PredictionAccuracy_PerShots_Wang_1" src="../../_images/PredictionAccuracy_PerShots_Wang.PNG" /></p>
+</section>
+<section id="similarity-query-and-support-set">
+<h3>Similarity Query and Support Set<a class="headerlink" href="#similarity-query-and-support-set" title="Link to this heading">#</a></h3>
+<p>Each query and support set sample is compared in feature space using a similarity function.</p>
+<p><img alt="Similarity_Basic_Components_1" src="../../_images/Similarity_Basic_Components.PNG" /></p>
+<p><img alt="Similarity_Basic_Components_Results_1" src="../../_images/Similarity_Basic_Components_Results.PNG" /></p>
+</section>
+</section>
+<section id="miniproject-complete-few-shot-learning">
+<h2>Miniproject: Complete few shot learning<a class="headerlink" href="#miniproject-complete-few-shot-learning" title="Link to this heading">#</a></h2>
+</section>
+<section id="zero-shot-learning">
+<h2>Zero-Shot Learning<a class="headerlink" href="#zero-shot-learning" title="Link to this heading">#</a></h2>
+<p>Zero-shot learning involves a system handling <em><strong>test samples</strong></em> from classes <em>not present</em> in the <em>training data</em>. Unlike traditional learning, zero-shot learning relies on “semantic features” <em>to bridge knowledge</em> <strong>from known classes</strong> <em><strong>to novel ones</strong></em>, enabling transfer learning.</p>
+<p>Zero-shot learning involves mapping input features <span class="math notranslate nohighlight">\( X \)</span> to a semantic feature space <span class="math notranslate nohighlight">\( F \)</span> rather than directly to labels <span class="math notranslate nohighlight">\( Y \)</span>. The knowledge base <span class="math notranslate nohighlight">\( K = \{(f_1, y_1), \dots, (f_k, y_k)\} \)</span> links these semantic features to labels, allowing the model to identify novel classes by matching new examples to the most similar known classes. Semantic features, explicit or implicit, enable this mapping, and methods like word embeddings are crucial for capturing similarities between classes.</p>
+<section id="algorithms-for-zero-shot-learning">
+<h3>Algorithms for Zero-Shot Learning<a class="headerlink" href="#algorithms-for-zero-shot-learning" title="Link to this heading">#</a></h3>
+<p><strong>Classification and Regression</strong></p>
+<p>Zero-shot learning algorithms are categorized into two main approaches: classification/regression and energy function ranking. In classification/regression, the process involves two phases: <span class="math notranslate nohighlight">\( X \rightarrow F \)</span> and <span class="math notranslate nohighlight">\( F \rightarrow Y \)</span>, where <span class="math notranslate nohighlight">\( F \)</span> represents the semantic feature space bridging different classes. The first phase translates training labels into semantic features <span class="math notranslate nohighlight">\( F \)</span> using a knowledge base, and the second phase involves fitting classifiers or regression models based on these features. During testing, the input data <span class="math notranslate nohighlight">\( x \)</span> is mapped to semantic features using the learned models, and the most similar class from the knowledge base is identified.</p>
+<p>An example is the “bridging classifier” presented by Shen et al. (2006b), which classifies queries into new categories even with few or no training data. This algorithm uses a two-phase approach where Phase I trains intermediate classifiers on Web data, mapping text documents to <em><strong>intermediate categories</strong></em>. Phase II maps these intermediate categories to target domain labels using the Bayes rule:</p>
+<p><img alt="bridging classifier" src="../../_images/bridgingclassifier.PNG" /></p>
+<div class="math notranslate nohighlight">
+\[
+p(C_T^i \mid q) \propto \sum_{C_I^j} p(C_T^i \mid C_I^j) p(q \mid C_I^j) p(C_I^j),
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( p(C_T^i \mid q) \)</span> is the probability of query <span class="math notranslate nohighlight">\( q \)</span> belonging to class <span class="math notranslate nohighlight">\( C_T^i \)</span>. The class with the maximum likelihood is chosen using:</p>
+<div class="math notranslate nohighlight">
+\[
+c^* = \text{argmax}_{C_T^i} p(C_T^i \mid q).
+\]</div>
+<p>This method has been successfully applied in search engines and advertisement systems. The figure below illustrates the mapping process from queries to target classes through intermediate classes.</p>
+</section>
+</section>
+<section id="a-simple-approach-to-zero-shot-learning">
+<h2>A Simple Approach To Zero-Shot Learning<a class="headerlink" href="#a-simple-approach-to-zero-shot-learning" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Correlation Coefficient</strong>: Measures the linear relationship between a feature and the target variable.</p></li>
-<li><p><strong>Chi-Square Test</strong>: Evaluates the independence of categorical features.</p></li>
-<li><p><strong>Mutual Information</strong>: Quantifies the amount of information obtained about one feature through another.</p></li>
+<li><p>Describe classes in terms of attributes</p>
+<ul>
+<li><p>The list of attributes is called the signature</p></li>
 </ul>
 </li>
-<li><p><strong>Wrapper Methods</strong>: These methods evaluate feature subsets based on the performance of a specific machine learning model. Examples include:</p>
-<ul class="simple">
-<li><p><strong>Recursive Feature Elimination (RFE)</strong>: Iteratively removes the least important features based on model performance.</p></li>
-<li><p><strong>Sequential Feature Selection</strong>: Adds or removes features sequentially to find the best subset.</p></li>
+<li><p>Given a new class with no training examples, classify new examples</p></li>
 </ul>
-</li>
-<li><p><strong>Embedded Methods</strong>: These methods perform feature selection during the model training process. Examples include:</p>
+<p><img alt="Simple Approach To Zero-Shot Learning" src="../../_images/Zero_Shot_with_Attribute.PNG" /></p>
+</section>
+<section id="zero-shot-learning-in-two-parts">
+<h2>Zero-Shot Learning In Two Parts<a class="headerlink" href="#zero-shot-learning-in-two-parts" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Lasso Regression (L1 Regularization)</strong>: Shrinks some feature coefficients to zero, effectively selecting a subset of features.</p></li>
-<li><p><strong>Tree-based Methods</strong>: Decision trees and ensemble methods like Random Forests can be used to rank feature importance.</p></li>
-</ul>
-</li>
-</ol>
-</section>
-<section id="feature-extraction">
-<h4>Feature Extraction<a class="headerlink" href="#feature-extraction" title="Link to this heading">#</a></h4>
-<p>Feature extraction involves transforming the original features into a new set of features that capture the essential information. Common techniques include:</p>
-<ol class="arabic simple">
-<li><p><strong>Principal Component Analysis (PCA)</strong>: Transforms the data into a set of orthogonal components (principal components) that capture the maximum variance.</p></li>
-<li><p><strong>Linear Discriminant Analysis (LDA)</strong>: Finds a linear combination of features that best separates two or more classes.</p></li>
-<li><p><strong>t-Distributed Stochastic Neighbor Embedding (t-SNE)</strong>: A non-linear technique that visualizes high-dimensional data in a lower-dimensional space, often used for data visualization.</p></li>
-<li><p><strong>Autoencoders</strong>: Neural network-based models that learn to encode data into a lower-dimensional representation and then decode it back to the original data.</p></li>
-</ol>
-</section>
-</section>
-<section id="applications-of-feature-reduction">
-<h3>Applications of Feature Reduction<a class="headerlink" href="#applications-of-feature-reduction" title="Link to this heading">#</a></h3>
-<p>Feature reduction is widely used across various domains, including:</p>
-<ul class="simple">
-<li><p><strong>Finance</strong>: Reducing the number of financial indicators for credit scoring and risk assessment.</p></li>
-<li><p><strong>Healthcare</strong>: Identifying the most relevant biomarkers for disease diagnosis and prognosis.</p></li>
-<li><p><strong>Marketing</strong>: Simplifying customer segmentation by reducing the number of demographic and behavioral attributes.</p></li>
-<li><p><strong>Image Processing</strong>: Reducing the dimensionality of image data for tasks like image recognition and compression.</p></li>
+<li><p>Attribute Learning (Training)</p></li>
+<li><p>“Attribute Based Prediction” (Inference)</p></li>
 </ul>
 </section>
-<section id="challenges-and-considerations">
-<h3>Challenges and Considerations<a class="headerlink" href="#challenges-and-considerations" title="Link to this heading">#</a></h3>
+<section id="a-very-simple-zero-shot-learning-model">
+<h2>A Very Simple Zero-Shot Learning Model<a class="headerlink" href="#a-very-simple-zero-shot-learning-model" title="Link to this heading">#</a></h2>
+<p>see :
+Philip H. S. Torr, et. al, “An embarrassingly simple approach to zero-shot learning”</p>
 <ul class="simple">
-<li><p><strong>Retaining Interpretability</strong>: While feature extraction techniques like PCA can reduce dimensionality effectively, the transformed features may not be easily interpretable.</p></li>
-<li><p><strong>Choosing the Right Method</strong>: The choice of feature reduction technique depends on the specific dataset and task. It’s often necessary to experiment with multiple methods.</p></li>
-<li><p><strong>Data Preprocessing</strong>: Proper data preprocessing, such as normalization and handling missing values, is essential before applying feature reduction techniques.</p></li>
+<li><p>Train a linear model (e.g. logistic regression) for each of the attributes</p></li>
+<li><p>Create a second model to predict classes based on the attributes</p></li>
+<li><p>This is known as Directed Attribute Prediction (DAP)</p></li>
 </ul>
+<p><strong>The General Form Of A Linear Layer</strong></p>
+<p><img alt="The General Form Of A Linear Layer1" src="../../_images/GeneralForm_MSE.PNG" /></p>
+<p><strong>New type of ZSL:</strong></p>
+<p><img alt="The ESZSL Linear Layer1" src="../../_images/ESZSL_Form_MSE.PNG" /></p>
+<p><strong>Inference</strong> or <em><strong>prediction</strong></em> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\arg \max_i x^{T}VS^{'}_i
+\]</div>
 </section>
+<section id="miniproject-practice-with-eszsl">
+<h2>Miniproject: Practice with <a class="reference external" href="https://github.com/sbharadwajj/embarrassingly-simple-zero-shot-learning/blob/master/main.py">ESZSL</a><a class="headerlink" href="#miniproject-practice-with-eszsl" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -504,7 +554,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./ML\FeatureReduction"
+            path: "./ML\FewShotLearning"
         },
         predefinedOutput: true
     }
@@ -522,20 +572,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../Regression/GP_Regression.html"
+       href="../TransferLearning/InstanceBasedTransferLearning1.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Gaussian Process</p>
+        <p class="prev-next-title">Instance-Based Transfer Learning</p>
       </div>
     </a>
     <a class="right-next"
-       href="PCA.html"
+       href="../MetaLearning/MetaLearning_1.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Principal Component Analysis</p>
+        <p class="prev-next-title">Meta Learning</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -555,17 +605,24 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-feature-reduction">Introduction to Feature Reduction</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-feature-reduction">Why Feature Reduction?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#techniques-for-feature-reduction">Techniques for Feature Reduction</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-selection">Feature Selection</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-extraction">Feature Extraction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#n-way-k-shot-classification">N-way-K-shot classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#omniglot-dataset">Omniglot Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fsl-by-shusen-wang">FSL by Shusen Wang</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#support-set">Support set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training-set">Training Set</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-per-ways-and-shots">Prediction per Ways and Shots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#similarity-query-and-support-set">Similarity Query and Support Set</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-of-feature-reduction">Applications of Feature Reduction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-and-considerations">Challenges and Considerations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-complete-few-shot-learning">Miniproject: Complete few shot learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-shot-learning">Zero-Shot Learning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithms-for-zero-shot-learning">Algorithms for Zero-Shot Learning</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-approach-to-zero-shot-learning">A Simple Approach To Zero-Shot Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-shot-learning-in-two-parts">Zero-Shot Learning In Two Parts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-very-simple-zero-shot-learning-model">A Very Simple Zero-Shot Learning Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-practice-with-eszsl">Miniproject: Practice with ESZSL</a></li>
 </ul>
   </nav></div>
 

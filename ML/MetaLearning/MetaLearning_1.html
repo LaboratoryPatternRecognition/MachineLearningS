@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>MetaLearning &#8212; Dr.Hadi Sadoghi Yazdi</title>
+    <title>Meta Learning &#8212; Dr.Hadi Sadoghi Yazdi</title>
   
   
   
@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Contact Me" href="../../Contact_Me.html" />
-    <link rel="prev" title="Instance-Based Transfer Learning" href="../TransferLearning/InstanceBasedTransferLearning1.html" />
+    <link rel="prev" title="Few Shot Learning" href="../FewShotLearning/FewShotLearning_1.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -196,7 +196,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../ActiveLearning/ActiveLearning_1.html">Active Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../TransferLearning/TransferLearning_1.html">Transfer Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../TransferLearning/InstanceBasedTransferLearning1.html">Instance-Based Transfer Learning</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">MetaLearning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FewShotLearning/FewShotLearning_1.html">Few Shot Learning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Meta Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
 </ul>
@@ -384,7 +385,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>MetaLearning</h1>
+    <h1>Meta Learning</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -394,10 +395,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-in-metalearning">Key Concepts in MetaLearning:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-complete-meta-learning">Miniproject: Complete Meta Learning</a></li>
 </ul>
             </nav>
         </div>
@@ -409,23 +407,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="metalearning">
-<h1>MetaLearning<a class="headerlink" href="#metalearning" title="Link to this heading">#</a></h1>
-<p>also known as “learning to learn,” is an area of machine learning that focuses on improving the efficiency and effectiveness of learning algorithms by enabling them to adapt quickly to new tasks with limited data. The core idea behind MetaLearning is that instead of learning a specific task, the model learns how to learn various tasks.</p>
-<section id="key-concepts-in-metalearning">
-<h2>Key Concepts in MetaLearning:<a class="headerlink" href="#key-concepts-in-metalearning" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><strong>MetaLearner</strong>: This is a model that learns the best way to update the parameters of a base learner (like a neural network) to achieve fast adaptation to new tasks.</p></li>
-<li><p><strong>Few-Shot Learning</strong>: A scenario where the model is trained to recognize new classes from just a few examples. MetaLearning is often applied to few-shot learning problems.</p></li>
-<li><p><strong>Optimization-Based MetaLearning</strong>: Techniques like Model-Agnostic Meta-Learning (MAML) fall under this category, where the MetaLearner learns a good initialization for the model parameters, which can be fine-tuned quickly on new tasks.</p></li>
-<li><p><strong>Metric-Based MetaLearning</strong>: This approach involves learning a similarity metric that can be used to compare new examples with a few labeled examples. Prototypical Networks and Matching Networks are popular examples.</p></li>
-<li><p><strong>Memory-Augmented MetaLearning</strong>: Here, the model has an external memory module that helps store information from previous tasks, allowing it to generalize better to new tasks.</p></li>
-</ol>
-<section id="example">
-<h3>Example:<a class="headerlink" href="#example" title="Link to this heading">#</a></h3>
-<p>In the context of few-shot image classification, a MetaLearning model might be trained on a variety of image classification tasks. After training, when presented with a new classification task with only a few examples per class, the model can quickly adapt and perform well, even with the limited data.</p>
-<p>MetaLearning is highly relevant in scenarios where data is scarce, tasks are diverse, and quick adaptation is necessary, making it a crucial area of research in modern AI.</p>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="meta-learning">
+<h1>Meta Learning<a class="headerlink" href="#meta-learning" title="Link to this heading">#</a></h1>
+<section id="miniproject-complete-meta-learning">
+<h2>Miniproject: Complete Meta Learning<a class="headerlink" href="#miniproject-complete-meta-learning" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -460,12 +445,12 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../TransferLearning/InstanceBasedTransferLearning1.html"
+       href="../FewShotLearning/FewShotLearning_1.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Instance-Based Transfer Learning</p>
+        <p class="prev-next-title">Few Shot Learning</p>
       </div>
     </a>
     <a class="right-next"
@@ -493,10 +478,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts-in-metalearning">Key Concepts in MetaLearning:</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#miniproject-complete-meta-learning">Miniproject: Complete Meta Learning</a></li>
 </ul>
   </nav></div>
 
