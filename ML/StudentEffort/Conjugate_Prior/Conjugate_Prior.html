@@ -1,0 +1,1270 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Cojugate Prior &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ML/StudentEffort/Conjugate_Prior/Conjugate_Prior';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Contact Me" href="../../../Contact_Me.html" />
+    <link rel="prev" title="Bias-Variance Trade-Off" href="../bias_variance_tradeoff/bias_variance_tardeoff.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../machine_learning.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../machine_learning.html">
+                    Machine Learning
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine learning preliminaries</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Regression/GP_Regression.html">Gaussian Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FeatureReduction/FR_Intro.html">Introduction of Feature Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FeatureReduction/PCA.html">Principal Component Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FeatureReduction/Autoencoders1.html">Autoencoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FeatureReduction/LLE.html">Locally Linear Embedding (LLE)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Machine Learning Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../EnsembleLearning/EnsembleStart_BaggingBoosting.html">Ensemble Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../EnsembleLearning/Ensemble_Voting_Variant_Bayesian.html">Ensemble by Voting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../EnsembleLearning/TrainableCombiner.html">Trainable Combiners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../EnsembleLearning/FederatedLearning.html">Federated Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../EnsembleLearning/DiffusionNetwork.html">Diffusion Network of Learner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ContrastiveLearning/ContrastiveLearning_Introduction.html">Contrastive learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MetricLearning/MetricLearning_1.html">Metric Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RepresentationLearning/RepresentationLearning1.html">Representation Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ActiveLearning/ActiveLearning_1.html">Active Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../TransferLearning/TransferLearning_1.html">Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../TransferLearning/InstanceBasedTransferLearning1.html">Instance-Based Transfer Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FewShotLearning/FewShotLearning_1.html">Few Shot Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../MetaLearning/MetaLearning_1.html">Meta Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Student Effort</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../homeworkLLE/Homework_LLE.html">Locally Linear Embedding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../bias_variance_tradeoff/bias_variance_tardeoff.html">Bias-Variance Trade-Off</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Cojugate Prior</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contact</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FML/StudentEffort/Conjugate_Prior/Conjugate_Prior.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/ML/StudentEffort/Conjugate_Prior/Conjugate_Prior.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Cojugate Prior</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning Goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-families">Exponential Families</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proof">Proof</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-rental-car-service-gamma-poisson-conjugacy">Example: Rental Car Service (Gamma-Poisson Conjugacy)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#review">Review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rental-car-service-problem">Rental Car Service Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-email-marketing-campaign-beta-binomial-conjugacy">Example: Email Marketing Campaign (Beta-Binomial Conjugacy)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#email-marketing-campaign-problem">Email Marketing Campaign Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-estimating-the-mean-height-of-a-population-normal-normal-conjugacy">Example: Estimating the Mean Height of a Population (Normal-Normal Conjugacy)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-mean-height-of-a-population-problem">Estimating the Mean Height of a Population Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-analyzing-the-heights-and-weights-multivariate-normal-multivariate-normal-conjugacy">Example: Analyzing The Heights And Weights (Multivariate Normal- Multivariate Normal Conjugacy)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analyzing-the-heights-and-weights-problem">Analyzing The Heights And Weights Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-of-using-conjugate-priors">Benefits of Using Conjugate Priors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-conjugate-priors">Limitations of Conjugate Priors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-a-conjugate-prior">Choosing a Conjugate Prior</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conjugate-prior-cheat-sheet">Conjugate prior cheat sheet</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#when-the-likelihood-function-is-a-discrete-distribution">When the likelihood function is a <strong>discrete distribution</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#when-likelihood-function-is-a-continuous-distribution">When likelihood function is a <strong>continuous distribution</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="cojugate-prior">
+<h1>Cojugate Prior<a class="headerlink" href="#cojugate-prior" title="Link to this heading">#</a></h1>
+<p><img alt="Erfan" src="../../../_images/Erfan.jpg" /></p>
+<ul class="simple">
+<li><p>by Erfan Fakoor</p></li>
+<li><p>Contact : <a class="reference external" href="mailto:e&#46;f&#46;simorgh&#37;&#52;&#48;gmail&#46;com">e<span>&#46;</span>f<span>&#46;</span>simorgh<span>&#64;</span>gmail<span>&#46;</span>com</a></p></li>
+<li><p>Machine Learning - Octobor 2024</p></li>
+</ul>
+<p>In this reading, we will elaborate on the notion of a conjugate prior for a likelihood function. With a conjugate prior the posterior is of the same type, e.g. for binomial likelihood the beta prior becomes a beta posterior. Conjugate priors are useful because they reduce Bayesian updating to modifying the parameters of the prior distribution (so-called hyperparameters) rather than computing integrals.</p>
+<section id="learning-goals">
+<h2>Learning Goals<a class="headerlink" href="#learning-goals" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Introduction of conjugate prior</p></li>
+<li><p>Understand the benefits of conjugate priors.</p></li>
+<li><p>Usefulness of conjugate priors in exponential families</p></li>
+<li><p>Be able to update a gamma prior given a poisson likelihood.</p></li>
+<li><p>Be able to update a beta prior given a binomial likelihood.</p></li>
+<li><p>Understand and be able to use the formula for updating a normal prior given a normal likelihood with known variance.</p></li>
+<li><p>Understand and be able to use the formula for updating a multivariate normal prior given a multivariate normal likelihood with known covariance matrix.</p></li>
+<li><p>Examining the limitations of conjugate priors.</p></li>
+<li><p>Provide a guide to choose the right conjugate prior.</p></li>
+</ol>
+</section>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>In Bayesian statistics, <strong>Conjugate Priors</strong> simplify the process of updating beliefs when new data is observed. Bayesian analysis combines prior beliefs and new evidence to form a posterior distribution. A conjugate prior is a prior distribution that, when combined with a likelihood function, results in a posterior distribution that belongs to the same family as the prior. This feature makes it easier to update beliefs since the mathematical form of the distribution remains consistent.</p>
+<p>Let’s define the key concepts:</p>
+<ol class="arabic simple">
+<li><p><strong>Prior distribution</strong>: The distribution representing your initial belief or knowledge about a parameter before seeing the data. In other words the prior distribution represents what is known about a parameter before considering the new data.
+$<span class="math notranslate nohighlight">\(p(\theta)\)</span>$</p></li>
+<li><p><strong>Likelihood function</strong>: The probability of observing the data given a particular parameter value. This is derived from the chosen statistical model.
+$<span class="math notranslate nohighlight">\(p(x|\theta)\)</span>$</p></li>
+<li><p><strong>Posterior distribution</strong>: The updated distribution of the parameter after observing the data, calculated using Bayes’ theorem. In other words the posterior distribution represents what is known after taking the new data into account. The posterior combines the prior and the likelihood. After observing the data, we use Bayes’ rule to compute the posterior distribution:
+$<span class="math notranslate nohighlight">\(
+p(\theta | x) = \frac{p(x | \theta)p(\theta)}{p(x)} = \frac{p(x | \theta)p(\theta)}{\int_\theta p(x | \theta)p(\theta)d\theta}
+\)</span>$</p></li>
+</ol>
+<p>Conjugate priors are useful because they allow for straightforward, algebraic solutions when updating beliefs, without needing complex numerical methods. When a prior is conjugate to a likelihood function, the resulting posterior remains in the same family of distributions as the prior. Therefore, such priors are called conjugate priors, and the prior and posterior are referred to as conjugate distributions with respect to the likelihood function.</p>
+<p><img alt="p" src="../../../_images/photo1.jpg" /></p>
+</section>
+<section id="exponential-families">
+<h2>Exponential Families<a class="headerlink" href="#exponential-families" title="Link to this heading">#</a></h2>
+<p>Conjugate priors are easily characterized when the distribution of <span class="math notranslate nohighlight">\(x\)</span> belongs to an exponential family, in which case the likelihood takes the form
+$<span class="math notranslate nohighlight">\(p(x|\theta) = h(x)exp[\theta^TT(x)-A(\theta)]\)</span>$
+where:</p>
+<ul class="simple">
+<li><p>the base measure <span class="math notranslate nohighlight">\(h: \mathbb{R}^N \to \mathbb{R}_+ \)</span> is a function that depends only on the <span class="math notranslate nohighlight">\(N \times 1\)</span> vector of data <span class="math notranslate nohighlight">\(x\)</span>;</p></li>
+<li><p>the parameter <span class="math notranslate nohighlight">\(\theta\)</span> is a <span class="math notranslate nohighlight">\(K \times 1\)</span> vector;</p></li>
+<li><p>the sufficient statistic <span class="math notranslate nohighlight">\(T:\mathbb{R}^N \to \mathbb{R}^K\)</span>  is a vector-valued function of <span class="math notranslate nohighlight">\(x\)</span>;</p></li>
+<li><p>the log-partition function <span class="math notranslate nohighlight">\(A: \mathbb{R}^K \to \mathbb{R}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\eta(\theta)^TT(x)\)</span> is the dot product between <span class="math notranslate nohighlight">\(\eta\)</span> and <span class="math notranslate nohighlight">\(T\)</span>.</p></li>
+</ul>
+<p>A parametric family of conjugate priors for the above likelihood is formed by all the distributions such that
+$<span class="math notranslate nohighlight">\(p(\theta)=\kappa(\chi,v)exp[\theta^T\chi-vA(\theta)]\)</span>$
+where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\chi\)</span> is a <span class="math notranslate nohighlight">\(K \times 1\)</span> vector of parameters;</p></li>
+<li><p><span class="math notranslate nohighlight">\(v\)</span> is a scaler parameters;</p></li>
+<li><p><span class="math notranslate nohighlight">\(\kappa: \mathbb{R}^{K+1} \to \mathbb{R}_+\)</span> is a function that returns the normalization constant needed to make <span class="math notranslate nohighlight">\(p(\theta)\)</span> a proper probability density (or mass) function.</p></li>
+</ul>
+<p>The parameters <span class="math notranslate nohighlight">\(\chi\)</span> and <span class="math notranslate nohighlight">\(v\)</span> are called hyperparameters.</p>
+<p>Note that:
+$<span class="math notranslate nohighlight">\(\int_\theta p(\theta)d\theta=1\)</span>$</p>
+<p>implies that:</p>
+<div class="math notranslate nohighlight">
+\[\kappa(\chi,v)=\frac{1}{\int_\theta{exp[\theta^T\chi-vA(\theta)]d\theta}}\]</div>
+<p>As a consequence, the above parametric family of conjugate priors, called a natural family, contains all the distributions associated to couples of hyperparameters <span class="math notranslate nohighlight">\((\chi,v)\)</span> such that the integral in the denominator is well-defined and finite.</p>
+<p>Given the likelihood and the prior, the posterior is</p>
+<div class="math notranslate nohighlight">
+\[p(\theta | x)=\kappa(\chi+T(X),v+1)exp[\theta^T(\chi+T(X))-(v+1)A(\theta)]\]</div>
+<p>provided <span class="math notranslate nohighlight">\(\kappa(\chi+T(X),v+1)\)</span> is well-defiend.</p>
+<section id="proof">
+<h3>Proof<a class="headerlink" href="#proof" title="Link to this heading">#</a></h3>
+<p>The posterior is proportional to the prior times the likelihood:</p>
+<div class="math notranslate nohighlight">
+\[p(\theta|x) \propto p(x|\theta)p(\theta)\]</div>
+<div class="math notranslate nohighlight">
+\[=h(x)exp[\theta^TT(x)-A(\theta)]\kappa(\chi,v)exp[\theta^T\chi-vA(\theta)]\]</div>
+<div class="math notranslate nohighlight">
+\[=h(x)\kappa(\chi,v)exp[\theta^T(\chi+T(X))-(v+1)A(\theta)]\]</div>
+<p>Therefore,</p>
+<div class="math notranslate nohighlight">
+\[p(\theta|x) \propto exp[\theta^T(\chi+T(X))-(v+1)A(\theta)]\]</div>
+<p>where we know that the constant of proportionality is <span class="math notranslate nohighlight">\(\kappa(\chi+T(X),v+1)\)</span>.</p>
+</section>
+</section>
+<section id="example-rental-car-service-gamma-poisson-conjugacy">
+<h2>Example: Rental Car Service (Gamma-Poisson Conjugacy)<a class="headerlink" href="#example-rental-car-service-gamma-poisson-conjugacy" title="Link to this heading">#</a></h2>
+<section id="review">
+<h3>Review<a class="headerlink" href="#review" title="Link to this heading">#</a></h3>
+<p>The Gamma distribution is a specialized form of the normal distribution that models various real-life phenomena, such as expected rainfall, the reliability of machinery, and any scenarios where only positive outcomes are possible. However, these situations are often imbalanced, leading to the characteristic skewed shape of the Gamma distribution.</p>
+<p>The graph below shows the general shape of Gamma distribution:</p>
+<p><img alt="Gamma" src="../../../_images/Gamma.jpg" /></p>
+<p>A Poisson distribution is a discrete probability distribution. It gives the probability of an event happening a certain number of times <span class="math notranslate nohighlight">\((k)\)</span> within a given interval of time or space. The Poisson distribution has only one parameter, <span class="math notranslate nohighlight">\((\lambda)\)</span>, which is the mean number of events.</p>
+<p>The graph below shows examples of Poisson distributions with different values of <span class="math notranslate nohighlight">\(\lambda\)</span>:</p>
+<p><img alt="Poisson" src="../../../_images/Poisson.jpg" /></p>
+</section>
+<section id="rental-car-service-problem">
+<h3>Rental Car Service Problem<a class="headerlink" href="#rental-car-service-problem" title="Link to this heading">#</a></h3>
+<p><strong>The Gamma distribution serves as a conjugate prior for the Poisson likelihood, which is often used in modeling count data or events occurring over time.</strong></p>
+<p>Suppose a rental car service operates in your city. Drivers can drop off and pick up cars anywhere inside the city limits. You can find and rent cars using an app.
+Suppose you wish to find the probability that you can find a rental car within a short distance of your home address at any time of day.
+Over three days you look at the app and find the following number of cars within a short distance of your home address: $<span class="math notranslate nohighlight">\(X=[3,4,1]\)</span><span class="math notranslate nohighlight">\(
+Suppose we assume the data comes from a Poisson distribution. In that case, we can compute the maximum likelihood estimate of the parameters of the model, which is \)</span>\lambda=\frac{3+4+1}{3}\approx 2.67<span class="math notranslate nohighlight">\(. Using this maximum likelihood estimate, we can compute the probability that there will be at least one car available on a given day: \)</span><span class="math notranslate nohighlight">\(p(x&gt;0|\lambda \approx 2.67)=1−p(x=0|\lambda \approx 2.67 ) = 1 − \frac{2.67^0e^{-2.67}}{0!} \approx 0.93 \)</span><span class="math notranslate nohighlight">\(
+This is the Poisson distribution that is the most likely to have generated the observed data \)</span>X<span class="math notranslate nohighlight">\(. But the data could also have come from another Poisson distribution, e.g., one with \)</span>\lambda=3<span class="math notranslate nohighlight">\(, or \)</span>\lambda=2<span class="math notranslate nohighlight">\(, etc. In fact, there is an infinite number of Poisson distributions that could have generated the observed data. With relatively few data points, we should be quite uncertain about which exact Poisson distribution generated this data. intuitively we should instead take a weighted average of the probability of \)</span>p(x&gt;0|\lambda)<span class="math notranslate nohighlight">\( for each of those Poisson distributions, weighted by how likely they each are, given the data we've observed \)</span>X$.</p>
+<p>Generally, this quantity is known as the posterior predictive distribution <span class="math notranslate nohighlight">\(p(x|X)=\int_\theta {p(x|\theta)p(\theta|X)d\theta}\)</span>, where <span class="math notranslate nohighlight">\(x\)</span> is a new data point, <span class="math notranslate nohighlight">\(X\)</span> is the observed data and <span class="math notranslate nohighlight">\(/theta\)</span> are the parameters of the model. Using Bayes’ theorem we can expand <span class="math notranslate nohighlight">\(p(\theta|X)=\frac{p(X|\theta)p(\theta)}{p(X)}\)</span>, therefore <span class="math notranslate nohighlight">\(p(x|X)=\int_\theta{p(x|\theta)\frac{p(X|\theta)p(\theta)}{p(X)}d\theta}\)</span>. Generally, this integral is hard to compute. However, if you choose a conjugate prior distribution <span class="math notranslate nohighlight">\(p(\theta)\)</span> , a closed-form expression can be derived.</p>
+<p>Now if we pick the Gamma distribution as our prior distribution over the rate of the Poisson distributions, then the posterior predictive is the negative binomial distribution, as we now. The Gamma distribution is parameterized by two hyperparameters <span class="math notranslate nohighlight">\(\alpha , \beta\)</span>, which we have to choose. By looking at plots of the gamma distribution, we pick <span class="math notranslate nohighlight">\(\alpha = \beta = 2\)</span>, which seems to be a reasonable prior for the average number of cars. The choice of prior hyperparameters is inherently subjective and based on prior knowledge.</p>
+<p>Given the prior hyperparameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> we can compute the posterior hyperparameters $<span class="math notranslate nohighlight">\(\alpha' = \alpha+ \sum_{i=1} x_i = 2+3+4+1=10\)</span><span class="math notranslate nohighlight">\(
+and \)</span><span class="math notranslate nohighlight">\(\beta'=\beta+n=2+3=5\)</span>$</p>
+<p>Given the posterior hyperparameters, we can finally compute the posterior predictive of
+$<span class="math notranslate nohighlight">\(p(x&gt;0|X)=1-p(x=0|X)=1-NB(0|10,\frac{1}{1+5})\approx 0.84\)</span>$</p>
+<p>This much more conservative estimate reflects the uncertainty in the model parameters, which the posterior predictive takes into account.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rental Car Service</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">nbinom</span>
+
+<span class="c1"># Step 1: Observed data (number of cars in 3 days)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Number of cars observed within a short distance over 3 days</span>
+
+<span class="c1"># Step 2: Maximum likelihood estimate for lambda (Poisson distribution parameter)</span>
+<span class="n">lambda_mle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum Likelihood Estimate (MLE) of lambda: </span><span class="si">{</span><span class="n">lambda_mle</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Step 3: Define prior hyperparameters for the Gamma distribution (alpha, beta)</span>
+<span class="n">alpha_prior</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">beta_prior</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># Step 4: Compute posterior hyperparameters</span>
+<span class="n">alpha_post</span> <span class="o">=</span> <span class="n">alpha_prior</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">beta_post</span> <span class="o">=</span> <span class="n">beta_prior</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Posterior alpha: </span><span class="si">{</span><span class="n">alpha_post</span><span class="si">}</span><span class="s2">, Posterior beta: </span><span class="si">{</span><span class="n">beta_post</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Step 5: Compute posterior predictive probability using Negative Binomial distribution</span>
+<span class="c1"># Negative Binomial parameters: p (probability of success), n (number of successes)</span>
+<span class="n">n_post</span> <span class="o">=</span> <span class="n">alpha_post</span>
+<span class="n">p_post</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">beta_post</span><span class="p">)</span>
+
+<span class="c1"># Compute the probability that x &gt; 0, i.e., at least one car is available</span>
+<span class="n">p_at_least_one_car</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p_post</span><span class="p">)</span><span class="o">**</span><span class="n">n_post</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Posterior predictive probability of at least one car: </span><span class="si">{</span><span class="n">p_at_least_one_car</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Step 6: Visualize the Gamma prior and posterior distributions</span>
+<span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">gamma_prior_pdf</span> <span class="o">=</span> <span class="n">gamma</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">alpha_prior</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">beta_prior</span><span class="p">)</span>
+<span class="n">gamma_post_pdf</span> <span class="o">=</span> <span class="n">gamma</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">alpha_post</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">beta_post</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">gamma_prior_pdf</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Prior: Gamma(</span><span class="si">{</span><span class="n">alpha_prior</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">beta_prior</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">gamma_post_pdf</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Posterior: Gamma(</span><span class="si">{</span><span class="n">alpha_post</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">beta_post</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">gamma_post_pdf</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Gamma Prior and Posterior Distributions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Rate (λ)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Maximum Likelihood Estimate (MLE) of lambda: 2.67
+Posterior alpha: 10, Posterior beta: 5
+Posterior predictive probability of at least one car: 0.84
+</pre></div>
+</div>
+<img alt="../../../_images/2c98a9b5f565215c60163ea0527dcc59b229e7cb27ca7f2cdd8179b9caa64005.png" src="../../../_images/2c98a9b5f565215c60163ea0527dcc59b229e7cb27ca7f2cdd8179b9caa64005.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="example-email-marketing-campaign-beta-binomial-conjugacy">
+<h2>Example: Email Marketing Campaign (Beta-Binomial Conjugacy)<a class="headerlink" href="#example-email-marketing-campaign-beta-binomial-conjugacy" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3>Review<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>The beta distribution is a family of continuous probability distributions set on the interval <span class="math notranslate nohighlight">\([0, 1]\)</span> having two positive shape parameters, expressed by <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>. These two parameters appear as exponents of the random variable and manage the shape of the distribution. Usually, the basic distribution is known as the Beta distribution of its first kind, and prime beta distribution is called for its second kind.</p>
+<p>The graph below shows examples of Beta distributions with different values of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>:</p>
+<p><img alt="beta" src="../../../_images/Beta.jpg" /></p>
+<p>Binomial distribution is a statistical distribution that summarizes the probability that a value will take one of two independent values under a given set of parameters or assumptions. A binomial distribution’s expected value, or mean, is calculated by multiplying the number of trials <span class="math notranslate nohighlight">\((n)\)</span> by the probability of successes <span class="math notranslate nohighlight">\((p)\)</span>, or <span class="math notranslate nohighlight">\(n \times p\)</span>.</p>
+<p>The graph below shows examples of Beta distributions with different values of <span class="math notranslate nohighlight">\(p\)</span> and <span class="math notranslate nohighlight">\(n\)</span>:</p>
+<p><img alt="binomial" src="../../../_images/binomial.jpg" /></p>
+</section>
+<section id="email-marketing-campaign-problem">
+<h3>Email Marketing Campaign Problem<a class="headerlink" href="#email-marketing-campaign-problem" title="Link to this heading">#</a></h3>
+<p><strong>The Beta distribution is a conjugate prior for the Binomial likelihood. This is useful in scenarios like modeling the probability of success in a series of Bernoulli trials.</strong> This means that if the likelihood function is binomial and the prior distribution is beta then
+the posterior is also beta.</p>
+<p>Imagine you’re running an email marketing campaign, and you want to estimate the probability of a recipient clicking on a link in your email. You have some prior beliefs about this probability based on previous campaigns, and you collect data from this campaign.</p>
+<p>From past campaigns, you believe that the click-through rate (CTR) follows a Beta distribution with parameters:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\alpha=5\)</span> (indicating 5 prior successes)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta=15\)</span> (indicating 15 prior failures)</p></li>
+</ul>
+<p>This suggests that you expect the click-through rate to be around <span class="math notranslate nohighlight">\(\frac{5}{5+15}=0.25\)</span></p>
+<p>In your current campaign, you send out 100 emails and observe:</p>
+<ul class="simple">
+<li><p>Number of Clicks: 30 (successes)</p></li>
+<li><p>Number of Non-Clicks: 70 (failures)</p></li>
+</ul>
+<p>Now you want to update your beliefs about the click-through rate based on the new data.</p>
+<p>Using the Beta-Binomial model:</p>
+<ul class="simple">
+<li><p>Prior: <span class="math notranslate nohighlight">\(\theta \sim Beta(5,15)\)</span></p></li>
+<li><p>Likelihood: <span class="math notranslate nohighlight">\(X|\theta \sim Binomial(100,\theta)\)</span></p></li>
+<li><p>Posterior: <span class="math notranslate nohighlight">\(\theta | X \sim Beta(\alpha+k, \beta+n-k)\)</span>
+where <span class="math notranslate nohighlight">\(k\)</span> is the number of successes (clicks) and <span class="math notranslate nohighlight">\(n\)</span> is the number of trials (emails sent).</p></li>
+</ul>
+<p>Calculating the Posterior:</p>
+<ul class="simple">
+<li><p>Prior Parameters:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\alpha_ {prior}=5\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta_{prior}=15\)</span></p></li>
+</ul>
+</li>
+<li><p>Data</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(n=100\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(k=30\)</span></p></li>
+</ul>
+</li>
+<li><p>Posterior Parameters:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\alpha_ {posterior}=5+30=35\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta_{posterior}=15+(100-30)=85\)</span></p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Email Marketing Campaign</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
+
+<span class="c1"># Define prior parameters</span>
+<span class="n">alpha_prior</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">beta_prior</span> <span class="o">=</span> <span class="mi">15</span>
+
+<span class="c1"># Define the data (number of trials and successes)</span>
+<span class="n">n_trials</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">n_successes</span> <span class="o">=</span> <span class="mi">30</span>
+
+<span class="c1"># Calculate posterior parameters</span>
+<span class="n">alpha_posterior</span> <span class="o">=</span> <span class="n">alpha_prior</span> <span class="o">+</span> <span class="n">n_successes</span>
+<span class="n">beta_posterior</span> <span class="o">=</span> <span class="n">beta_prior</span> <span class="o">+</span> <span class="p">(</span><span class="n">n_trials</span> <span class="o">-</span> <span class="n">n_successes</span><span class="p">)</span>
+
+<span class="c1"># Define theta values</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Calculate prior and posterior distributions</span>
+<span class="n">prior_distribution</span> <span class="o">=</span> <span class="n">beta</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">alpha_prior</span><span class="p">,</span> <span class="n">beta_prior</span><span class="p">)</span>
+<span class="n">posterior_distribution</span> <span class="o">=</span> <span class="n">beta</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">alpha_posterior</span><span class="p">,</span> <span class="n">beta_posterior</span><span class="p">)</span>
+
+<span class="c1"># Plotting the prior and posterior distributions</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">prior_distribution</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prior (Beta(5, 15))&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">posterior_distribution</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Posterior (Beta(35, 85))&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">prior_distribution</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">posterior_distribution</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Beta-Binomial Conjugacy: Prior and Posterior Distributions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Probability of Click-through Rate (θ)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Display posterior parameters</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Posterior Distribution Parameters: Beta(</span><span class="si">{</span><span class="n">alpha_posterior</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">beta_posterior</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/384ccd3ddabc048e5d785ce29d0a88edde1e427eb67289e47d982376b2c2fff1.png" src="../../../_images/384ccd3ddabc048e5d785ce29d0a88edde1e427eb67289e47d982376b2c2fff1.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior Distribution Parameters: Beta(35, 85)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="example-estimating-the-mean-height-of-a-population-normal-normal-conjugacy">
+<h2>Example: Estimating the Mean Height of a Population (Normal-Normal Conjugacy)<a class="headerlink" href="#example-estimating-the-mean-height-of-a-population-normal-normal-conjugacy" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>Review<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Normal distribution, also known as the Gaussian distribution, is a probability distribution that is symmetric about the mean <span class="math notranslate nohighlight">\((\mu)\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>, showing that data near the mean are more frequent in occurrence than data far from the mean. The normal distribution appears as a “bell curve” when graphed.</p>
+<p>The graph below shows examples of Normal distributions with different values of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</p>
+<p><img alt="normal" src="../../../_images/normal.jpg" /></p>
+</section>
+<section id="estimating-the-mean-height-of-a-population-problem">
+<h3>Estimating the Mean Height of a Population Problem<a class="headerlink" href="#estimating-the-mean-height-of-a-population-problem" title="Link to this heading">#</a></h3>
+<p><strong>When the likelihood function is Normal, using a Normal prior results in a Normal posterior. This conjugate relationship is particularly useful in many real-world applications involving Gaussian distributions.</strong></p>
+<p>Suppose we are studying the heights of a population of individuals, which we assume follows a normal distribution. We want to estimate the mean height given some observed data.</p>
+<p>We have a prior belief about the mean height, represented by a normal distribution:</p>
+<ul class="simple">
+<li><p>Prior Mean <span class="math notranslate nohighlight">\((\mu_0)=170 cm\)</span></p></li>
+<li><p>Propr Variance <span class="math notranslate nohighlight">\((\sigma_0^2)= 25 cm^2\)</span> (i.e., SD <span class="math notranslate nohighlight">\(\sigma_0=5cm\)</span>)</p></li>
+</ul>
+<p>We gather some sample data (heights) from our population, which we assume follows a normal distribution:</p>
+<ul class="simple">
+<li><p>Sample Size <span class="math notranslate nohighlight">\((n)=10\)</span></p></li>
+<li><p>Sample Mean <span class="math notranslate nohighlight">\((\overline{x})=175cm\)</span></p></li>
+<li><p>Sample Variance <span class="math notranslate nohighlight">\((s^2)=36 cm^2\)</span> (i.e., SD <span class="math notranslate nohighlight">\(s=6 cm\)</span>)</p></li>
+</ul>
+<p>Now let’s solve this problem:</p>
+<ul class="simple">
+<li><p>The prior distribution is given by <span class="math notranslate nohighlight">\(N(\mu_0,\sigma_0^2)\)</span></p></li>
+<li><p>The likelihood of observing the data given the mean <span class="math notranslate nohighlight">\(\mu\)</span> is <span class="math notranslate nohighlight">\(N(\overline{x},\frac{s^2}{n})\)</span>.</p></li>
+<li><p>The posterior distribution will also be normally distributed. The posterior mean and variance can be calculated as follows:</p>
+<ul>
+<li><p>Posterior Variance <span class="math notranslate nohighlight">\((\sigma^2)\)</span>:
+$<span class="math notranslate nohighlight">\(\sigma^2=(\frac{1}{\sigma_0^2}+\frac{n}{s^2})^{-1}\)</span>$</p></li>
+<li><p>Posterior Mean <span class="math notranslate nohighlight">\((\mu)\)</span>:
+$<span class="math notranslate nohighlight">\(\mu=\sigma^2(\frac{\mu_0}{\sigma_0^2}+\frac{n\overline{x}}{s^2})\)</span>$</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="c1"># Given parameters</span>
+<span class="n">mu_0</span> <span class="o">=</span> <span class="mi">170</span>    <span class="c1"># Prior mean</span>
+<span class="n">sigma_0</span> <span class="o">=</span> <span class="mi">5</span>   <span class="c1"># Prior standard deviation</span>
+<span class="n">sigma_0_sq</span> <span class="o">=</span> <span class="n">sigma_0</span> <span class="o">**</span> <span class="mi">2</span>  <span class="c1"># Prior variance</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>        <span class="c1"># Sample size</span>
+<span class="n">x_bar</span> <span class="o">=</span> <span class="mi">175</span>   <span class="c1"># Sample mean</span>
+<span class="n">s</span> <span class="o">=</span> <span class="mi">6</span>         <span class="c1"># Sample standard deviation</span>
+<span class="n">s_sq</span> <span class="o">=</span> <span class="n">s</span> <span class="o">**</span> <span class="mi">2</span> <span class="c1"># Sample variance</span>
+
+<span class="c1"># Calculate posterior variance</span>
+<span class="n">posterior_variance</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">sigma_0_sq</span> <span class="o">+</span> <span class="n">n</span> <span class="o">/</span> <span class="n">s_sq</span><span class="p">)</span>
+
+<span class="c1"># Calculate posterior mean</span>
+<span class="n">posterior_mean</span> <span class="o">=</span> <span class="n">posterior_variance</span> <span class="o">*</span> <span class="p">(</span><span class="n">mu_0</span> <span class="o">/</span> <span class="n">sigma_0_sq</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">x_bar</span> <span class="o">/</span> <span class="n">s_sq</span><span class="p">)</span>
+
+<span class="c1"># Print results</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Posterior Mean: </span><span class="si">{</span><span class="n">posterior_mean</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Posterior Variance: </span><span class="si">{</span><span class="n">posterior_variance</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualizing the prior, likelihood, and posterior distributions</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">160</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+
+<span class="c1"># Prior distribution</span>
+<span class="n">prior</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mu_0</span><span class="p">,</span> <span class="n">sigma_0</span><span class="p">)</span>
+
+<span class="c1"># Likelihood distribution</span>
+<span class="n">likelihood</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_bar</span><span class="p">,</span> <span class="n">s</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+<span class="c1"># Posterior distribution</span>
+<span class="n">posterior</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">posterior_mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">posterior_variance</span><span class="p">))</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">prior</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prior&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Likelihood&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">posterior</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Posterior&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Normal-Normal Conjugacy&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Height (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior Mean: 174.37
+Posterior Variance: 3.15
+</pre></div>
+</div>
+<img alt="../../../_images/af29b39693ca833e4e366411fd11c9e7ecea1cf9fd5950e97e753240610c4cd4.png" src="../../../_images/af29b39693ca833e4e366411fd11c9e7ecea1cf9fd5950e97e753240610c4cd4.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="example-analyzing-the-heights-and-weights-multivariate-normal-multivariate-normal-conjugacy">
+<h2>Example: Analyzing The Heights And Weights (Multivariate Normal- Multivariate Normal Conjugacy)<a class="headerlink" href="#example-analyzing-the-heights-and-weights-multivariate-normal-multivariate-normal-conjugacy" title="Link to this heading">#</a></h2>
+<section id="id3">
+<h3>Review<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>The multivariate normal distribution is a generalization of the one-dimensional normal distribution to higher dimensions.</p>
+</section>
+<section id="analyzing-the-heights-and-weights-problem">
+<h3>Analyzing The Heights And Weights Problem<a class="headerlink" href="#analyzing-the-heights-and-weights-problem" title="Link to this heading">#</a></h3>
+<p>Suppose we are analyzing the heights and weights of individuals in a population. We believe both variables are normally distributed, and we want to estimate the mean vector of the joint distribution given some observed data.</p>
+<p>We have a prior belief about the mean vector of the height and weight, represented by a multivariate normal distribution:</p>
+<ul class="simple">
+<li><p>Prior Mean Vector <span class="math notranslate nohighlight">\((\mu_0)=[170cm , 65 kg]\)</span> (mean height, mean weight)</p></li>
+<li><p>Prior Covariance Matrix <span class="math notranslate nohighlight">\((\sum_0)= \begin{bmatrix}
+25 &amp; 0 \\
+0 &amp; 16
+\end{bmatrix}
+\)</span> (i.e., 5 cm standard deviation for height, 4 kg standard deviation for weight, no correlation between height and weight)</p></li>
+</ul>
+<p>We gather some sample data from our population, which we assume that the data follow a multivariate normal distribution with a known covariance matrix:</p>
+<ul class="simple">
+<li><p>Sample Size <span class="math notranslate nohighlight">\((n): 10\)</span></p></li>
+<li><p>Sample Mean Vector <span class="math notranslate nohighlight">\((\overline{x}):[175cm,70kg]\)</span></p></li>
+<li><p>Known Covariance Matrix <span class="math notranslate nohighlight">\((\sum)= \begin{bmatrix}
+36 &amp; 0 \\
+0 &amp; 9
+\end{bmatrix}\)</span></p></li>
+</ul>
+<p>Now let’s solve this problem:</p>
+<ul class="simple">
+<li><p>The prior distribution is given by a multivariate normal distribution <span class="math notranslate nohighlight">\(N(\mu_0,\Sigma_0)\)</span></p></li>
+<li><p>The likelihood is a multivariate normal distribution with known covariance, given by <span class="math notranslate nohighlight">\(N(\overline{x},\frac{\Sigma}{n})\)</span>.</p></li>
+<li><p>The posterior distribution will also be multivariate normal with updated mean vector and covariance matrix:</p>
+<ul>
+<li><p>Posterior Covariance Matrix <span class="math notranslate nohighlight">\((\Sigma_{post})\)</span>:
+$<span class="math notranslate nohighlight">\(\Sigma_{post}=(\Sigma_0^{-1}+n\Sigma^{-1})^{-1}\)</span>$</p></li>
+<li><p>Posterior Mean Vector <span class="math notranslate nohighlight">\((\mu_{post})\)</span>:
+$<span class="math notranslate nohighlight">\(\mu_{post}=\Sigma_{post}(\Sigma_0^{-1}{\mu_0}+n\Sigma^{-1}\overline{x})\)</span>$</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multivariate_normal</span>
+
+<span class="c1"># Given parameters</span>
+<span class="n">mu_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">170</span><span class="p">,</span> <span class="mi">65</span><span class="p">])</span>  <span class="c1"># Prior mean vector [height, weight]</span>
+<span class="n">Sigma_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">]])</span>  <span class="c1"># Prior covariance matrix</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># Sample size</span>
+<span class="n">x_bar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">175</span><span class="p">,</span> <span class="mi">70</span><span class="p">])</span>  <span class="c1"># Sample mean vector [height, weight]</span>
+<span class="n">Sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">36</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>  <span class="c1"># Known covariance matrix</span>
+
+<span class="c1"># Inverses of the covariance matrices</span>
+<span class="n">Sigma_0_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Sigma_0</span><span class="p">)</span>
+<span class="n">Sigma_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Sigma</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Compute the posterior covariance matrix</span>
+<span class="n">Sigma_post</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Sigma_0_inv</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">Sigma_inv</span><span class="p">)</span>
+
+<span class="c1"># Compute the posterior mean vector</span>
+<span class="n">mu_post</span> <span class="o">=</span> <span class="n">Sigma_post</span> <span class="o">@</span> <span class="p">(</span><span class="n">Sigma_0_inv</span> <span class="o">@</span> <span class="n">mu_0</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">Sigma_inv</span> <span class="o">@</span> <span class="n">x_bar</span><span class="p">)</span>
+
+<span class="c1"># Function to plot bivariate normal distribution</span>
+<span class="k">def</span> <span class="nf">plot_contours</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">160</span><span class="p">:</span><span class="mi">185</span><span class="p">:</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">55</span><span class="p">:</span><span class="mi">80</span><span class="p">:</span><span class="mf">0.5</span><span class="p">]</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dstack</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+    <span class="n">rv</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">rv</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">pos</span><span class="p">),</span> <span class="n">levels</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mu</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mu</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    
+<span class="c1"># Create a plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot prior</span>
+<span class="n">plot_contours</span><span class="p">(</span><span class="n">mu_0</span><span class="p">,</span> <span class="n">Sigma_0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prior&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot likelihood</span>
+<span class="n">plot_contours</span><span class="p">(</span><span class="n">x_bar</span><span class="p">,</span> <span class="n">Sigma</span><span class="o">/</span><span class="n">n</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Likelihood&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot posterior</span>
+<span class="n">plot_contours</span><span class="p">(</span><span class="n">mu_post</span><span class="p">,</span> <span class="n">Sigma_post</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Posterior&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add labels and title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Prior, Likelihood, and Posterior Distributions (Multivariate Normal)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Height (cm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Weight (kg)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Show plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Print posterior mean and covariance matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Posterior Mean Vector (μ_post):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mu_post</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Posterior Covariance Matrix (Σ_post):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Sigma_post</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/0a49cdd6469667cdd8821c8e729ed0bef980d080ba8399eca2c5b3499d1e3c01.png" src="../../../_images/0a49cdd6469667cdd8821c8e729ed0bef980d080ba8399eca2c5b3499d1e3c01.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Posterior Mean Vector (μ_post):
+[174.92902208  69.97203232]
+
+Posterior Covariance Matrix (Σ_post):
+[[0.35488959 0.        ]
+ [0.         0.08949658]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="benefits-of-using-conjugate-priors">
+<h2>Benefits of Using Conjugate Priors<a class="headerlink" href="#benefits-of-using-conjugate-priors" title="Link to this heading">#</a></h2>
+<p>The use of conjugate priors offers several advantages in Bayesian inference:</p>
+<ul class="simple">
+<li><p><strong>Computational Simplicity</strong>: Conjugate priors lead to posterior distributions that are easier to compute, as they belong to the same family of distributions as the prior.</p></li>
+<li><p><strong>Interpretability</strong>: Because the prior and posterior distributions are of the same type, it is easier to interpret how the prior beliefs are updated with new information.</p></li>
+<li><p><strong>Analytical Solutions</strong>: Conjugate priors often allow for closed-form solutions for the posterior distribution, avoiding the need for numerical approximation methods like Markov Chain Monte Carlo (MCMC) simulations.</p></li>
+</ul>
+</section>
+<section id="limitations-of-conjugate-priors">
+<h2>Limitations of Conjugate Priors<a class="headerlink" href="#limitations-of-conjugate-priors" title="Link to this heading">#</a></h2>
+<p>Despite their advantages, conjugate priors are not without limitations:</p>
+<ul class="simple">
+<li><p><strong>Flexibility</strong>: Conjugate priors may not always represent the analyst’s true prior beliefs, as they are chosen more for computational convenience than for their expressiveness.</p></li>
+<li><p><strong>Over-Simplification</strong>: The use of conjugate priors can sometimes oversimplify the problem, potentially leading to biased or inaccurate posterior inferences.</p></li>
+<li><p><strong>Real-World Applications</strong>: In complex real-world scenarios, the likelihood function may not have a known conjugate prior, necessitating alternative approaches.</p></li>
+</ul>
+</section>
+<section id="choosing-a-conjugate-prior">
+<h2>Choosing a Conjugate Prior<a class="headerlink" href="#choosing-a-conjugate-prior" title="Link to this heading">#</a></h2>
+<p>The choice of a conjugate prior depends on the nature of the data and the form of the likelihood function. In practice, the choice is often guided by the desire for computational efficiency and the availability of prior knowledge. While conjugate priors are convenient, they are not always the most appropriate choice. Sometimes, the true prior beliefs about a parameter might not fit neatly into a conjugate prior form, and in such cases, non-conjugate priors may be more suitable despite their computational complexity.
+Here you can see a cheat sheet for choosing the right conjugate prior for different likelihood functions.</p>
+<section id="conjugate-prior-cheat-sheet">
+<h3>Conjugate prior cheat sheet<a class="headerlink" href="#conjugate-prior-cheat-sheet" title="Link to this heading">#</a></h3>
+<p>Let n denote the number of observations. In all cases below, the data is assumed to consist of n points <span class="math notranslate nohighlight">\(x_1, \dots, x_n\)</span> (which will be random vectors in the multivariate cases).</p>
+<section id="when-the-likelihood-function-is-a-discrete-distribution">
+<h4>When the likelihood function is a <strong>discrete distribution</strong><a class="headerlink" href="#when-the-likelihood-function-is-a-discrete-distribution" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Likelihood  $<span class="math notranslate nohighlight">\(p(x_i \mid \theta)\)</span>$</p></th>
+<th class="head"><p>Model parameters $<span class="math notranslate nohighlight">\(\theta\)</span>$</p></th>
+<th class="head"><p>Conjugate prior (and posterior) distribution  $<span class="math notranslate nohighlight">\(p(\theta \mid \Theta),p(\theta \mid x,\Theta)=p(\theta \mid \Theta')\)</span>$</p></th>
+<th class="head"><p>Prior hyperparameters $<span class="math notranslate nohighlight">\(\Theta\)</span>$</p></th>
+<th class="head"><p>Posterior hyperparameters    $<span class="math notranslate nohighlight">\(\Theta'\)</span>$</p></th>
+<th class="head"><p>Interpretation of hyperparameters</p></th>
+<th class="head"><p>Posterior predictive       $<span class="math notranslate nohighlight">\(p(\tilde{x} \mid X,\Theta)=p(\tilde{x} \mid \Theta')\)</span>$</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Bernoulli</p></td>
+<td><p>p (probability)</p></td>
+<td><p>Beta</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha,\beta \in \mathbb{R}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha + \sum_{i=1}^{n} x_i, \, \beta + n - \sum_{i=1}^{n} x_i\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha\)</span>  successes, <span class="math notranslate nohighlight">\(\beta\)</span> failures</p></td>
+<td><p>$<span class="math notranslate nohighlight">\(p(\tilde{x}=1)= \frac{\alpha'}{\alpha'+\beta'}\)</span>$ (Bernoulli)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Binomial with known number of trials, <span class="math notranslate nohighlight">\(m\)</span></p></td>
+<td><p>p (probability)</p></td>
+<td><p>Beta</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha,\beta \in \mathbb{R}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha + \sum_{i=1}^{n} x_i, \, \beta + \sum_{i=1}^{n} N_i - \sum_{i=1}^{n} x_i\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha\)</span>  successes, <span class="math notranslate nohighlight">\(\beta\)</span> failures</p></td>
+<td><p>$<span class="math notranslate nohighlight">\(BetaBin(\tilde{x} \mid \alpha',\beta')\)</span>$ (beta-binomial)</p></td>
+</tr>
+<tr class="row-even"><td><p>Negative binomial with known failure number, <span class="math notranslate nohighlight">\(r\)</span></p></td>
+<td><p>p (probability)</p></td>
+<td><p>Beta</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha,\beta \in \mathbb{R}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha +rn , \beta + \sum_{i=1}^{n} x_i \)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha\)</span> total successes, <span class="math notranslate nohighlight">\(\beta\)</span> failures</p></td>
+<td><p>$<span class="math notranslate nohighlight">\(BetaNegBin(\tilde{x} \mid \alpha',\beta')\)</span>$ (beta-negative binomial)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Poisson</p></td>
+<td><p><span class="math notranslate nohighlight">\(\lambda\)</span> (rate)</p></td>
+<td><p>Gamma</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha,\beta \)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha +\sum_{i=1}^{n} x_i , \beta + n \)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha\)</span> total occurrences in <span class="math notranslate nohighlight">\(\beta\)</span> intervals</p></td>
+<td><p>$<span class="math notranslate nohighlight">\(NB(\tilde{x} \mid \alpha',\frac{\beta'}{1+\beta'})\)</span>$ (negative binomial)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="when-likelihood-function-is-a-continuous-distribution">
+<h4>When likelihood function is a <strong>continuous distribution</strong><a class="headerlink" href="#when-likelihood-function-is-a-continuous-distribution" title="Link to this heading">#</a></h4>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Likelihood  $<span class="math notranslate nohighlight">\(p(x_i \mid \theta)\)</span>$</p></th>
+<th class="head"><p>Model parameters $<span class="math notranslate nohighlight">\(\theta\)</span>$</p></th>
+<th class="head"><p>Conjugate prior (and posterior) distribution  $<span class="math notranslate nohighlight">\(p(\theta \mid \Theta),p(\theta \mid x,\Theta)=p(\theta \mid \Theta')\)</span>$</p></th>
+<th class="head"><p>Prior hyperparameters $<span class="math notranslate nohighlight">\(\Theta\)</span>$</p></th>
+<th class="head"><p>Posterior hyperparameters    $<span class="math notranslate nohighlight">\(\Theta'\)</span>$</p></th>
+<th class="head"><p>Interpretation of hyperparameters</p></th>
+<th class="head"><p>Posterior predictive       $<span class="math notranslate nohighlight">\(p(\tilde{x} \mid X,\Theta)=p(\tilde{x} \mid \Theta')\)</span>$</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Normal with known variance <span class="math notranslate nohighlight">\(\sigma^2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\mu\)</span> (mean)</p></td>
+<td><p>Normal</p></td>
+<td><p><span class="math notranslate nohighlight">\(\mu_0,\sigma_0^2\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\frac{1}{\frac{1}{\sigma_0^2}+\frac{n}{\sigma^2}}\)</span></p></td>
+<td><p>mean was estimated from observations with total precision (sum of all individual precisions) <span class="math notranslate nohighlight">\(\frac{1}{\sigma_0^2}\)</span> and with the sample mean <span class="math notranslate nohighlight">\(\mu_0\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(N(\tilde{x} \mid {\mu_0}', {\sigma_0^2}' + \sigma^2)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Normal with known mean <span class="math notranslate nohighlight">\(\mu\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\sigma^2\)</span> (variance)</p></td>
+<td><p>Inverse Gamma</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha,\beta\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha+\frac{n}{2}, \beta+\frac{\sum_{i=1}^{n}{(x_i-\mu)}^2}{2}\)</span></p></td>
+<td><p>variance was estimated from <span class="math notranslate nohighlight">\(2\alpha\)</span> observations with sample variance <span class="math notranslate nohighlight">\(\frac{\beta}{\alpha}\)</span> (i.e. with sum of squared deviations <span class="math notranslate nohighlight">\(2\beta\)</span>, where deviations are from known mean <span class="math notranslate nohighlight">\(\mu\)</span>)</p></td>
+<td><p><span class="math notranslate nohighlight">\(t_{2\alpha'}(\tilde{x} \mid \mu, \sigma^2 = \frac{\beta'}{\alpha'})\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Uniform</p></td>
+<td><p><span class="math notranslate nohighlight">\(U(0,\theta)\)</span></p></td>
+<td><p>Pareto</p></td>
+<td><p><span class="math notranslate nohighlight">\(x_m,k\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(max\{x_1, \dots, x_n, x_m\}, k+n\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(k\)</span> observations with maximum value <span class="math notranslate nohighlight">\(x_m\)</span></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>Pareto with known minimum <span class="math notranslate nohighlight">\(x_m\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\kappa\)</span>(shape)</p></td>
+<td><p>Gamma</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha,\beta\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha+n, \beta+\sum_{i=1}^{n}{ln\frac{x_i}{x_m}}\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha\)</span> observations with sum <span class="math notranslate nohighlight">\(\beta\)</span> of the order of magnitude of each observation (i.e. the logarithm of the ratio of each observation to the minimum <span class="math notranslate nohighlight">\(x_m\)</span></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>Exponential</p></td>
+<td><p><span class="math notranslate nohighlight">\(\lambda\)</span> (rate)</p></td>
+<td><p>Gamma</p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha,\beta\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha+n, \beta+\sum_{i=1}^{n}x_i\)</span></p></td>
+<td><p><span class="math notranslate nohighlight">\(\alpha\)</span>  observations that sum to <span class="math notranslate nohighlight">\(\beta\)</span></p></td>
+<td><p>$<span class="math notranslate nohighlight">\(Lomax(\tilde{x} \mid \beta', \alpha')\)</span>$ (Lomax distribution)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>you can see more from <a class="reference external" href="https://en.wikipedia.org/wiki/Conjugate_prior#Table_of_conjugate_distributions">here</a>.</p>
+</section>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>Conjugate priors are an effective asset in Bayesian statistics, providing an easier way to revise beliefs based on new information. They are especially helpful when a straightforward solution is needed or preferred. Nevertheless, it’s important to weigh the decision to use conjugate priors against how accurate and representative the prior beliefs are. In certain situations, adopting more complex non-conjugate priors might offer a more realistic view of uncertainty and result in more informed choices.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="https://deepai.org/machine-learning-glossary-and-terms/conjugate-prior">Understanding Conjugate Priors in Bayesian Statistics.</a></p></li>
+<li><p><a class="reference external" href="https://www.cs.ubc.ca/~schmidtm/Courses/540-W20/L27.pdf">Schmidt, Mark, CPSC 540: Machine Learning, University of British Columbia, Winter 2020.</a></p></li>
+<li><p><a class="reference external" href="https://www.statlect.com/fundamentals-of-statistics/conjugate-prior">Taboga, Marco, Conjugate prior.</a></p></li>
+<li><p><a class="reference external" href="https://math.mit.edu/~dav/05.dir/class15-prep.pdf">Orloff, Jeremy and Bloom, Jonathan, Conjugate priors: Beta and normal, Class 15, 18.05, MIT University.</a></p></li>
+<li><p>Bernardo, J. M., and Smith, A. F. M. (2009) Bayesian Theory, Wiley.</p></li>
+<li><p>Robert, C. P. (2007) The Bayesian Choice, Springer.</p></li>
+<li><p><a class="reference external" href="https://www.scribbr.com/statistics/poisson-distribution/">Turney,  Shaun, (2022) Poisson Distributions.</a></p></li>
+<li><p><a class="reference external" href="https://builtin.com/data-science/gamma-distribution">Metwalli, Sara, (2024) What Is the Gamma Distribution?</a></p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./ML\StudentEffort\Conjugate_Prior"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../bias_variance_tradeoff/bias_variance_tardeoff.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Bias-Variance Trade-Off</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../../Contact_Me.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Contact Me</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-goals">Learning Goals</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-families">Exponential Families</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proof">Proof</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-rental-car-service-gamma-poisson-conjugacy">Example: Rental Car Service (Gamma-Poisson Conjugacy)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#review">Review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rental-car-service-problem">Rental Car Service Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-email-marketing-campaign-beta-binomial-conjugacy">Example: Email Marketing Campaign (Beta-Binomial Conjugacy)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#email-marketing-campaign-problem">Email Marketing Campaign Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-estimating-the-mean-height-of-a-population-normal-normal-conjugacy">Example: Estimating the Mean Height of a Population (Normal-Normal Conjugacy)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-the-mean-height-of-a-population-problem">Estimating the Mean Height of a Population Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-analyzing-the-heights-and-weights-multivariate-normal-multivariate-normal-conjugacy">Example: Analyzing The Heights And Weights (Multivariate Normal- Multivariate Normal Conjugacy)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Review</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analyzing-the-heights-and-weights-problem">Analyzing The Heights And Weights Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-of-using-conjugate-priors">Benefits of Using Conjugate Priors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-conjugate-priors">Limitations of Conjugate Priors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#choosing-a-conjugate-prior">Choosing a Conjugate Prior</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conjugate-prior-cheat-sheet">Conjugate prior cheat sheet</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#when-the-likelihood-function-is-a-discrete-distribution">When the likelihood function is a <strong>discrete distribution</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#when-likelihood-function-is-a-continuous-distribution">When likelihood function is a <strong>continuous distribution</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
