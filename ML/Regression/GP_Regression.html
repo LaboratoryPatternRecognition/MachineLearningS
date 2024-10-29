@@ -16,37 +16,40 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-
-  
-  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
-  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="../../_static/copybutton.js?v=f281be69"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -66,6 +69,7 @@
     <link rel="prev" title="Kernel Regression" href="KernelRegression.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -81,19 +85,8 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-primary-sidebar-checkbox"/>
-  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          id="pst-secondary-sidebar-checkbox"/>
-  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -101,7 +94,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -109,8 +101,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -126,7 +118,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -141,6 +134,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../../machine_learning.html">
   
@@ -154,21 +149,17 @@
     
     
     <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
-    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark pst-js-only" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -179,7 +170,8 @@
                 </a>
             </li>
         </ul>
-        <ul class="current nav bd-sidenav">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Machine learning preliminaries</span></p>
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="NonParamRegression.html">Regression Review</a></li>
 <li class="toctree-l1"><a class="reference internal" href="KernelRegression.html">Kernel Regression</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Gaussian Process</a></li>
@@ -187,6 +179,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/PCA.html">Principal Component Analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/Autoencoders1.html">Autoencoders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/LLE.html">Locally Linear Embedding (LLE)</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Machine Learning Techniques</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/EnsembleStart_BaggingBoosting.html">Ensemble Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/Ensemble_Voting_Variant_Bayesian.html">Ensemble by Voting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../EnsembleLearning/TrainableCombiner.html">Trainable Combiners</a></li>
@@ -200,6 +195,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../TransferLearning/InstanceBasedTransferLearning1.html">Instance-Based Transfer Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FewShotLearning/FewShotLearning_1.html">Few Shot Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MetaLearning/MetaLearning_1.html">Meta Learning</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Student Effort</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://patternrmachinel.github.io/PatternLearning/Introduction_StudentEffort.html">Click to View Student Effort</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Contact</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
 </ul>
@@ -231,9 +233,9 @@
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -356,27 +358,19 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -599,7 +593,7 @@ $<span class="math notranslate nohighlight">\(
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/f5290ea3e987814153e8e79a7962c0914ce0f0eab9bb5a23874f5db053431b76.png" src="../../_images/f5290ea3e987814153e8e79a7962c0914ce0f0eab9bb5a23874f5db053431b76.png" />
+<img alt="../../_images/6e3556a28a69675894b7d1fb34cbc1b8b24412a7250b120ec10ae1c8b4fed194.png" src="../../_images/6e3556a28a69675894b7d1fb34cbc1b8b24412a7250b120ec10ae1c8b4fed194.png" />
 </div>
 </div>
 </section>
@@ -827,7 +821,7 @@ p(f_*|x_*,X,y) = \int p(f_*|x_*,w) p(w|X,y) \, dw
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/a01e61752f06cd679e9b8287f635a7d5d062691210d871f8bd04d0e3902777ab.png" src="../../_images/a01e61752f06cd679e9b8287f635a7d5d062691210d871f8bd04d0e3902777ab.png" />
+<img alt="../../_images/765f1bf6ac78c99bf7144b64de622d85ff36f885593913d2f1db8faa68cdc1df.png" src="../../_images/765f1bf6ac78c99bf7144b64de622d85ff36f885593913d2f1db8faa68cdc1df.png" />
 </div>
 </div>
 </section>
@@ -1068,7 +1062,7 @@ Also, change the points (in the following code) for training and testing, and ad
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/cdc0fbf43d38c42439cc099a58c7de47fff51601fc3440881d5cae3344c16d57.png" src="../../_images/cdc0fbf43d38c42439cc099a58c7de47fff51601fc3440881d5cae3344c16d57.png" />
+<img alt="../../_images/d4348f2b59e9b28557fa65fd98e9c33556f8650bca3ac9de26b845f223cacd0c.png" src="../../_images/d4348f2b59e9b28557fa65fd98e9c33556f8650bca3ac9de26b845f223cacd0c.png" />
 </div>
 </div>
 </section>
@@ -1148,7 +1142,7 @@ Also, change the points (in the following code) for training and testing, and ad
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/6bb6d9b8b565356edb1e0dac0965b60bcdb824f9de4578b4d156b80396de0f0c.png" src="../../_images/6bb6d9b8b565356edb1e0dac0965b60bcdb824f9de4578b4d156b80396de0f0c.png" />
+<img alt="../../_images/ca26b73078b79c494bc93ed2212c3314b2e4e6f9270db587c3fb8caf1723ddb2.png" src="../../_images/ca26b73078b79c494bc93ed2212c3314b2e4e6f9270db587c3fb8caf1723ddb2.png" />
 </div>
 </div>
 </section>
@@ -1223,7 +1217,7 @@ Also, change the points (in the following code) for training and testing, and ad
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/706a3960253d8efb1c4511faab47a0bf6f4901eb75d4529ea12f26ff59621282.png" src="../../_images/706a3960253d8efb1c4511faab47a0bf6f4901eb75d4529ea12f26ff59621282.png" />
+<img alt="../../_images/3cb5201c65699a7a5b4d81fcb8e586b0e60cd4894c3f4230d14d1dd98383ede1.png" src="../../_images/3cb5201c65699a7a5b4d81fcb8e586b0e60cd4894c3f4230d14d1dd98383ede1.png" />
 </div>
 </div>
 </section>
@@ -1316,13 +1310,13 @@ Also, change the points (in the following code) for training and testing, and ad
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Dr\AppData\Local\Temp\ipykernel_4556\3957923635.py:13: DeprecationWarning: Conversion of an array with ndim &gt; 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hadi\AppData\Local\Temp\ipykernel_8408\3957923635.py:13: DeprecationWarning: Conversion of an array with ndim &gt; 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)
   K[i, j] = 4 * loss**2
-C:\Users\Dr\AppData\Local\Temp\ipykernel_4556\3957923635.py:76: RuntimeWarning: invalid value encountered in sqrt
+C:\Users\Hadi\AppData\Local\Temp\ipykernel_8408\3957923635.py:76: RuntimeWarning: invalid value encountered in sqrt
   plt.fill_between(x_test.flatten(), y_pred - 1.96 * np.sqrt(pred_var), y_pred + 1.96 * np.sqrt(pred_var), alpha=0.2, color=&#39;red&#39;)
 </pre></div>
 </div>
-<img alt="../../_images/3f689031ff6bd00254cb00bf4f5a930d5b2711d8bd8c1983e5b61fb5c053968f.png" src="../../_images/3f689031ff6bd00254cb00bf4f5a930d5b2711d8bd8c1983e5b61fb5c053968f.png" />
+<img alt="../../_images/c27a144b4b9edd94637517a3e1f8b7d51bb8c07c170cf83c29bbf5517cd6ed8b.png" src="../../_images/c27a144b4b9edd94637517a3e1f8b7d51bb8c07c170cf83c29bbf5517cd6ed8b.png" />
 </div>
 </div>
 </section>
@@ -1436,7 +1430,8 @@ C:\Users\Dr\AppData\Local\Temp\ipykernel_4556\3957923635.py:76: RuntimeWarning: 
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1541,8 +1536,8 @@ By Dr.Hadi Sadoghi Yazdi
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
-<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

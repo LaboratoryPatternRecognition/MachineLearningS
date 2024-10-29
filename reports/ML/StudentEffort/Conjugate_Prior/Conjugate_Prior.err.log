@@ -1,0 +1,93 @@
+Traceback (most recent call last):
+  File "H:\HadiSadoghiYazdi\PL\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+    ~~~~~~~~~^
+        nb,
+        ^^^
+    ...<4 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "H:\HadiSadoghiYazdi\PL\Lib\site-packages\nbclient\client.py", line 1314, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "H:\HadiSadoghiYazdi\PL\Lib\site-packages\jupyter_core\utils\__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Program Files\Python313\Lib\asyncio\base_events.py", line 721, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "H:\HadiSadoghiYazdi\PL\Lib\site-packages\nbclient\client.py", line 709, in async_execute
+    await self.async_execute_cell(
+        cell, index, execution_count=self.code_cells_executed + 1
+    )
+  File "H:\HadiSadoghiYazdi\PL\Lib\site-packages\nbclient\client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "H:\HadiSadoghiYazdi\PL\Lib\site-packages\nbclient\client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import norm
+
+# Given parameters
+mu_0 = 170    # Prior mean
+sigma_0 = 5   # Prior standard deviation
+sigma_0_sq = sigma_0 ** 2  # Prior variance
+
+n = 10        # Sample size
+x_bar = 175   # Sample mean
+s = 6         # Sample standard deviation
+s_sq = s ** 2 # Sample variance
+
+# Calculate posterior variance
+posterior_variance = 1 / (1 / sigma_0_sq + n / s_sq)
+
+# Calculate posterior mean
+posterior_mean = posterior_variance * (mu_0 / sigma_0_sq + n * x_bar / s_sq)
+
+# Print results
+print(f"Posterior Mean: {posterior_mean:.2f}")
+print(f"Posterior Variance: {posterior_variance:.2f}")
+
+# Visualizing the prior, likelihood, and posterior distributions
+x = np.linspace(160, 190, 300)
+
+# Prior distribution
+prior = norm.pdf(x, mu_0, sigma_0)
+
+# Likelihood distribution
+likelihood = norm.pdf(x, x_bar, s / np.sqrt(n))
+
+# Posterior distribution
+posterior = norm.pdf(x, posterior_mean, np.sqrt(posterior_variance))
+
+# Plotting
+plt.figure(figsize=(12, 6))
+sns.lineplot(x=x, y=prior, label='Prior', color='blue')
+sns.lineplot(x=x, y=likelihood, label='Likelihood', color='orange')
+sns.lineplot(x=x, y=posterior, label='Posterior', color='green')
+plt.title('Normal-Normal Conjugacy')
+plt.xlabel('Height (cm)')
+plt.ylabel('Density')
+plt.legend()
+plt.grid()
+plt.show()
+
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Cell [1;32mIn[3], line 3[0m
+[0;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mas[39;00m [38;5;21;01mnp[39;00m
+[0;32m      2[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
+[1;32m----> 3[0m [38;5;28;01mimport[39;00m [38;5;21;01mseaborn[39;00m [38;5;28;01mas[39;00m [38;5;21;01msns[39;00m
+[0;32m      4[0m [38;5;28;01mfrom[39;00m [38;5;21;01mscipy[39;00m[38;5;21;01m.[39;00m[38;5;21;01mstats[39;00m [38;5;28;01mimport[39;00m norm
+[0;32m      6[0m [38;5;66;03m# Given parameters[39;00m
+
+[1;31mModuleNotFoundError[0m: No module named 'seaborn'
+
