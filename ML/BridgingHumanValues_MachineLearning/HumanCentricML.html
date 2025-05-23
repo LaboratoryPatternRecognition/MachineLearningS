@@ -412,10 +412,28 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centric-design-principles">Human-Centric Design Principles</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centric-behavior-informed-design">Human-Centric: Behavior-Informed Design</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#behavioral-economic-models-such-as">Behavioral economic models such as:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-from-propect-theory">More from Propect theory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#behavioral-economic-models">Behavioral economic models:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#social-fairness-considerations">Social Fairness Considerations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-learning">Ensemble Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diversity-aware-ai-systems">Diversity-Aware AI Systems</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centric-human-relevant-data-focus">Human Centric: Human-Relevant Data Focus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optical-flow-how-each-pixel-moves">Optical flow : How each pixel moves</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#action-recognition-guided-by-skeletal-analysis">Action recognition guided by skeletal analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centric-intuitive-error-handling">Human Centric: Intuitive Error Handling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-management-theory-emt">Error Management Theory (EMT):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-set-of-functions-derived-from-common-intuitive-errors">A Set of Functions Derived from Common Intuitive Errors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cognition-of-loss-functions">Cognition of Loss functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-from-lncosh">Loss from LnCosh</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-function-ensemble-learning">Loss function, Ensemble Learning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#index-and-loss-function">Index and Loss Function</a></li>
 </ul>
             </nav>
         </div>
@@ -456,8 +474,8 @@ We reduce a data set to one index or several parameters</p></li>
 <h2>Human-Centric: Behavior-Informed Design<a class="headerlink" href="#human-centric-behavior-informed-design" title="Link to this heading">#</a></h2>
 <p>This principle emphasizes the <em>integration</em> of <strong>human behavioral insights</strong> into system design and decision-making.</p>
 <p><img alt="Pic_BehavioralInformed1" src="../../_images/Pic_BehavioralInformed.JPG" /></p>
-<section id="behavioral-economic-models-such-as">
-<h3>Behavioral economic models such as:<a class="headerlink" href="#behavioral-economic-models-such-as" title="Link to this heading">#</a></h3>
+<section id="behavioral-economic-models">
+<h3>Behavioral economic models:<a class="headerlink" href="#behavioral-economic-models" title="Link to this heading">#</a></h3>
 <p><strong>Prospect theory</strong> explains why, when faced with an uncertain event, humans make decisions that do not maximize their expected value.</p>
 <p><strong>Example: Game</strong>
 <em>State 1:</em> 100<span class="math notranslate nohighlight">\( with 80% probability and \)</span>60 with 20% probability
@@ -466,10 +484,8 @@ We reduce a data set to one index or several parameters</p></li>
 <p>Instead of calculating the “average profit,” the human brain reacts to emotions and fear of loss.</p>
 <p><img alt="Perspect1_1" src="../../_images/Perspect1.jpg" /></p>
 <p>See this: Information Processing &amp; Management, Volume 62, Issue 3, May 2025, 104049</p>
-</section>
-<section id="more-from-propect-theory">
-<h3>More from Propect theory<a class="headerlink" href="#more-from-propect-theory" title="Link to this heading">#</a></h3>
-<p>Pain of loss &gt; Joy of Gain</p>
+<p><strong>More from Propect theory</strong>
+Pain of loss &gt; Joy of Gain</p>
 <p><img alt="Prospect2" src="../../_images/ProspectTheory1.jpg" /></p>
 <p>See:
 [1] 2023 IEEE 29th International Conference on Parallel and Distributed Systems (ICPADS), 26 March 2024, DOI: 10.1109/ICPADS60453.2023.00091
@@ -477,6 +493,142 @@ We reduce a data set to one index or several parameters</p></li>
 <p>[3]The Prospect Theory and The Stock Market, Highlights in Business, Economics and Management GAGBM 2023, Volume 11 (2023)</p>
 <p><img alt="Prospect3" src="../../_images/ProspectTheory2.jpg" /></p>
 </section>
+<section id="social-fairness-considerations">
+<h3>Social Fairness Considerations<a class="headerlink" href="#social-fairness-considerations" title="Link to this heading">#</a></h3>
+<p>Embeds concepts such as equity, equality, and justice to ensure that processing and outcomes are not only accurate but also socially responsible.</p>
+<p><img alt="Fairness11" src="../../_images/Fairness_Equality.jpg" /></p>
+<ul class="simple">
+<li><p>Equality ensures uniform treatment and access.</p></li>
+<li><p>Equity adjusts for individual needs and contexts to promote fairness.</p></li>
+<li><p>Justice addresses and corrects systemic imbalances in data and algorithms.
+<img alt="Justice11" src="../../_images/Justice1.jpg" /></p></li>
+</ul>
+<p>See: Expert Systems with Applications, Volume 269, 15 April 2025, 126219</p>
+</section>
+<section id="ensemble-learning">
+<h3>Ensemble Learning<a class="headerlink" href="#ensemble-learning" title="Link to this heading">#</a></h3>
+<p>Ensemble learning enhances predictive performance by combining multiple models, making it effective for both complex problems and varying data sizes. For large datasets, it partitions data to train separate models in parallel, improving efficiency and generalization. When data is limited, it mitigates underfitting and overfitting by aggregating diverse model behaviors. Ultimately, ensembles boost accuracy, robustness, and confidence through collective decision-making.</p>
+<p><img alt="Ensemble11" src="../../_images/Ensemble1.jpg" /></p>
+</section>
+<section id="diversity-aware-ai-systems">
+<h3>Diversity-Aware AI Systems<a class="headerlink" href="#diversity-aware-ai-systems" title="Link to this heading">#</a></h3>
+<p>By incorporating diversity across data, features, and design components, AI systems can achieve enhanced performance and more effectively serve a broader range of users.</p>
+<p><img alt="Diversity111" src="../../_images/Diversity11.jpg" /></p>
+<p>See: Engineering Applications of Artificial Intelligence, Volume 154, 15 August 2025, 110888, <a class="reference external" href="https://doi.org/10.1016/j.engappai.2025.110888">https://doi.org/10.1016/j.engappai.2025.110888</a></p>
+</section>
+</section>
+<section id="human-centric-human-relevant-data-focus">
+<h2>Human Centric: Human-Relevant Data Focus<a class="headerlink" href="#human-centric-human-relevant-data-focus" title="Link to this heading">#</a></h2>
+<p>That is, the processing of data related to humans.</p>
+<p><img alt="HumanRelevantDataFocuse1" src="../../_images/HumanRelevantDataFocuse.JPG" /></p>
+<p><strong>Explanation with Example:</strong></p>
+<section id="optical-flow-how-each-pixel-moves">
+<h3>Optical flow : How each pixel moves<a class="headerlink" href="#optical-flow-how-each-pixel-moves" title="Link to this heading">#</a></h3>
+<p><img alt="Optical1" src="../../_images/OpticalFlow.jpg" /></p>
+<p><strong>Human-centric motion analysis</strong> is specifically focused on and tailored to the analysis of human motion.</p>
+<p><img alt="HC_Motion1" src="../../_images/HC_Motion.jpg" /></p>
+<p>a human-centric approach dynamically preserves relevant human motion while filtering out irrelevant background movement (such as tree leaves).</p>
+<p><img alt="HC_Flow1" src="../../_images/HC_Flow.jpg" /></p>
+<p>See: IEEE TRANSACTIONS ON PATTERN ANALYSIS AND MACHINE INTELLIGENCE, VOL. 47, NO. 2, FEBRUARY 2025</p>
+</section>
+<section id="action-recognition-guided-by-skeletal-analysis">
+<h3>Action recognition guided by skeletal analysis<a class="headerlink" href="#action-recognition-guided-by-skeletal-analysis" title="Link to this heading">#</a></h3>
+<p>recognizes human actions by analyzing skeletal data—like the positions and movements of joints and bones</p>
+<p><img alt="ActionRecognitionGuidedBySkeleton1" src="../../_images/ActionRecognitionGuidedBySkeleton.jpg" /></p>
+<p>See: Expert Systems With Applications, Volume 239, 2024, Article number 122314</p>
+</section>
+</section>
+<section id="human-centric-intuitive-error-handling">
+<h2>Human Centric: Intuitive Error Handling<a class="headerlink" href="#human-centric-intuitive-error-handling" title="Link to this heading">#</a></h2>
+<p>Intuitive error management refers to the design of systems (especially in machines or intelligent systems) that take into account how humans perceive and tolerate errors.</p>
+<section id="error-management-theory-emt">
+<h3>Error Management Theory (EMT):<a class="headerlink" href="#error-management-theory-emt" title="Link to this heading">#</a></h3>
+<p>Error Management Theory (EMT) assumums that humans have <strong>evolved biases</strong> to favor less costly errors under <em>uncertainty</em>. In pattern recognition, this leads to a tendency toward <em>false positives</em> over <em>false negatives</em> to enhance survival.</p>
+<p><img alt="IntuitiveErrorHandling1" src="../../_images/IntuitiveErrorHandling.jpg" /></p>
+<p>Daniel Kahneman focused more on cognitive economics and rationality; EMT interprets biases from an evolutionary survival perspective.</p>
+<p><img alt="SurvivalshipBias1" src="../../_images/SurvivalshipBias.JPG" /></p>
+<p>See:The Error of God: Error Management Theory, Religion, and the Evolution of Cooperation Dominic D.P. Johnson, S.A. Levin (ed.), Games, Groups, and the Global Good, Springer Series in Game Theory, DOI: 10.1007/978-3-540-85436-4 10, c Springer Physica-Verlag Berlin Heidelberg 2009</p>
+</section>
+<section id="a-set-of-functions-derived-from-common-intuitive-errors">
+<h3>A Set of Functions Derived from Common Intuitive Errors<a class="headerlink" href="#a-set-of-functions-derived-from-common-intuitive-errors" title="Link to this heading">#</a></h3>
+<p><strong>Squared Error:</strong>
+Humans tend to be more sensitive to large errors than to small ones. For example, a single error of 100 units is perceived as significantly worse than ten errors of 10 units each.</p>
+<p><img alt="SqureLoss1" src="../../_images/SqureLoss.jpg" /></p>
+<p><strong>Epsilon-Insensitive (ε-Insensitive) Loss Function:</strong></p>
+<p><img alt="Relax1" src="../../_images/relax1.jpg" /></p>
+<p>In some situations, people are indifferent to small errors. For instance, a temperature prediction error of 0.5°C is typically negligible for the average person</p>
+<p><img alt="Relax2" src="../../_images/Relax_2.jpg" /></p>
+<p>See:Expert Systems with Applications, Available online 8 May 2025, 128085, <a class="reference external" href="https://doi.org/10.1016/j.eswa.2025.128085">https://doi.org/10.1016/j.eswa.2025.128085</a></p>
+<p><strong>Huber Loss Function</strong></p>
+<p><img alt="Huberloss1" src="../../_images/Huberloss.jpg" /></p>
+<p>Reflects a combination of human responses to small and large errors:
+For small errors: behaves like Square Loss, showing moderate sensitivity.
+For large errors: behaves like Absolute Error, penalizing them, but less harshly than MSE.</p>
+<p>Psychological Root:
+Strikes a balance between the desire for accuracy and the need for robustness to noise or outliers.</p>
+<p><img alt="Hubber2" src="../../_images/Huberloss2.jpg" /></p>
+<p>See: IEEE Transactions on Geoscience and Remote Sensing ( Volume: 62),  10.1109/TGRS.2024.3370966</p>
+<p><strong>Quantile (Pin Ball) Loss Function</strong></p>
+<p><img alt="Figurepinball1" src="../../_images/Figurepinball.jpg" /></p>
+<p>The psychology and philosophy of the Pinball Loss Function (also called Quantile Loss) offers a fascinating lens into how we model uncertainty, fairness, and asymmetric costs — all with deep psychological and philosophical implications. (a concept also seen in Prospect Theory)</p>
+<p><img alt="PibBallPhylosophy1" src="../../_images/PibBallPhylosophy.jpg" /></p>
+<p><em>Psychological and Philosophy Interpretation:</em></p>
+<p>1-Asymmetric Risk Perception
+Humans often fear certain types of mistakes more than others — we are not symmetric in how we perceive risks. (For example: Weather Forecast and Event Planning)</p>
+<p>2-Loss Aversion
+Much like in Kahneman and Tversky’s work, the pinball loss aligns with the idea that we may be more sensitive to losses in one direction than the other. (Prospect Theory)</p>
+<p>3-Fairness(Equality)  and Justice
+The function’s flexibility to weigh errors differently reflects real-life ethical choices.</p>
+<p><img alt="PibBallPhylosophy12" src="../../_images/PibBallPhylosophy2.jpg" /></p>
+<p>See: Applied Soft Computing , Volume 94, September 2020, 106473, <a class="reference external" href="https://doi.org/10.1016/j.asoc.2020.106473">https://doi.org/10.1016/j.asoc.2020.106473</a></p>
+</section>
+</section>
+<section id="cognition-of-loss-functions">
+<h2>Cognition of Loss functions<a class="headerlink" href="#cognition-of-loss-functions" title="Link to this heading">#</a></h2>
+<p>The first question is why do we think of using the loss function?</p>
+<p>Facts like death, poverty, pain, Short life, Fear, and so on, are painful losses.</p>
+<p><img alt="Poverty1" src="../../_images/Poverty.jpg" /></p>
+<p>Losses in buying and selling, stock market, marriage, partnership, living.</p>
+<p><img alt="SellBuy1" src="../../_images/SellBuy.jpg" /></p>
+<p>Is loss function a measure of the error magnitude?</p>
+<p><img alt="LossCostruction1" src="../../_images/LossCostruction.jpg" /></p>
+<section id="loss-from-lncosh">
+<h3>Loss from LnCosh<a class="headerlink" href="#loss-from-lncosh" title="Link to this heading">#</a></h3>
+<p>To facilitate differentiability of the absolute error function, use the ln(cosh) function as a smooth approximation.</p>
+<p><img alt="Lncos_2" src="../../_images/lncosh2.jpg" /></p>
+<p>See:
+[1] Verhoeckx, N., van den Elzen, H., Snijders, F., &amp; van Gerwen, P. (1979). Digital echo cancellation for baseband data transmission. IEEE Transactions on Acoustics, Speech, and Signal Processing, 27(6), 768–781.
+[2] ‘Robust classification via clipping-based kernel recursive least lncosh of error,’ Expert Systems With Applications 2022.</p>
+</section>
+<section id="loss-function-ensemble-learning">
+<h3>Loss function, Ensemble Learning<a class="headerlink" href="#loss-function-ensemble-learning" title="Link to this heading">#</a></h3>
+<p><img alt="EL1" src="../../_images/EnsembleLearning1.jpg" /></p>
+<p><img alt="EL2" src="../../_images/EnsembleLearning2.JPG" /></p>
+<p><img alt="El3" src="../../_images/EnsembleLearning3.jpg" /></p>
+<p><img alt="El4" src="../../_images/EnsembleLearning4.jpg" /></p>
+<p>See:
+[1] Jonathan T. Barronm, ‘A General and Adaptive Robust Loss Function,’ 2019 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)
+[2] et al, Sadoghi ,’RELF: Robust Regression Extended with Ensemble Loss Function,’ Applied Intelligence, 2019</p>
+</section>
+</section>
+<section id="index-and-loss-function">
+<h2>Index and Loss Function<a class="headerlink" href="#index-and-loss-function" title="Link to this heading">#</a></h2>
+<p>Index for Data Description</p>
+<p><img alt="Description1" src="../../_images/Description.jpg" /></p>
+<p><strong>Some Examples:</strong>
+Modelling with Lack of described data [1]
+Modelling of Huge Data via EM [3]
+Behavioral Description in classifier fusion[2]
+Inaccurate data description [4]
+For finance[5]</p>
+<p>See:</p>
+<p>[1] ‘Prediction of liquefaction potential based on CPT up-sampling’, Computers &amp; Geosciences, 2012</p>
+<p>[2], ‘Creating and measuring diversity in multiple classifier systems using support vector data description’, Applied Soft Computing, 2011</p>
+<p>[3], ‘Sparsity-aware support vector data description reinforced by expectation maximization’, Expert System, 2021</p>
+<p>[4] ‘ An extension to fuzzy support vector data description’, Pattern Analysis and application 2012</p>
+<p>[5], ‘ An Empirical Modeling of Companies Using Support Vector Data Description’, 2010</p>
+<p><img alt="Index11" src="../../_images/Index1.JPG" /></p>
+<p><img alt="DataReduction11" src="../../_images/DataReduction1.JPG" /></p>
 </section>
 </section>
 
@@ -546,10 +698,28 @@ We reduce a data set to one index or several parameters</p></li>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centric-design-principles">Human-Centric Design Principles</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centric-behavior-informed-design">Human-Centric: Behavior-Informed Design</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#behavioral-economic-models-such-as">Behavioral economic models such as:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-from-propect-theory">More from Propect theory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#behavioral-economic-models">Behavioral economic models:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#social-fairness-considerations">Social Fairness Considerations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ensemble-learning">Ensemble Learning</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diversity-aware-ai-systems">Diversity-Aware AI Systems</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centric-human-relevant-data-focus">Human Centric: Human-Relevant Data Focus</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optical-flow-how-each-pixel-moves">Optical flow : How each pixel moves</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#action-recognition-guided-by-skeletal-analysis">Action recognition guided by skeletal analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centric-intuitive-error-handling">Human Centric: Intuitive Error Handling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#error-management-theory-emt">Error Management Theory (EMT):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-set-of-functions-derived-from-common-intuitive-errors">A Set of Functions Derived from Common Intuitive Errors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cognition-of-loss-functions">Cognition of Loss functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-from-lncosh">Loss from LnCosh</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-function-ensemble-learning">Loss function, Ensemble Learning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#index-and-loss-function">Index and Loss Function</a></li>
 </ul>
   </nav></div>
 
