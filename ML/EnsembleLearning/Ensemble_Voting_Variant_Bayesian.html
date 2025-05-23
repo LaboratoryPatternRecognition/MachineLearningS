@@ -16,33 +16,30 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
-  -->
-  <noscript>
-    <style>
-      .pst-js-only { display: none !important; }
-
-    </style>
-  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
   
-  <!-- So that users can add custom icons -->
-  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
@@ -69,7 +66,6 @@
     <link rel="prev" title="Ensemble Learning" href="EnsembleStart_BaggingBoosting.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -85,8 +81,19 @@
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <dialog id="pst-search-dialog">
-    
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
 <form class="bd-search d-flex align-items-center"
       action="../../search.html"
       method="get">
@@ -94,6 +101,7 @@
   <input type="search"
          class="form-control"
          name="q"
+         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -101,8 +109,8 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form>
-  </dialog>
+</form></div>
+  </div>
 
   <div class="pst-async-banner-revealer d-none">
   <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
@@ -118,8 +126,7 @@
       
       
       
-      <dialog id="pst-primary-sidebar-modal"></dialog>
-      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+      <div class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -149,17 +156,21 @@
     
     
     <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
-    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark pst-js-only" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
   
   
 </a></div>
         <div class="sidebar-primary-item">
 
-<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
- <i class="fa-solid fa-magnifying-glass"></i>
- <span class="search-button__default-text">Search</span>
- <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-</button></div>
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -177,7 +188,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../Regression/GP_Regression.html">Gaussian Process</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/FR_Intro.html">Introduction of Feature Reduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/PCA.html">Principal Component Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/Autoencoders1.html">Autoencoders</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FeatureReduction/LLE.html">Locally Linear Embedding (LLE)</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Core Machine Learning Techniques</span></p>
@@ -195,6 +205,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../TransferLearning/InstanceBasedTransferLearning1.html">Instance-Based Transfer Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../FewShotLearning/FewShotLearning_1.html">Few Shot Learning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../MetaLearning/MetaLearning_1.html">Meta Learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BridgingHumanValues_MachineLearning/HumanCentricML.html">Bridging Human Values and ML</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Student Effort</span></p>
 <ul class="nav bd-sidenav">
@@ -358,16 +369,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
 
 
-<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-</button>
+  </button>
+`);
+</script>
 <button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
@@ -1035,7 +1054,7 @@ P(s_2 = \omega_2 \mid \omega_3),P(s_3 = \omega_3 \mid \omega_3)
 <p>This setup allows you to easily modify the state variables and observe how the probabilities change accordingly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Define confusion matrices for the classifiers</span>
 <span class="n">confusion_matrices</span> <span class="o">=</span> <span class="p">{</span>
@@ -1053,14 +1072,14 @@ P(s_2 = \omega_2 \mid \omega_3),P(s_3 = \omega_3 \mid \omega_3)
 <span class="p">}</span>
 
 <span class="c1"># Function to calculate P(s_i | ω_k) from confusion matrix</span>
-<span class="k">def</span> <span class="nf">calculate_probabilities</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_probabilities</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">confusion_matrix</span> <span class="o">/</span> <span class="n">confusion_matrix</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Calculate probabilities for each classifier</span>
 <span class="n">probabilities</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">calculate_probabilities</span><span class="p">(</span><span class="n">confusion_matrices</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">confusion_matrices</span><span class="p">}</span>
 
 <span class="c1"># Define the state variables (s1, s2, s3)</span>
-<span class="k">def</span> <span class="nf">set_states</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_states</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">{</span>
         <span class="s2">&quot;D1&quot;</span><span class="p">:</span> <span class="n">s1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># convert to 0-indexed</span>
         <span class="s2">&quot;D2&quot;</span><span class="p">:</span> <span class="n">s2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
@@ -1071,7 +1090,7 @@ P(s_2 = \omega_2 \mid \omega_3),P(s_3 = \omega_3 \mid \omega_3)
 <span class="n">states</span> <span class="o">=</span> <span class="n">set_states</span><span class="p">(</span><span class="n">s1</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">s2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">s3</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="c1"># Calculate the probabilities for the given states</span>
-<span class="k">def</span> <span class="nf">calculate_combined_probability</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_combined_probability</span><span class="p">(</span><span class="n">probabilities</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
     <span class="n">combined_prob</span> <span class="o">=</span> <span class="mf">1.0</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">probabilities</span><span class="p">:</span>
         <span class="n">combined_prob</span> <span class="o">*=</span> <span class="n">probabilities</span><span class="p">[</span><span class="n">key</span><span class="p">][:,</span> <span class="n">states</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span>
@@ -1242,7 +1261,7 @@ m_j(x) = F[d_{1,j}(x), \ldots, d_{L,j}(x)]
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="c1"># Example DP(x) matrix with 7 classifiers and 3 classes</span>
 <span class="n">DP_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
@@ -1258,28 +1277,28 @@ m_j(x) = F[d_{1,j}(x), \ldots, d_{L,j}(x)]
 <span class="c1"># Ensure each row sums to 1</span>
 <span class="n">DP_x</span> <span class="o">=</span> <span class="n">DP_x</span> <span class="o">/</span> <span class="n">DP_x</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">min_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">min_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">max_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">max_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">median_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">median_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">trimmed_mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">trim_percent</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">trimmed_mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">trim_percent</span><span class="p">):</span>
     <span class="n">sorted_DP</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">trim_count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">trim_percent</span> <span class="o">*</span> <span class="n">DP_x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
     <span class="n">trimmed_DP</span> <span class="o">=</span> <span class="n">sorted_DP</span><span class="p">[</span><span class="n">trim_count</span><span class="p">:</span><span class="o">-</span><span class="n">trim_count</span><span class="p">,</span> <span class="p">:]</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">trimmed_DP</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">product_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">product_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">generalized_mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generalized_mean_support</span><span class="p">(</span><span class="n">DP_x</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">DP_x</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
@@ -1309,7 +1328,7 @@ m_j(x) = F[d_{1,j}(x), \ldots, d_{L,j}(x)]
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Generalized Mean Support (a=inf): </span><span class="si">{</span><span class="n">generalized_mean_supports_a_inf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="c1"># Find the class with the maximum support for each function</span>
-<span class="k">def</span> <span class="nf">print_class_with_max_support</span><span class="p">(</span><span class="n">supports</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">print_class_with_max_support</span><span class="p">(</span><span class="n">supports</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
     <span class="n">class_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">supports</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Class with maximum </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: Class </span><span class="si">{</span><span class="n">class_label</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> with probability </span><span class="si">{</span><span class="n">supports</span><span class="p">[</span><span class="n">class_label</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -1347,7 +1366,7 @@ Class with maximum Generalized Mean Support (a=0): Class 1 with probability 0.41
 Class with maximum Generalized Mean Support (a=inf): Class 1 with probability 1.0
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hadi\AppData\Local\Temp\ipykernel_17656\1599825536.py:40: RuntimeWarning: divide by zero encountered in log
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Hadi\AppData\Local\Temp\ipykernel_8032\1599825536.py:40: RuntimeWarning: divide by zero encountered in log
   return np.exp(np.mean(np.log(DP_x), axis=0))
 </pre></div>
 </div>
@@ -1453,18 +1472,18 @@ Let <span class="math notranslate nohighlight">\( \mathbf{w} = [w_1, w_2, \ldots
 <p>where <span class="math notranslate nohighlight">\( w_i \)</span> are the weights and <span class="math notranslate nohighlight">\( \ln \)</span> denotes the natural logarithm.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
 <span class="c1"># Dispersion function</span>
-<span class="k">def</span> <span class="nf">dispersion</span><span class="p">(</span><span class="n">w1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">dispersion</span><span class="p">(</span><span class="n">w1</span><span class="p">):</span>
     <span class="n">w2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">w1</span>
     <span class="k">if</span> <span class="n">w1</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">w2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Handle cases where log(0) might occur</span>
         <span class="k">return</span> <span class="mi">0</span>
     <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">w1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">w1</span><span class="p">)</span> <span class="o">+</span> <span class="n">w2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">w2</span><span class="p">))</span>
 
 <span class="c1"># Entropy-like function</span>
-<span class="k">def</span> <span class="nf">entropy_like</span><span class="p">(</span><span class="n">w1</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">entropy_like</span><span class="p">(</span><span class="n">w1</span><span class="p">):</span>
     <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">w1</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">w1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="c1"># Generate values for w1 ranging from 0 to 1</span>
@@ -1487,7 +1506,7 @@ Let <span class="math notranslate nohighlight">\( \mathbf{w} = [w_1, w_2, \ldots
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/e8f7cb0714abbf54b85ca947b31962116802002085b1c5e1a811cebf88da0814.png" src="../../_images/e8f7cb0714abbf54b85ca947b31962116802002085b1c5e1a811cebf88da0814.png" />
+<img alt="../../_images/25698793baf4bb0809c13b52835478dcb7b2e18d909a55f87d163244a1383a15.png" src="../../_images/25698793baf4bb0809c13b52835478dcb7b2e18d909a55f87d163244a1383a15.png" />
 </div>
 </div>
 </section>
@@ -1577,8 +1596,7 @@ Let <span class="math notranslate nohighlight">\( \mathbf{w} = [w_1, w_2, \ldots
             
             
               
-                <dialog id="pst-secondary-sidebar-modal"></dialog>
-                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
   <div class="sidebar-secondary-item">
@@ -1698,8 +1716,8 @@ By Dr.Hadi Sadoghi Yazdi
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
