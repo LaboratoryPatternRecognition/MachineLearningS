@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'ML/BridgingHumanValues_MachineLearning/HumanCentricML';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -409,6 +411,11 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centric-design-principles">Human-Centric Design Principles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centric-behavior-informed-design">Human-Centric: Behavior-Informed Design</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#behavioral-economic-models-such-as">Behavioral economic models such as:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-from-propect-theory">More from Propect theory</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -444,6 +451,32 @@ We reduce a data set to one index or several parameters</p></li>
 <p><strong>Transparency and Explainability:</strong> Provides clear, understandable explanations for system decisions, helping users build trust and confidence.</p>
 <p><strong>Ethical and Inclusive Design:</strong> Ensures the system is fair, accessible, and respectful of all users regardless of background or ability.</p>
 <p><strong>User-Friendly Interfaces:</strong> Designed to be intuitive and accessible, even for users without technical expertise.</p>
+</section>
+<section id="human-centric-behavior-informed-design">
+<h2>Human-Centric: Behavior-Informed Design<a class="headerlink" href="#human-centric-behavior-informed-design" title="Link to this heading">#</a></h2>
+<p>This principle emphasizes the <em>integration</em> of <strong>human behavioral insights</strong> into system design and decision-making.</p>
+<p><img alt="Pic_BehavioralInformed1" src="../../_images/Pic_BehavioralInformed.JPG" /></p>
+<section id="behavioral-economic-models-such-as">
+<h3>Behavioral economic models such as:<a class="headerlink" href="#behavioral-economic-models-such-as" title="Link to this heading">#</a></h3>
+<p><strong>Prospect theory</strong> explains why, when faced with an uncertain event, humans make decisions that do not maximize their expected value.</p>
+<p><strong>Example: Game</strong>
+<em>State 1:</em> 100<span class="math notranslate nohighlight">\( with 80% probability and \)</span>60 with 20% probability
+<strong>State 2:</strong> Accept 60$  and Bye</p>
+<p>Humans select State 2! Mean of State 1 is 92<span class="math notranslate nohighlight">\( and minimum is 60\)</span></p>
+<p>Instead of calculating the “average profit,” the human brain reacts to emotions and fear of loss.</p>
+<p><img alt="Perspect1_1" src="../../_images/Perspect1.jpg" /></p>
+<p>See this: Information Processing &amp; Management, Volume 62, Issue 3, May 2025, 104049</p>
+</section>
+<section id="more-from-propect-theory">
+<h3>More from Propect theory<a class="headerlink" href="#more-from-propect-theory" title="Link to this heading">#</a></h3>
+<p>Pain of loss &gt; Joy of Gain</p>
+<p><img alt="Prospect2" src="../../_images/ProspectTheory1.jpg" /></p>
+<p>See:
+[1] 2023 IEEE 29th International Conference on Parallel and Distributed Systems (ICPADS), 26 March 2024, DOI: 10.1109/ICPADS60453.2023.00091
+[2] Fuzzy Sets and Systems , Volume 517, 1 October 2025, 109442, <a class="reference external" href="https://doi.org/10.1016/j.fss.2025.109442">https://doi.org/10.1016/j.fss.2025.109442</a></p>
+<p>[3]The Prospect Theory and The Stock Market, Highlights in Business, Economics and Management GAGBM 2023, Volume 11 (2023)</p>
+<p><img alt="Prospect3" src="../../_images/ProspectTheory2.jpg" /></p>
+</section>
 </section>
 </section>
 
@@ -512,6 +545,11 @@ We reduce a data set to one index or several parameters</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centric-design-principles">Human-Centric Design Principles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-centric-behavior-informed-design">Human-Centric: Behavior-Informed Design</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#behavioral-economic-models-such-as">Behavioral economic models such as:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#more-from-propect-theory">More from Propect theory</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
